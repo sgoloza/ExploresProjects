@@ -1,177 +1,73 @@
 ﻿@model InternetExplores.Models.StudentModel
 @{
     ViewData["Title"] = "Registration";
+    Layout = "~/Views/_AuthLayout.cshtml";
 }
 
-<form class="reg-form">
-    <div class="text-center">
-        <p class="helper-text">* denotes a required field</p>
-        <div class="text-center">
-            <label class="form-label">First name</label>
-            <input type="text" asp-for="StudentName" id="StudentName" class="field" required>
-            <span class="message"></span>
-        </div>
-        <div class="field-row">
-            <label class="form-label cf">Last name</label>
-            <input type="text" asp-for="StudentSurname" id="StudentSurname" class="field" required>
-            <span class="message"></span>
-        </div>
-        <div class="field-row">
-            <label class="form-label">ID number</label>
-            <input type="text" asp-for="StudentIdNo" id="StudentIdNo" class="field" required>
-            <span class="message"></span>
-        </div>
-        <div class="field-row">
-            <label class="form-label">Date of birth</label>
-            <input type="date" asp-for="StudentDateOfBirth" id="StudentDateOfBirth" class="field" min="1900-01-01" max="2021-09-18" required>
-            <span class="message"></span>
-        </div>
-        <div class="field-row">
-            <label class="form-label">Phone number</label>
-            <input type="tel" asp-for="StudentPhoneNo" id="StudentPhoneNo" class="field" required>
-            <span class="message"></span>
-        </div>
-        <div class="field-row">
-            <label class="form-label" for="hs">Email</label>
-            <input type="email" asp-for="StudentEmail" id="StudentEmail" class="field" required>
-            <span class="message"></span>
-        </div>
-        <div class="field-row">
-            <label class="form-label" for="tel">Gender</label>
-            <select asp-for="StudentGender" class="form-dropdown field" required>
-                <option value="Male"> Male </option>
-                <option value="Female"> Female </option>
-            </select>
-            <span class="message"></span>
-        </div>
-        <div class="field-row">
-            <label class="form-label">User-name</label>
-            <input type="text" asp-action="StudentUsername" id="StudentUsername" class="field" required>
-            <span class="message"></span>
-        </div>
-        <!--Home_Address-->
-        <div class="card bg-light mb-3" style="max-width: 50rem;">
-            <div class="card-header">Home address</div>
-            <div class="card-body">
-                <div class="field-row">
-                    <label class="form-label">Street name</label>
-                    <input type="text" asp-for="StreetName" id="StreetName" class="field" required>
-                    <span class="message"></span>
-                </div>
-                <div class="field-row">
-                    <label class="form-label">Country</label>
-                    <input type="text" asp-for="Country" id="Country" class="field" required>
-                    <span class="message"></span>
-                </div>
-                <div class="field-row">
-                    <label class="form-label">Province</label>
-                    <input type="text" asp-for="Province" id="Province" class="field" required>
-                    <span class="message"></span>
-                </div>
-                <div class="field-row">
-                    <label class="form-label">City</label>
-                    <input type="text" asp-for="City" id="City" class="field" required>
-                    <span class="message"></span>
-                </div>
-
-                <div class="field-row">
-                    <label class="form-label">Postal code</label>
-                    <input type="text" asp-for="PostalCode" id="PostalCode" class="field" required>
-                    <span class="message"></span>
-                </div>
+<h1 class="text-center">@ViewData["Title"]</h1>
+<form class="reg-form" method="post">
+    <div class="form-group">
+        <div class="card text-black bg-info mb-3">
+            <!--Home_Address-->
+            <div class="card-header text-white bg-primary text-center">Home address</div>
+            <div class="form-floating  mb-3">
+                <input type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
+                <label for="floatingPassword" asp-for="StreetName">Street name</label>
+                <span asp-validation-for="StreetName" class="field"></span>
             </div>
-        </div>
-        <!--Student Academic details-->
-        <div class="card bg-light mb-3" style="max-width: 50rem;">
-            <div class="card-header"> Academic details</div>
-            <div class="card-body">
-
-                <div class="field-row">
-                    <label class="form-label">Level of study</label>
-                    <select asp-for="StudentlevelOfStudy" class="form-dropdown field">
-                        <option value="1st Year"> 1st Year </option>
-                        <option value="2nd Year"> 2nd Year </option>
-                        <option value="3rd Year"> 3rd Year </option>
-                        <option value="4th Year"> Postgraduate Diplomas </option>
-                        <option value="5th Year"> Bachelor of Honours Degrees </option>
-                        <option value="5th Year"> Masters by Coursework and Masters by Research </option>
-                        <option value="5th Year"> Doctor of philosophy or supervised Doctor degrees by research </option>
-                    </select>
-                </div>
-                <div class="field-row">
-                    <label class="form-label">Faculty</label>
-                    <select asp-for="StudentFaculty" class="form-dropdown field">
-                        <option value="Education"> Education </option>
-                        <option value="Engineering">Engineering </option>
-                        <option value="Health Sciences"> Health Sciences </option>
-                        <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
-                        <option value="Law"> Law </option>
-                        <option value="Management Studies"> Management Studies </option>
-                        <option value="Science and Agriculture"> Science and Agriculture </option>
-                    </select>
-                </div>
-                <div class="field-row">
-                    <label class="form-label">Degree</label>
-                    <select asp-for="StudentDegree" class="form-dropdown field">
-                        <option value="Education"> Education </option>
-                        <option value="Engineering">Engineering </option>
-                        <option value="Health Sciences"> Health Sciences </option>
-                        <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
-                        <option value="Law"> Law </option>
-                        <option value="Management Studies"> Management Studies </option>
-                        <option value="Science and Agriculture"> Science and Agriculture </option>
-                    </select>
-                </div>
-
-                <div class="field-row">
-                    <label class="form-label">StudentNeedAccommodation</label>
-                    <select asp-for="StudentDegree" class="form-dropdown field">
-                        <option value="Yes"> Yes </option>
-                        <option value="No"> No </option>
-                    </select>
-                    <span class="message"></span>
-                </div>
-                <div class="field-row">
-                    <label class="form-label">City</label>
-                    <input type="text" asp-for="City" id="City" class="field" required>
-                    <span class="message"></span>
-                </div>
-
-                <div class="field-row">
-                    <label class="form-label">Postal code</label>
-                    <input type="text" asp-for="PostalCode" id="PostalCode" class="field" required>
-                    <span class="message"></span>
-                </div>
+            <div class="form-floating  mb-3">
+                <input type="text" asp-for="Province" class="form-control" id="floatingPassword" placeholder="Name" required>
+                <label for="floatingPassword" asp-for="Province">Province</label>
+                <span asp-validation-for="Province" class="field"></span>
+            </div>
+            <div class="form-floating  mb-3">
+                <input type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
+                <label for="floatingPassword" asp-for="City">City</label>
+                <span asp-validation-for="City" class="field"></span>
+            </div>
+            <div class="form-floating  mb-3">
+                <input type="text" asp-for="PostalCode" class="form-control" id="floatingPassword" placeholder="Name" required>
+                <label for="floatingPassword" asp-for="PostalCode">Postal code</label>
+                <span asp-validation-for="PostalCode" class="field"></span>
             </div>
         </div>
 
 
-
-
-        <div class="field-row">
-            <label class="form-label">Home language</label>
-            <select asp-for="StudentHomeLanguage" class="form-dropdown field">
-                <option value="1st Year"> 1st Year </option>
-                <option value="2nd Year"> 2nd Year </option>
-                <option value="3rd Year"> 3rd Year </option>
-                <option value="4th Year"> Postgraduate Diplomas </option>
-                <option value="5th Year"> Bachelor of Honours Degrees </option>
-                <option value="5th Year"> Masters by Coursework and Masters by Research </option>
-                <option value="5th Year"> Doctor of philosophy or supervised Doctor degrees by research </option>
-            </select>
-        </div>
-
-        <div class="field-row">
-            <label class="form-label"> Degree Program</label>
-            <select class="field form-dropdown">
-                <option value="BS in Pre-Med Physics"> BS in Pre-Med Physics </option>
-                <option value="BS in Physics minor in Economics"> BS in Physics minor in Economics </option>
-                <option value="BS in Physics minor in Finance"> BS in Physics minor in Finance </option>
-                <option value="BS in Physics with specialization in Material Science"> BS in Physics with specialization in Material Science </option>
-                <option value="BS in Physics with specialization in Medical Instrumentation"> BS in Physics with specialization in Medical Instrumentation </option>
-                <option value="MS in Physics"> MS in Physics </option>
-                <option value="PhD in Physics"> PhD in Physics </option>
-            </select>
+        <div class="card text-black   bg-info mb-3">
+            <!--Academic details-->
+            <div class="card-header text-white bg-primary text-center"> Academic details</div>
+            <div class="form-group">
+                <label for="exampleSelect1" class="form-label mt-4 text-white">Level Of study</label>
+                <select asp-for="StudentlevelOfStudy" class="form-select">
+                    <option value="1st Year"> 1st Year </option>
+                    <option value="2nd Year"> 2nd Year </option>
+                    <option value="3rd Year"> 3rd Year </option>
+                    <option value="4th Year"> Postgraduate Diplomas </option>
+                    <option value="Hounours"> Bachelor of Honours Degrees </option>
+                    <option value="Masters"> Masters by Coursework and Masters by Research </option>
+                    <option value="PHD"> Doctor of philosophy or supervised Doctor degrees by research </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label mt-4 text-white">Faculty</label>
+                <select asp-for="StudentFaculty" class="form-select">
+                    <option value="Education"> Education </option>
+                    <option value="Engineering">Engineering </option>
+                    <option value="Health Sciences"> Health Sciences </option>
+                    <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
+                    <option value="Law"> Law </option>
+                    <option value="Management Studies"> Management Studies </option>
+                    <option value="Science and Agriculture"> Science and Agriculture </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label mt-4 text-white">Require accommodation</label>
+                <select asp-for="StudentNeedAccommodation" class="form-select">
+                    <option value="Yes"> Yes </option>
+                    <option value="No">No </option>
+                    <option value="Not sure">Not sure </option>
+                </select>
+            </div>
         </div>
         <div class="field-row">
             <label class="form-label"></label>
@@ -179,3 +75,6 @@
         </div>
     </div>
 </form>
+
+
+
