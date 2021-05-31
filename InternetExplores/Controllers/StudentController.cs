@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InternetExplores.Models;
+using InternetExplores.Helpers;
 
 namespace InternetExplores.Controllers
 {
@@ -26,6 +27,12 @@ namespace InternetExplores.Controllers
         public IActionResult Registration() {
 
             return View();
+        }
+        public IActionResult Profile()
+        {
+            StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
+            var kwanele = 5;
+            return View(mystudent);
         }
     }
 }

@@ -12,10 +12,6 @@ namespace InternetExplores.ViewModels
         [Display(Name = "Name")]
         public string StudentName { get; set; }
 
-        
-       
-        public int StudentNo { get; set; }
-
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Surname")]
