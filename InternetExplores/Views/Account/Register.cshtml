@@ -33,8 +33,8 @@
             <span asp-validation-for="StudentPhoneNo" class="field"></span>
         </div>
         <div class="form-group">
-            <label for="exampleSelect1" class="form-label mt-4">Gender</label>
-            <select class="form-select" id="exampleSelect1">
+            <label asp-for="StudentGender"  class="form-label mt-4">Gender</label >
+            <select asp-for="StudentGender"class="form-select" id="exampleSelect1">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>

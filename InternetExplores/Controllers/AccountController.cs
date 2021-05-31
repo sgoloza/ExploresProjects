@@ -82,6 +82,7 @@ namespace InternetExplores.Controllers
 
                 if (result.Succeeded)
                 {
+                    
                     return RedirectToAction("Index", "Home");
                 }
 
