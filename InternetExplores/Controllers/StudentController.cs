@@ -31,7 +31,6 @@ namespace InternetExplores.Controllers
         public IActionResult Profile()
         {
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
-            var kwanele = 5;
             return View(mystudent);
         }
     }
