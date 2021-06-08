@@ -47,8 +47,7 @@ namespace InternetExplores.Models
         public string StudentHomeLanguage { get; set; }
 
        
-        [Display(Name = "Finincial status")]
-        public string StudentFinincialStatus { get; set; }
+       
 
         // Student Academic details
      
@@ -103,6 +102,13 @@ namespace InternetExplores.Models
         [Display(Name = "Residence status")]
         public string ResidenceStatus { get; set; }
         public decimal StudentBalance { get; set; }
-       
+
+        [Display(Name = "Finincial status")]
+        public string StudentFinincialStatus { get; set; }
+        [Display(Name = "Financial Name")]
+        public string FinancialName { get; set; }
+        [Display(Name = "Awarded amount")]
+        public decimal AwardedAmount { get; set; }
+
     }
 }

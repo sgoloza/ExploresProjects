@@ -7,91 +7,106 @@
 <h1 class="text-center">@ViewData["Title"]</h1>
 <form class="reg-form" method="post">
     <div class="form-group">
-        <div class="card text-black bg-info mb-3">
-            <!--Home_Address-->
-            <div class="card-header text-white bg-primary text-center">Home address</div>
-            <div class="form-floating  mb-3">
-                <input type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
-                <label for="floatingPassword" asp-for="StreetName">Street name</label>
-                <span asp-validation-for="StreetName" class="field"></span>
-            </div>
-            <div class="form-floating  mb-3">
-                <input type="text" asp-for="Province" class="form-control" id="floatingPassword" placeholder="Name" required>
-                <label for="floatingPassword" asp-for="Province">Province</label>
-                <span asp-validation-for="Province" class="field"></span>
-            </div>
-            <div class="form-floating  mb-3">
-                <input type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
-                <label for="floatingPassword" asp-for="City">City</label>
-                <span asp-validation-for="City" class="field"></span>
-            </div>
-            <div class="form-floating  mb-3">
-                <input type="text" asp-for="PostalCode" class="form-control" id="floatingPassword" placeholder="Name" required>
-                <label for="floatingPassword" asp-for="PostalCode">Postal code</label>
-                <span asp-validation-for="PostalCode" class="field"></span>
-            </div>
+        <!--Home_Address-->
+
+        <div class="form-floating  mb-3">
+            <input type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
+            <label for="floatingPassword" asp-for="StreetName">Street name</label>
+            <span asp-validation-for="StreetName" class="field"></span>
+        </div>
+        <div class="form-floating  mb-3">
+            <input type="text" asp-for="Province" class="form-control" id="floatingPassword" placeholder="Name" required>
+            <label for="floatingPassword" asp-for="Province">Province</label>
+            <span asp-validation-for="Province" class="field"></span>
+        </div>
+        <div class="form-floating  mb-3">
+            <input type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
+            <label for="floatingPassword" asp-for="City">City</label>
+            <span asp-validation-for="City" class="field"></span>
+        </div>
+        <div class="form-floating  mb-3">
+            <input type="text" asp-for="PostalCode" class="form-control" id="floatingPassword" placeholder="Name" required>
+            <label for="floatingPassword" asp-for="PostalCode">Postal code</label>
+            <span asp-validation-for="PostalCode" class="field"></span>
         </div>
 
 
-        <div class="card text-black   bg-info mb-3">
-            <!--Academic details-->
-            <div class="card-header text-white bg-primary text-center"> Academic details</div>
-            <div class="form-group">
-                <label for="exampleSelect1" class="form-label mt-4 text-white">Level Of study</label>
-                <select asp-for="StudentlevelOfStudy" class="form-select">
-                    <option value="1st Year"> 1st Year </option>
-                    <option value="2nd Year"> 2nd Year </option>
-                    <option value="3rd Year"> 3rd Year </option>
-                    <option value="4th Year"> Postgraduate Diplomas </option>
-                    <option value="Hounours"> Bachelor of Honours Degrees </option>
-                    <option value="Masters"> Masters by Coursework and Masters by Research </option>
-                    <option value="PHD"> Doctor of philosophy or supervised Doctor degrees by research </option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="form-label mt-4 text-white">Faculty</label>
-                <select asp-for="StudentFaculty" class="form-select">
-                    <option value="Education"> Education </option>
-                    <option value="Engineering">Engineering </option>
-                    <option value="Health Sciences"> Health Sciences </option>
-                    <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
-                    <option value="Law"> Law </option>
-                    <option value="Management Studies"> Management Studies </option>
-                    <option value="Science and Agriculture"> Science and Agriculture </option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label class="form-label mt-4 text-white">Require accommodation</label>
-                <select asp-for="StudentNeedAccommodation" class="form-select">
-                    <option value="Yes"> Yes </option>
-                    <option value="No">No </option>
-                    <option value="Not sure">Not sure </option>
-                </select>
-            </div>
+
+        <!--Academic details-->
+
+        <div class="form-group">
+            <label class="form-label mt-4 text-black">Level of Study</label>
+            <select asp-for="StudentlevelOfStudy" class="form-select">
+                <option value="1st Year"> 1st Year </option>
+                <option value="2nd Year"> 2nd Year </option>
+                <option value="3rd Year"> 3rd Year </option>
+                <option value="4th Year"> Postgraduate Diplomas </option>
+                <option value="Hounours"> Bachelor of Honours Degrees </option>
+                <option value="Masters"> Masters by Coursework and Masters by Research </option>
+                <option value="PHD"> Doctor of philosophy or supervised Doctor degrees by research </option>
+            </select>
         </div>
-        <div class="card text-black bg-info mb-3">
-            <!--Supporting Documents-->
-            <div class="card-header text-white bg-primary text-center">Home address</div>
-            <div class="form-floating  mb-3">
-                <input type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
-                <label for="floatingPassword" asp-for="StreetName">Street name</label>
-                <span asp-validation-for="StreetName" class="field"></span>
-            </div>
-            <div class="form-floating  mb-3">
-                <input type="text" asp-for="Province" class="form-control" id="floatingPassword" placeholder="Name" required>
-                <label for="floatingPassword" asp-for="Province">Province</label>
-                <span asp-validation-for="Province" class="field"></span>
-            </div>
-            <div class="form-floating  mb-3">
-                <input type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
-                <label for="floatingPassword" asp-for="City">City</label>
-                <span asp-validation-for="City" class="field"></span>
-            </div>
-            <div class="form-floating  mb-3">
-                <input type="text" asp-for="PostalCode" class="form-control" id="floatingPassword" placeholder="Name" required>
-                <label for="floatingPassword" asp-for="PostalCode">Postal code</label>
-                <span asp-validation-for="PostalCode" class="field"></span>
-            </div>
+        <div class="form-group">
+            <label class="form-label mt-4 text-black">Faculty</label>
+            <select asp-for="StudentFaculty" class="form-select">
+                <option value="Education"> Education </option>
+                <option value="Engineering">Engineering </option>
+                <option value="Health Sciences"> Health Sciences </option>
+                <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
+                <option value="Law"> Law </option>
+                <option value="Management Studies"> Management Studies </option>
+                <option value="Science and Agriculture"> Science and Agriculture </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label mt-4 text-black">Degree</label>
+            <select asp-for="StudentFaculty" class="form-select">
+                <option value="Education"> Education </option>
+                <option value="Engineering">Engineering </option>
+                <option value="Health Sciences"> Health Sciences </option>
+                <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
+                <option value="Law"> Law </option>
+                <option value="Management Studies"> Management Studies </option>
+                <option value="Science and Agriculture"> Science and Agriculture </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-label mt-4 text-black">Require accommodation</label>
+            <select asp-for="StudentNeedAccommodation" class="form-select">
+                <option value="Yes"> Yes </option>
+                <option value="No">No </option>
+                <option value="Not sure">Not sure </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="formFile" class="form-label mt-4">Certified id copy</label>
+            <input class="form-control form-control-lg" type="file" id="formFile">
+        </div>
+        <div class="form-group">
+            <label for="formFile" class="form-label mt-4">Certified copy of matric results </label>
+            <input class="form-control form-control-lg" type="file" id="formFile">
+        </div>
+        <div class="form-group">
+            <label for="formFile" class="form-label mt-4">Next of kin Ccertified id copy </label>
+            <input class="form-control form-control-lg" type="file" id="formFile">
+        </div>
+
+        <!--Supporting Documents-->
+        <label class="form-label mt-4 text-black">Financial support</label>
+        <div class="form-floating  mb-3">
+            <input type="text" asp-for="FinancialName" class="form-control" id="floatingPassword" placeholder="Name" required>
+            <label for="floatingPassword" asp-for="FinancialName">Financial name</label>
+            <span asp-validation-for="FinancialName" class="field"></span>
+        </div>
+        <div class="form-floating  mb-3">
+            <input type="text" asp-for="AwardedAmount" class="form-control" id="floatingPassword" placeholder="Name" required>
+            <label for="floatingPassword" asp-for="AwardedAmount">Awarded amount</label>
+            <span asp-validation-for="AwardedAmount" class="field"></span>
+        </div>
+        <div class="form-group">
+            <label for="formFile" class="form-label mt-4">Proof of support(doc/docx/pdf) </label>
+            <input class="form-control form-control-lg" type="file" id="formFile">
         </div>
         <div class="field-row">
             <label class="form-label"></label>
