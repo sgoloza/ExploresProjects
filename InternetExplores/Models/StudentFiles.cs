@@ -13,5 +13,6 @@ namespace InternetExplores.Models
         public string FileDescription { get; set; }
         public string FileLocation { get; set; }
         //public HttpPostedFileBase UploadFile { get; set; }
+
     }
 }
