@@ -5,10 +5,31 @@
 }
 
 <h1 class="text-center">@ViewData["Title"]</h1>
-<form class="reg-form" method="post">
+<form class="reg-form" enctype="multipart/form-data" method="post" asp-controller="Student" asp-action="Registration">
     <div class="form-group">
-        <!--Home_Address-->
 
+
+        <input asp-for="StudentName" hidden />
+        <input asp-for="StudentSurname" hidden />
+        <input asp-for="StudentIdNo" hidden />
+        <input asp-for="StudentDateOfBirth" hidden />
+        <input type="tel" asp-for="StudentPhoneNo" hidden />
+        <input type="tel" asp-for="StudentGender" hidden />
+        <input asp-for="StudentEmail" hidden />
+
+        <input type="tel" asp-for="StudentRiskStatus" hidden />
+        <input type="tel" asp-for="StudentNo" hidden />
+        <input asp-for="StudentHomeLanguage" hidden />
+
+        <input type="tel" asp-for="Country" hidden />
+        <input type="tel" asp-for="RoomID" hidden />
+        <input asp-for="ResidenceID" hidden />
+
+        <input type="tel" asp-for="StudentBalance" hidden />
+        <input type="tel" asp-for="FinancialName" hidden />
+        <input asp-for="AwardedAmount" hidden />
+       
+        <!--Home_Address-->
         <div class="form-floating  mb-3">
             <input type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
             <label for="floatingPassword" asp-for="StreetName">Street name</label>
@@ -78,40 +99,58 @@
                 <option value="Not sure">Not sure </option>
             </select>
         </div>
+        <div class="form-group">
+            <div class="custom-file">
+                <label asp-for="idcopy" for="exampleFormControlFile1">Example file input</label>
+                <div>
+                    <input asp-for="idcopy" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+                </div>
+                <span asp-validation-for="idcopy" class="text-danger"></span>
+            </div>
+        </div>
 
         <div class="form-group">
-            <label for="formFile" class="form-label mt-4">Certified id copy</label>
-            <input class="form-control form-control-lg" type="file" id="formFile">
+            <div class="custom-file">
+                <label asp-for="matricResult" for="exampleFormControlFile1">Example file input</label>
+                <div>
+                    <input asp-for="matricResult" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+                </div>
+                <span asp-validation-for="matricResult" class="text-danger"></span>
+            </div>
         </div>
+
         <div class="form-group">
-            <label for="formFile" class="form-label mt-4">Certified copy of matric results </label>
-            <input class="form-control form-control-lg" type="file" id="formFile">
+            <div class="custom-file">
+                <label asp-for="nextofKin" for="exampleFormControlFile1">Example file input</label>
+                <div>
+                    <input asp-for="nextofKin" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+                </div>
+                <span asp-validation-for="nextofKin" class="text-danger"></span>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="formFile" class="form-label mt-4">Next of kin Ccertified id copy </label>
-            <input class="form-control form-control-lg" type="file" id="formFile">
-        </div>
+
 
         <!--Supporting Documents-->
         <label class="form-label mt-4 text-black">Financial support</label>
-        <div class="form-floating  mb-3">
-            <input type="text" asp-for="FinancialName" class="form-control" id="floatingPassword" placeholder="Name" required>
-            <label for="floatingPassword" asp-for="FinancialName">Financial name</label>
-            <span asp-validation-for="FinancialName" class="field"></span>
-        </div>
-        <div class="form-floating  mb-3">
-            <input type="text" asp-for="AwardedAmount" class="form-control" id="floatingPassword" placeholder="Name" required>
-            <label for="floatingPassword" asp-for="AwardedAmount">Awarded amount</label>
-            <span asp-validation-for="AwardedAmount" class="field"></span>
+        <div class="form-group">
+            <label class="form-label mt-4 text-black">Do you have financial support</label>
+            <select asp-for="StudentFinincialStatus" class="form-select">
+                <option value="Yes"> Yes </option>
+                <option value="No">No </option>
+            </select>
         </div>
         <div class="form-group">
-            <label for="formFile" class="form-label mt-4">Proof of support(doc/docx/pdf) </label>
-            <input class="form-control form-control-lg" type="file" id="formFile">
+            <div class="custom-file">
+                <label asp-for="financialProof" for="exampleFormControlFile1">financial proof (is selected YES above)</label>
+                <div>
+                    <input asp-for="financialProof" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+                </div>
+                <span asp-validation-for="financialProof" class="text-danger"></span>
+            </div>
         </div>
-        <div class="field-row">
-            <label class="form-label"></label>
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Register</button>
-        </div>
+
+
+        <input type="submit" value="Send request" class="btn btn-primary" />
     </div>
 </form>
 

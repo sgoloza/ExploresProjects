@@ -1,7 +1,8 @@
-﻿@model InternetExplores.Models.StudentModel
+﻿@using InternetExplores;
+@model dynamic
 @{
     ViewData["Title"] = "Registration";
-   
+
 }
 <form class="reg-form" method="post">
     <div class="form-group">
@@ -13,9 +14,9 @@
                 <div class="w3-twothird">
                     <div class="w3-white w3-text-grey w3-card-4">
                         <div class="card text-white bg-dark mb-3" style="max-width:fit-content();">
-                            <div class="card-header"> <h4 class="card-title w3-large">@Model.StudentName &nbsp;@Model.StudentSurname</h4></div>
+                            <div class="card-header"> <h4 class="card-title w3-large">@Model.StudentSurname &nbsp;@Model.StudentSurname</h4></div>
                             <div class="card-body">
-                                
+
                             </div>
                         </div>
                         <div class="w3-container">
