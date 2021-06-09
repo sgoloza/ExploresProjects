@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,19 +11,19 @@ namespace InternetExplores.Models
     public class StudentModel
     {
        
-        [Display(Name = "Student Number")]
+       // [Display(Name = "Student Number")]
         public int StudentNo { get; set; }
 
-        [Required]
+       // [Required]
         [Display(Name = "Name")]
         public string StudentName { get; set; }
 
-        [Required]
+       // [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Surname")]
         public string StudentSurname { get; set; }
 
-        [Required]
+        //[Required]
         [StringLength(13, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 13)]
         [Display(Name = "ID Number")]
         public string StudentIdNo { get; set; }
@@ -74,7 +76,7 @@ namespace InternetExplores.Models
        
         [Display(Name = "Street name")]
         public string StreetName { get; set; }
-        [Required]
+       // [Required]
         [Display(Name = "Country")]
         public string Country { get; set; }
         
@@ -109,6 +111,42 @@ namespace InternetExplores.Models
         public string FinancialName { get; set; }
         [Display(Name = "Awarded amount")]
         public decimal AwardedAmount { get; set; }
+
+
+        [Display(Name = "Choose id copy")]
+        [Required]
+        public IFormFile idcopy { get; set; }
+        public string idcopyUrl { get; set; }
+
+        [Display(Name = "Choose next of Kin id copy")]
+        [Required]
+        public IFormFile matricResult { get; set; }
+        public string matricResultUrl { get; set; }
+
+        [Display(Name = "Choose the cover photo of your book")]
+        [Required]
+        public IFormFile nextofKin { get; set; }
+        public string nextofKinUrl { get; set; }
+
+        [Display(Name = "Choose financial proof")]
+        [Required]
+        public IFormFile financialProof { get; set; }
+        public string financialProofUrl { get; set; }
+
+        /*
+        [DisplayName("Upload File")]
+        public IFormFile UploadFile { get; set; }
+        public string UploadFileURL { get; set; } 
+        [Display(Name = "Upload your book in pdf format")]
+        [Required(ErrorMessage = "Please select document")]
+        public IFormFile BookPdf { get; set; }
+        public string BookPdfUrl { get; set; }*/
+
+        [Display(Name = "Choose the cover photo of your book")]
+        [Required]
+        public IFormFile CoverPhoto { get; set; }
+        public string CoverImageUrl { get; set; }
+
 
     }
 }

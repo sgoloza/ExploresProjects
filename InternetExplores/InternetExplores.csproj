@@ -22,4 +22,11 @@
     <None Include="wwwroot\Images\grad.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Documents\ID\" />
+    <Folder Include="wwwroot\Documents\Matric\" />
+    <Folder Include="wwwroot\Documents\Kin\" />
+    <Folder Include="wwwroot\Documents\FinancialProof\" />
+  </ItemGroup>
+
 </Project>

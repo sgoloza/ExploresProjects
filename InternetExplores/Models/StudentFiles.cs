@@ -4,15 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Web;
+using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 namespace InternetExplores.Models
 {
     public class StudentFiles
     {
-        public int FileID { get; set; }
-        public string FileName { get; set; }
-        public string FileDescription { get; set; }
-        public string FileLocation { get; set; }
-        //public HttpPostedFileBase UploadFile { get; set; }
+
+        [Display(Name = "Choose the cover photo of your book")]
+        [Required]
+        public IFormFile CoverPhoto { get; set; }
+        public string CoverImageUrl { get; set; }
 
     }
 }
