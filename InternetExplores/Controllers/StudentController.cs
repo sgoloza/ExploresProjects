@@ -31,28 +31,59 @@ namespace InternetExplores.Controllers
             return View();
         }
         
-        public  IActionResult Registration() {
+        public  IActionResult Registration(bool isSuccess = false) {
 
-          
+            ViewBag.IsSuccess = isSuccess;
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Registration(StudentModel myStudent)
         {
-            
-            if (ModelState.IsValid)
-            {
-                if (myStudent.CoverPhoto != null)
+            StudentModel student = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
+            myStudent.StudentNo = student.StudentNo;
+            //if (ModelState.IsValid)
+           // {
+                int i;
+                int j;
+                if (myStudent.idcopy != null && myStudent.matricResult != null && myStudent.nextofKin != null)
                 {
                     string folder = "Documents/ID/";
-                    myStudent.CoverImageUrl = await UploadImage(folder, myStudent.CoverPhoto);
+                    myStudent.idcopyUrl = await UploadImage(folder, myStudent.idcopy);
+                    
+
+                    folder = "Documents/Matric/";
+                    myStudent.matricResultUrl = await UploadImage(folder, myStudent.idcopy);
+                    
+
+                   folder = "Documents/Kin/";
+                   myStudent.nextofKinUrl = await UploadImage(folder, myStudent.idcopy);
+                  
+                if (myStudent.financialProofUrl != null)
+                {
+                   folder = "Documents/FinancialProof/";
+                   myStudent.financialProofUrl = await UploadImage(folder, myStudent.idcopy);
+                   
                 }
+                   
             }
+                i = DbHelper.insertSudentsDocuments(_configuration, myStudent);
+                j = DbHelper.UpdatetudentDetails(_configuration, myStudent);
+                if (i > 0  && j > 0)
+                {
+                    return RedirectToAction(nameof(Registration), new { isSuccess = true });
+                }
+            //}
                 return View();
         }
             public IActionResult Profile()
         {
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
+            StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
+            mystudent.nextofKinUrl = studentFile.nextofKinUrl;
+            mystudent.idcopyUrl = studentFile.idcopyUrl;
+            mystudent.financialProofUrl = studentFile.financialProofUrl;
+            mystudent.matricResultUrl = studentFile.matricResultUrl;
+
             return View(mystudent);
         }
             private async Task<string> UploadImage(string folderPath, IFormFile file)
