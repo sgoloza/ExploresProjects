@@ -141,12 +141,5 @@ namespace InternetExplores.Models
         [Required(ErrorMessage = "Please select document")]
         public IFormFile BookPdf { get; set; }
         public string BookPdfUrl { get; set; }*/
-
-        [Display(Name = "Choose the cover photo of your book")]
-        [Required]
-        public IFormFile CoverPhoto { get; set; }
-        public string CoverImageUrl { get; set; }
-
-
     }
 }
