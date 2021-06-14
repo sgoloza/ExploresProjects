@@ -9,6 +9,8 @@ using InternetExplores.Helpers;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using System.Net.Mail;
+using System.Net;
 
 namespace InternetExplores.Controllers
 {
@@ -32,7 +34,6 @@ namespace InternetExplores.Controllers
         }
         
         public  IActionResult Registration(bool isSuccess = false) {
-
             ViewBag.IsSuccess = isSuccess;
             return View();
         }
@@ -68,7 +69,8 @@ namespace InternetExplores.Controllers
             }
                 i = DbHelper.insertSudentsDocuments(_configuration, myStudent);
                 j = DbHelper.UpdatetudentDetails(_configuration, myStudent);
-                if (i > 0  && j > 0)
+                DbHelper.SendEmails("Registration", DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()));
+            if (i > 0  && j > 0)
                 {
                     return RedirectToAction(nameof(Registration), new { isSuccess = true });
                 }
@@ -77,6 +79,8 @@ namespace InternetExplores.Controllers
         }
             public IActionResult Profile()
         {
+
+
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
             StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
             mystudent.nextofKinUrl = studentFile.nextofKinUrl;
@@ -97,5 +101,48 @@ namespace InternetExplores.Controllers
 
                 return "/" + folderPath;
             }
+
+
+        [HttpPost]
+        public ActionResult SendEmail(string receiver, string subject, string message)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var senderEmail = new MailAddress("kwaneleluthando002@gmail.com", "Kwanele Maduna");
+                    var receiverEmail = new MailAddress("218027046@stu.ukzn.ac.za", "Maduna Kwanele");
+                    var password = "MK@200sgoloza*";
+                    var sub = "Email Test";
+                    var body = "Hello kwanele Maduna";
+                    var smtp = new SmtpClient
+                    {
+                        Host = "smtp.gmail.com",
+                        Port = 587,
+                        EnableSsl = true,
+                        DeliveryMethod = SmtpDeliveryMethod.Network,
+                        UseDefaultCredentials = false,
+                        Credentials = new NetworkCredential(senderEmail.Address, password)
+                    };
+                    using (var mess = new MailMessage(senderEmail, receiverEmail)
+                    {
+                        Subject = sub,
+                        Body = body
+                    })
+                    {
+                        smtp.Send(mess);
+                    }
+                    return View();
+                }
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Some Error";
+            }
+            return View();
         }
+
+
+
+    }
 }
