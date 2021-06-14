@@ -118,12 +118,12 @@ namespace InternetExplores.Models
         public IFormFile idcopy { get; set; }
         public string idcopyUrl { get; set; }
 
-        [Display(Name = "Choose next of Kin id copy")]
+        [Display(Name = "Choose matric results")]
         [Required]
         public IFormFile matricResult { get; set; }
         public string matricResultUrl { get; set; }
 
-        [Display(Name = "Choose the cover photo of your book")]
+        [Display(Name = "Choose next of Kin id copy")]
         [Required]
         public IFormFile nextofKin { get; set; }
         public string nextofKinUrl { get; set; }
