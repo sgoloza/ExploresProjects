@@ -1,0 +1,196 @@
+﻿@model InternetExplores.Models.StudentModel
+@{
+    ViewData["Title"] = "ApplicationStudent";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<body>
+    <div class="page-wrapper">
+
+
+
+
+        <input asp-for="StudentName" hidden />
+        <input asp-for="StudentSurname" hidden />
+        <input asp-for="StudentIdNo" hidden />
+        <input asp-for="StudentDateOfBirth" hidden />
+        <input type="tel" asp-for="StudentPhoneNo" hidden />
+        <input type="tel" asp-for="StudentGender" hidden />
+        <input asp-for="StudentEmail" hidden />
+
+        <input type="tel" asp-for="StudentRiskStatus" hidden />
+        <input type="tel" asp-for="StudentNo" hidden />
+        <input asp-for="StudentHomeLanguage" hidden />
+
+        <input type="tel" asp-for="Country" hidden />
+        <input type="tel" asp-for="RoomID" hidden />
+        <input asp-for="ResidenceID" hidden />
+
+        <input type="tel" asp-for="StudentBalance" hidden />
+        <input type="tel" asp-for="FinancialName" hidden />
+        <input asp-for="AwardedAmount" hidden />
+        <input type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" hidden>
+        <input type="text" asp-for="Province" class="form-control" id="floatingPassword" placeholder="Name" hidden>
+        <input type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" hidden>
+        <input type="text" asp-for="PostalCode" class="form-control" id="floatingPassword" placeholder="Name" hidden>
+        <input type="text" asp-for="StudentlevelOfStudy" class="form-control" id="floatingPassword" placeholder="Name" hidden>
+        <input type="text" asp-for="StudentFaculty" class="form-control" id="floatingPassword" placeholder="Name" hidden>
+        <input type="text" asp-for="StudentDegree" class="form-control" id="floatingPassword" placeholder="Name" hidden>
+        <input asp-for="idcopy" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1"hidden>
+        <input type="text" asp-for="StudentNeedAccommodation" class="form-control" id="floatingPassword" placeholder="Name" hidden>
+        <input asp-for="matricResult" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1"hidden>
+        <input asp-for="nextofKin" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1"hidden>
+        <input asp-for="StudentFinincialStatus" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1"hidden>
+        <input asp-for="financialProof" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1"hidden>
+
+        <div class="content">
+            <form  class="reg-form" enctype="multipart/form-data"  method="post" asp-controller="Admin" asp-action="ApplicationStudent">
+                <div class="row">
+                    <div class="col-sm-7 col-6">
+                        <h4 class="page-title">Application</h4>
+                    </div>
+                </div>
+                <div class="card-box profile-header">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="profile-view">
+                                <div class="profile-img-wrap">
+                                    <div class="profile-img">
+                                        <a href="#"><img class="avatar" src="assets/img/doctor-03.jpg" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="profile-basic">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="profile-info-left">
+                                                <h3 class="user-name m-t-0 mb-0">@Model.StudentName , @Model.StudentSurname</h3>
+                                                <small class="text-muted">@Model.StudentDegree</small>
+                                                <div class="staff-id">Student No : @Model.StudentNo</div>
+                                                <br />
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <select id="Studentstatus" class="dropdown-item-text text-white bg-secondary" aria-label="Default select example">
+                                                                <option selected> Admission Status </option>
+                                                                <option value="	Waitlisted">Waitlisted</option>
+                                                                <option value="Unsuccessful">Unsuccessful</option>
+                                                                <option value="Successful">Successful</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <ul class="personal-info">
+                                                <li>
+                                                    <span class="title">Phone:</span>
+                                                    <span class="text"><a href="#">@Model.StudentPhoneNo</a></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Email:</span>
+                                                    <span class="text"><a href="#">@Model.StudentEmail</a></span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Birthday:</span>
+                                                    <span class="text">@Model.StudentDateOfBirth</span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Address:</span>
+                                                    <span class="text">@Model.StreetName, @Model.City, @Model.Province, @Model.PostalCode</span>
+                                                </li>
+                                                <li>
+                                                    <span class="title">Gender:</span>
+                                                    <span class="text">@Model.StudentGender</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <br />
+                    <div class="form-group row">
+                        <table class="table table-border table-striped custom-table datatable mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-right"></th>
+                                    <th class="text-right">Documents</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-right">
+                                        <a href="@(Model.idcopyUrl)" class="btn btn-outline-primary" target="_blank">
+                                            ID
+                                        </a>
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="@(Model.matricResultUrl)" class="btn btn-outline-primary" target="_blank">
+                                            Matric result
+                                        </a>
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="@(Model.nextofKinUrl)" class="btn btn-outline-primary" target="_blank">
+                                            Next of kin
+                                        </a>
+                                    </td>
+                                    <td class="text-right">
+                                        <a href="@(Model.financialProofUrl)" class="btn btn-outline-primary" target="_blank">
+                                            Finacial support
+                                        </a>
+                                    </td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <br />
+                    <div class="form-group row">
+                        <label class="col-form-label col">Comment </label>
+                        <div class="col-md-10">
+                            <textarea rows="5" cols="5" id="Commentsection" class="form-control" placeholder="Comment on application"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-tabs">
+
+                    <table class="table table-border table-striped custom-table datatable mb-0">
+                        <tbody>
+                            <tr>
+                                <td class="text-right">
+                                </td>
+                                <td class="text-right">
+                                    <button type="submit" class="btn btn-primary my-2 my-sm-0">Send Response</button>
+                                    
+                                    @Html.ActionLink("Application status", "ApplicationStudent",  null   )
+
+                                </td>
+                                <td class="text-right">
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+

@@ -29,6 +29,7 @@
     <Folder Include="wwwroot\Documents\Matric\" />
     <Folder Include="wwwroot\Documents\Kin\" />
     <Folder Include="wwwroot\Documents\FinancialProof\" />
+    <Folder Include="wwwroot\Documents\Payments\" />
   </ItemGroup>
 
 </Project>

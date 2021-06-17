@@ -7,53 +7,10 @@
 <div class="page-wrapper">
     <div class="content">
         <div class="row">
-            <div class="col-sm-4 col-3">
+            <div class="col-sm-4 col-3 align-self-sm-end">
                 <h4 class="page-title">New Students Applications</h4>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
-                        Read now
-                    </a>
-                </div>
-            </div>
-            <style>
-                .modal-dialog {
-                    height: 90%; /* = 90% of the .modal-backdrop block = %90 of the screen */
-                }
-
-                .modal-content {
-                    height: 100%; /* = 100% of the .modal-dialog block */
-                }
-            </style>
-
-
-
-
-
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="Label" aria-hidden="true">
-                <div class="modal-dialog modal-xl" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <embed src="/Documents/ID/9a5fc929-4f12-453d-a424-32dfb3ed1282_id.pdf" width="1110" height="650" />
-                            @*<iframe src="@Model.idcopyUrl" class="w-100 h-100"></iframe>*@
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
-
+         
 
 
             <div class="col-sm-8 col-9 text-right m-b-20">
@@ -63,125 +20,64 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
-                    <table class="table table-border table-striped custom-table datatable mb-0">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone No</th>
-                                <th>Degree</th>
-                                <th>Have Financial Support</th>
-                                <th class="text-right">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-
-                            @foreach (var item in Model)
-                            {
+                    <form method="post" asp-action="ApplicationStudent" asp-controller="Admin">
+                        <table class="table table-border table-striped custom-table datatable mb-0">
+                            <thead>
                                 <tr>
-                                    <td>@item.StudentName &sbquo; @item.StudentSurname </td>
-                                    <td>@item.StudentEmail</td>
-                                    <td>@item.StudentPhoneNo</td>
-                                    <td>@item.StudentDegree</td>
-                                    <td>@item.StudentFinincialStatus</td>
-                                    <td class="text-right">
-                                        <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
-                                                    Application Status
-                                                </a>
-
-                                                <a class="btn btn-outline-primary" data-toggle="modal"  data-whatever="idcopy1@(item.StudentNo)" data-target="#idcopy@(item.StudentNo)">Student id copy</a>
-                                                <div class="modal fade" id="idcopy@(item.StudentNo)" tabindex="-1" role="dialog" aria-labelledby="@(item.StudentNo)Label" aria-hidden="true">
-                                                    <div class="modal-dialog modal-xl" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <embed src="/Documents/ID/9a5fc929-4f12-453d-a424-32dfb3ed1282_id.pdf" width="1110" height="650" />
-                                                                @*<iframe src="@Model.idcopyUrl" class="w-100 h-100"></iframe>*@
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <a class="btn btn-outline-primary" data-toggle="modal" data-target="#matric@(item.StudentNo)">matric results</a>
-                                                <div class="modal fade" id="matric@(item.StudentNo)" tabindex="-1" role="dialog" aria-labelledby="@(item.StudentNo)lLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <embed src="@item.matricResultUrl" width="1110" height="650" />
-                                                                <iframe src="@item.matricResultUrl" class="w-100 h-100"></iframe>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <a class="btn btn-outline-primary" data-toggle="modal" data-target="#kin@(item.StudentNo)">Next of Kin id copy</a>
-                                                <div class="modal fade" id="kin@(item.StudentNo)" tabindex="-1" role="dialog" aria-labelledby="@(item.StudentNo)alLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-lg" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <embed src="@item.nextofKinUrl" width="1110" height="650" />
-                                                                <iframe ssrc="@item.nextofKinUrl" class="w-100 h-100"></iframe>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                @if (@item.financialProofUrl.Equals("Yes"))
-                                                {
-                                                    <a class="btn btn-outline-primary" data-toggle="modal" data-target="#proof@(item.StudentNo)">Financial support</a>
-                                                    <div class="modal fade" id="proof@(item.StudentNo)" tabindex="-1" role="dialog" aria-labelledby="@(item.StudentNo)dalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <embed src="@item.financialProofUrl" width="1110" height="650" />
-                                                                    <iframe ssrc="@item.financialProofUrl" class="w-100 h-100"></iframe>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                }
-
-                                            </div>
-                                        </div>
-                                    </td>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone No</th>
+                                    <th>Degree</th>
+                                    <th>Have Financial Support</th>
+                                    <th class="text-right">Action</th>
                                 </tr>
-                            }
+                            </thead>
+                            <tbody>
 
-                        </tbody>
-                    </table>
+
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.StudentName &sbquo; @item.StudentSurname </td>
+                                        <td>@item.StudentEmail</td>
+                                        <td>@item.StudentPhoneNo</td>
+                                        <td>@item.StudentDegree</td>
+                                        <td>@item.StudentFinincialStatus</td>
+                                        <td class="text-right">
+                                            <a href="@(item.idcopyUrl)" class="btn btn-outline-primary" target="_blank">
+                                                ID
+                                            </a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="@(item.matricResultUrl)" class="btn btn-outline-primary" target="_blank">
+                                                Matric result
+                                            </a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="@(item.nextofKinUrl)" class="btn btn-outline-primary" target="_blank">
+                                                Next of kin
+                                            </a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="@(item.financialProofUrl)" class="btn btn-outline-primary" target="_blank">
+                                                Finacial support
+                                            </a>
+                                        </td>
+                                        <td class="text-right">
+                                            @Html.ActionLink("Application status", // <-- Link text
+                 "ApplicationStudent", // <-- Action Method Name
+                 new { StudentEmail = item.StudentEmail }, // <-- Route value
+                 null // <-- htmlArguments
+                )
+                                            @*<button type="submit" class="btn btn-outline-primary" id="@item." >Application status</button>*@
+                                        </td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </form>
+                   
                 </div>
             </div>
         </div>
@@ -203,14 +99,22 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
-
     </div>
 </div>
-<script>
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+<script type="text/javascript">
+    function ApplicationStatus(StudentEmail) {
+        @{
+            ViewData["partialView"] = "Applicationstatus";
+        }
+        $.ajax({
+            type: "Get",
+            url: '@Url.Action("Applicationstatus", "Admin")',
+            data: { id: currentId },
+            success: function (data) {
+                $('#Preview').html(data);
+                $('#myModal').modal('show');
+            }
+        })
+    }
+
 </script>

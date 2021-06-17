@@ -133,13 +133,7 @@ namespace InternetExplores.Models
         public IFormFile financialProof { get; set; }
         public string financialProofUrl { get; set; }
 
-        /*
-        [DisplayName("Upload File")]
-        public IFormFile UploadFile { get; set; }
-        public string UploadFileURL { get; set; } 
-        [Display(Name = "Upload your book in pdf format")]
-        [Required(ErrorMessage = "Please select document")]
-        public IFormFile BookPdf { get; set; }
-        public string BookPdfUrl { get; set; }*/
+        public string Applicationcomment { get; set; }
+        public string  ApplicationStatus { get; set; }
     }
 }

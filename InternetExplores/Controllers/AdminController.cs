@@ -38,5 +38,39 @@ namespace InternetExplores.Controllers
             allStudent = DbHelper.SelectAllStudents(_configuration, allStudent);
             return View(allStudent);
         }
+
+        public IActionResult ApplicationStudent(string StudentEmail)
+        {
+
+            StudentModel mystudent = DbHelper.GetAllStudent(_configuration, StudentEmail);
+            StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
+            mystudent.nextofKinUrl = studentFile.nextofKinUrl;
+            mystudent.idcopyUrl = studentFile.idcopyUrl;
+            mystudent.financialProofUrl = studentFile.financialProofUrl;
+            mystudent.matricResultUrl = studentFile.matricResultUrl;
+            return View(mystudent);
+
+
+
+        }
+      [HttpPost]
+        public IActionResult ApplicationStudent(StudentModel student)
+        {
+
+            StudentModel mystudent = DbHelper.GetAllStudent(_configuration, student.StudentEmail);
+            StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
+            mystudent.nextofKinUrl = studentFile.nextofKinUrl;
+            mystudent.idcopyUrl = studentFile.idcopyUrl;
+            mystudent.financialProofUrl = studentFile.financialProofUrl;
+            mystudent.matricResultUrl = studentFile.matricResultUrl;
+            return View(mystudent);
+
+
+
+        }
+
+        public IActionResult StudentApplication(string StudentEmail) {
+            return View();
+        }
     }
 }
