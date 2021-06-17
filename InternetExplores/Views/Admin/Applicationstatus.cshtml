@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewData["Title"] = "Application status";
+    Layout = null;
+}
+
+@model StudentModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Application status</title>
+</head>
+<body>
+    <form method="post" asp-controller="Order" asp-action="Edit">
+       
+        <div class="invoice p-3 mb-3">
+            <div class="row invoice-info">
+                <div class="row invoice-info">
+
+                    <div class="col-sm-4 invoice-col">
+                        <strong>Order Number</strong>
+                        <br />
+                       
+
+                    </div>
+                    <div class="col-sm-4 invoice-col">
+                       
+                    </div>
+                    <div class="col-sm-4 invoice-col">
+                        
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="row">
+                    <div class="col-12 table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>SKU</th>
+                                    <th>Product</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 invoice-col">
+
+            <div class="form-group">
+                <strong>Courier Fee</strong>
+                <br />
+                <input class="form-control" />
+                <br />
+                <input type="submit" class="btn btn-info w-50" value="Send Feedback" />  
+
+            </div>
+
+
+        </div>
+    </form>
+</body>
+</html>

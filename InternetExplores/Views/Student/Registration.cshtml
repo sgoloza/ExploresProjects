@@ -17,152 +17,153 @@
             </button>
         </div>
     }
-    <div class="form-group">
+<div class="form-group">
 
 
-        <input asp-for="StudentName" hidden />
-        <input asp-for="StudentSurname" hidden />
-        <input asp-for="StudentIdNo" hidden />
-        <input asp-for="StudentDateOfBirth" hidden />
-        <input type="tel" asp-for="StudentPhoneNo" hidden />
-        <input type="tel" asp-for="StudentGender" hidden />
-        <input asp-for="StudentEmail" hidden />
+    <input asp-for="StudentName" hidden />
+    <input asp-for="StudentSurname" hidden />
+    <input asp-for="StudentIdNo" hidden />
+    <input asp-for="StudentDateOfBirth" hidden />
+    <input type="tel" asp-for="StudentPhoneNo" hidden />
+    <input type="tel" asp-for="StudentGender" hidden />
+    <input asp-for="StudentEmail" hidden />
 
-        <input type="tel" asp-for="StudentRiskStatus" hidden />
-        <input type="tel" asp-for="StudentNo" hidden />
-        <input asp-for="StudentHomeLanguage" hidden />
+    <input type="tel" asp-for="StudentRiskStatus" hidden />
+    <input type="tel" asp-for="StudentNo" hidden />
+    <input asp-for="StudentHomeLanguage" hidden />
 
-        <input type="tel" asp-for="Country" hidden />
-        <input type="tel" asp-for="RoomID" hidden />
-        <input asp-for="ResidenceID" hidden />
+    <input type="tel" asp-for="Country" hidden />
+    <input type="tel" asp-for="RoomID" hidden />
+    <input asp-for="ResidenceID" hidden />
 
-        <input type="tel" asp-for="StudentBalance" hidden />
-        <input type="tel" asp-for="FinancialName" hidden />
-        <input asp-for="AwardedAmount" hidden />
-
-        <!--Home_Address-->
-        <div class="form-floating  mb-3">
-            <input type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
-            <label for="floatingPassword" asp-for="StreetName">Street name</label>
-            <span asp-validation-for="StreetName" class="field"></span>
-        </div>
-        <div class='form-floating  mb-3'>
-            <input type="text" asp-for="Province" class="form-control" id="floatingPassword" placeholder="Name" required>
-            <label for="floatingPassword" asp-for="Province">Province</label>
-            <span asp-validation-for="Province" class="field"></span>
-        </div>
-        <div class="form-floating  mb-3">
-            <input type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
-            <label for="floatingPassword" asp-for="City">City</label>
-            <span asp-validation-for="City" class="field"></span>
-        </div>
-        <div class="form-floating  mb-3">
-            <input type="text" asp-for="PostalCode" class="form-control" id="floatingPassword" placeholder="Name" required>
-            <label for="floatingPassword" asp-for="PostalCode">Postal code</label>
-            <span asp-validation-for="PostalCode" class="field"></span>
-        </div>
-
-
-
-        <!--Academic details-->
-
-        <div class="form-group">
-            <label class="form-label mt-4 text-black">Level of Study</label>
-            <select asp-for="StudentlevelOfStudy" class="form-select">
-                <option value="1st Year"> 1st Year </option>
-                <option value="2nd Year"> 2nd Year </option>
-                <option value="3rd Year"> 3rd Year </option>
-                <option value="4th Year"> Postgraduate Diplomas </option>
-                <option value="Hounours"> Bachelor of Honours Degrees </option>
-                <option value="Masters"> Masters by Coursework and Masters by Research </option>
-                <option value="PHD"> Doctor of philosophy or supervised Doctor degrees by research </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="form-label mt-4 text-black">Faculty</label>
-            <select asp-for="StudentFaculty" class="form-select">
-                <option value="Education"> Education </option>
-                <option value="Engineering">Engineering </option>
-                <option value="Health Sciences"> Health Sciences </option>
-                <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
-                <option value="Law"> Law </option>
-                <option value="Management Studies"> Management Studies </option>
-                <option value="Science and Agriculture"> Science and Agriculture </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="form-label mt-4 text-black">Degree</label>
-            <select asp-for="StudentFaculty" class="form-select">
-                <option value="Education"> Education </option>
-                <option value="Engineering">Engineering </option>
-                <option value="Health Sciences"> Health Sciences </option>
-                <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
-                <option value="Law"> Law </option>
-                <option value="Management Studies"> Management Studies </option>
-                <option value="Science and Agriculture"> Science and Agriculture </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="form-label mt-4 text-black">Require accommodation</label>
-            <select asp-for="StudentNeedAccommodation" class="form-select">
-                <option value="Yes"> Yes </option>
-                <option value="No">No </option>
-                <option value="Not sure">Not sure </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <div class="custom-file">
-                <label asp-for="idcopy" for="exampleFormControlFile1">Example file input</label>
-                <div>
-                    <input asp-for="idcopy" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
-                </div>
-                <span asp-validation-for="idcopy" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="custom-file">
-                <label asp-for="matricResult" for="exampleFormControlFile1">Example file input</label>
-                <div>
-                    <input asp-for="matricResult" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
-                </div>
-                <span asp-validation-for="matricResult" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="custom-file">
-                <label asp-for="nextofKin" for="exampleFormControlFile1">Example file input</label>
-                <div>
-                    <input asp-for="nextofKin" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
-                </div>
-                <span asp-validation-for="nextofKin" class="text-danger"></span>
-            </div>
-        </div>
-
-
-        <!--Supporting Documents-->
-        <label class="form-label mt-4 text-black">Financial support</label>
-        <div class="form-group">
-            <label class="form-label mt-4 text-black">Do you have financial support</label>
-            <select asp-for="StudentFinincialStatus" class="form-select">
-                <option value="Yes"> Yes </option>
-                <option value="No">No </option>
-            </select>
-        </div>
-        <div class="form-group">
-            <div class="custom-file">
-                <label asp-for="financialProof" for="exampleFormControlFile1">financial proof (is selected YES above)</label>
-                <div>
-                    <input asp-for="financialProof" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
-                </div>
-                <span asp-validation-for="financialProof" class="text-danger"></span>
-            </div>
-        </div>
-
-        <br />
-        <input type="submit" value="Send request" class="btn btn-primary justify-content-md-center" />
+    <input type="tel" asp-for="StudentBalance" hidden />
+    <input type="tel" asp-for="FinancialName" hidden />
+    <input asp-for="AwardedAmount" hidden />
+    <input asp-for="Applicationcomment" hidden />
+    <input asp-for="StudentFinincialStatus" hidden />
+    <!--Home_Address-->
+    <div class="form-floating  mb-3">
+        <input type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
+        <label for="floatingPassword" asp-for="StreetName">Street name</label>
+        <span asp-validation-for="StreetName" class="field"></span>
     </div>
+    <div class='form-floating  mb-3'>
+        <input type="text" asp-for="Province" class="form-control" id="floatingPassword" placeholder="Name" required>
+        <label for="floatingPassword" asp-for="Province">Province</label>
+        <span asp-validation-for="Province" class="field"></span>
+    </div>
+    <div class="form-floating  mb-3">
+        <input type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
+        <label for="floatingPassword" asp-for="City">City</label>
+        <span asp-validation-for="City" class="field"></span>
+    </div>
+    <div class="form-floating  mb-3">
+        <input type="text" asp-for="PostalCode" class="form-control" id="floatingPassword" placeholder="Name" required>
+        <label for="floatingPassword" asp-for="PostalCode">Postal code</label>
+        <span asp-validation-for="PostalCode" class="field"></span>
+    </div>
+
+
+
+    <!--Academic details-->
+
+    <div class="form-group">
+        <label class="form-label mt-4 text-black">Level of Study</label>
+        <select asp-for="StudentlevelOfStudy" class="form-select">
+            <option value="1st Year"> 1st Year </option>
+            <option value="2nd Year"> 2nd Year </option>
+            <option value="3rd Year"> 3rd Year </option>
+            <option value="4th Year"> Postgraduate Diplomas </option>
+            <option value="Hounours"> Bachelor of Honours Degrees </option>
+            <option value="Masters"> Masters by Coursework and Masters by Research </option>
+            <option value="PHD"> Doctor of philosophy or supervised Doctor degrees by research </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="form-label mt-4 text-black">Faculty</label>
+        <select asp-for="StudentFaculty" class="form-select">
+            <option value="Education"> Education </option>
+            <option value="Engineering">Engineering </option>
+            <option value="Health Sciences"> Health Sciences </option>
+            <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
+            <option value="Law"> Law </option>
+            <option value="Management Studies"> Management Studies </option>
+            <option value="Science and Agriculture"> Science and Agriculture </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="form-label mt-4 text-black">Degree</label>
+        <select asp-for="StudentFaculty" class="form-select">
+            <option value="Education"> Education </option>
+            <option value="Engineering">Engineering </option>
+            <option value="Health Sciences"> Health Sciences </option>
+            <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
+            <option value="Law"> Law </option>
+            <option value="Management Studies"> Management Studies </option>
+            <option value="Science and Agriculture"> Science and Agriculture </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="form-label mt-4 text-black">Require accommodation</label>
+        <select asp-for="StudentNeedAccommodation" class="form-select">
+            <option value="Yes"> Yes </option>
+            <option value="No">No </option>
+            <option value="Not sure">Not sure </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <div class="custom-file">
+            <label asp-for="idcopy" for="exampleFormControlFile1">Example file input</label>
+            <div>
+                <input asp-for="idcopy" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+            </div>
+            <span asp-validation-for="idcopy" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="custom-file">
+            <label asp-for="matricResult" for="exampleFormControlFile1">Example file input</label>
+            <div>
+                <input asp-for="matricResult" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+            </div>
+            <span asp-validation-for="matricResult" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="custom-file">
+            <label asp-for="nextofKin" for="exampleFormControlFile1">Example file input</label>
+            <div>
+                <input asp-for="nextofKin" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+            </div>
+            <span asp-validation-for="nextofKin" class="text-danger"></span>
+        </div>
+    </div>
+
+
+    <!--Supporting Documents-->
+    <label class="form-label mt-4 text-black">Financial support</label>
+    <div class="form-group">
+        <label class="form-label mt-4 text-black">Do you have financial support</label>
+        <select asp-for="StudentFinincialStatus" class="form-select">
+            <option value="Yes"> Yes </option>
+            <option value="No">No </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <div class="custom-file">
+            <label asp-for="financialProof" for="exampleFormControlFile1">financial proof (is selected YES above)</label>
+            <div>
+                <input asp-for="financialProof" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+            </div>
+            <span asp-validation-for="financialProof" class="text-danger"></span>
+        </div>
+    </div>
+
+    <br />
+    <input type="submit" value="Send request" class="btn btn-primary justify-content-md-center" />
+</div>
 </form>
 
 

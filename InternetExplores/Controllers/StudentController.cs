@@ -79,7 +79,7 @@ namespace InternetExplores.Controllers
         }
             public IActionResult Profile()
         {
-
+            DbHelper.SendEmails("Registration", DbHelper.GetAllStudent(_configuration, "kwaneleluthan@gmail.com"));
 
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
             StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
@@ -103,45 +103,18 @@ namespace InternetExplores.Controllers
             }
 
 
-        [HttpPost]
-        public ActionResult SendEmail(string receiver, string subject, string message)
+        
+        public ActionResult MakePayment()
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var senderEmail = new MailAddress("kwaneleluthando002@gmail.com", "Kwanele Maduna");
-                    var receiverEmail = new MailAddress("218027046@stu.ukzn.ac.za", "Maduna Kwanele");
-                    var password = "MK@200sgoloza*";
-                    var sub = "Email Test";
-                    var body = "Hello kwanele Maduna";
-                    var smtp = new SmtpClient
-                    {
-                        Host = "smtp.gmail.com",
-                        Port = 587,
-                        EnableSsl = true,
-                        DeliveryMethod = SmtpDeliveryMethod.Network,
-                        UseDefaultCredentials = false,
-                        Credentials = new NetworkCredential(senderEmail.Address, password)
-                    };
-                    using (var mess = new MailMessage(senderEmail, receiverEmail)
-                    {
-                        Subject = sub,
-                        Body = body
-                    })
-                    {
-                        smtp.Send(mess);
-                    }
-                    return View();
-                }
-            }
-            catch (Exception)
-            {
-                ViewBag.Error = "Some Error";
-            }
             return View();
         }
 
+        [HttpPost]
+        public ActionResult MakePayment( PaymentModel payment)
+        {
+            var kwanele = string.Empty;
+            return View();
+        }
 
 
     }

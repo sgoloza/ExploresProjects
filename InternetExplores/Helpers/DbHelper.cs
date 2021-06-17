@@ -272,7 +272,7 @@ namespace InternetExplores.Helpers
             }
             return allStudent;
         }
-        public static async void SendEmails(string messageType, StudentModel myStudent)
+        public static async void SendEmails(string messageType, StudentModel myStudent , string comment = "No")
         {
             string html= "<!DOCTYPE html>";
             string error = string.Empty;
@@ -306,7 +306,7 @@ namespace InternetExplores.Helpers
                 html += "<td align='center' style='padding:0;'>";
                 html += "<table role='presentation' style='width:602px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;'>";
                 html += "<tr>";
-                html += "<td align='center' style='padding:40px 0 30px 0;background:#70bbd9;'>";
+                html += "<td align='center' style='padding:40px 0 30px 0;background:#333333;'>";
                 html += "<p style='margin:0;font-size:30px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;'>";
                 html += " <b>Internet Explores UNIVERSITY</b><br/>";
                 html += "</p>";
@@ -315,7 +315,8 @@ namespace InternetExplores.Helpers
                 html += "<tr>";
                 html += "<td style='padding:36px 30px 42px 30px;'>";
                 html += "<table role='presentation' style='width:100%;border-collapse:collapse;border:0;border-spacing:0;'>";
-                html += "<tr>";
+
+              
                 string adminhtml = html;
 
 
@@ -325,12 +326,13 @@ namespace InternetExplores.Helpers
                 switch (messageType)
                 {
                     case "Registration":
+                        html += "<tr>";
                         subject = "Application to Study at Internet Explores University";
                         html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b> "+ myStudent.StudentName +" "+ myStudent.StudentSurname + "</b></h4><br />";
                         html += "<td style='padding:0 0 36px 0;color:#153643;'>";
                         html += "<h1 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> <b>We have received your application.</b></h1>";
                         html += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you for taking the first steps toward personal development, career growth, and a brighter future.</p>";
-                        html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/Student/Registration' style='color:#ee4c50;text-decoration:underline;'>Internet Explores university </a>for application follow up</p><br />";
+                        html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/' style='color:#ee4c50;text-decoration:underline;'>Internet Explores university </a>for application follow up</p><br />";
                         html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p>";
 
                         html += "</td>";
@@ -346,9 +348,42 @@ namespace InternetExplores.Helpers
                         adminsubject = "New Student Application";
                         html += "</td>";
                         adminhtml += "</td>";
+                        html += "</tr>";
+                        adminhtml += "</tr>";
                         break;
-                    case "Registration1":
+                    case "RegistrationStatus":
+                        html += "<tr>";
+                        subject = "Application Status";
+                        html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b> " + myStudent.StudentName + " " + myStudent.StudentSurname + "</b></h4><br />";
+                        html += "<td style='padding:0 0 36px 0;color:#153643;'>";
 
+
+
+                        html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> <b>Update on your applucation</b></h4>";
+
+                        html += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'> " + comment+ " </p>";
+                        html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/' style='color:#ee4c50;text-decoration:underline;'>Internet Explores university </a>for application follow up</p><br />";
+                        html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p>";
+
+                        
+
+
+
+                        html += "</td>";
+                        emailBody += "<p>Many thanks, <b>the team at <b> Internet Explores University</b></p></body></html>";
+
+
+                        adminhtml += "<td style='padding:0 0 36px 0;color:#153643;'>";
+                        adminhtml += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b>Admin</b></h4><br />";
+                        adminhtml += "<h1 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> Student <b>" + myStudent.StudentName + " " + myStudent.StudentSurname + " have placed an application.</b></h1>";
+                        adminhtml += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'></p>";
+                        adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='#' style='color:#ee4c50;text-decoration:underline;'>Internet Explores university </a>To view student application</p>";
+                        adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p><br />";
+                        adminsubject = "New Student Application";
+                        html += "</td>";
+                        adminhtml += "</td>";
+                        html += "</tr>";
+                        adminhtml += "</tr>";
 
 
                         break;
@@ -359,21 +394,18 @@ namespace InternetExplores.Helpers
                         break;
                 }
                 string lowerHtmlBody = string.Empty;
-                lowerHtmlBody += "</tr>";
                 lowerHtmlBody += "<tr>";
                 lowerHtmlBody += "<td style='padding:0;'>";
                 lowerHtmlBody += "<table role='presentation' style='width:100%;border-collapse:collapse;border:0;border-spacing:0;'>";
                 lowerHtmlBody += "<tr>";
                 lowerHtmlBody += "<td style='width:260px;padding:0;vertical-align:top;color:#153643;'>";
-                lowerHtmlBody += "<p style='margin:0 0 25px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><img src='https://assets.codepen.io/210284/left.gif' alt='' width='260' style='height:auto;display:block;' /></p>";
-                lowerHtmlBody += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit amet blandit ipsum volutpat sed. Morbi porttitor, eget accumsan dictum, est nisi libero ultricies ipsum, in posuere mauris neque at erat.</p>";
-                lowerHtmlBody += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><a href='http://www.example.com' style='color:#ee4c50;text-decoration:underline;'>Blandit ipsum volutpat sed</a></p>";
+                lowerHtmlBody += "<p style='margin:0 0 25px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><img src='	https://www.uopeople.edu/wp-content/uploads/2019/08/iStock-475794203.jpg' alt='' width='260' style='height:auto;display:block;' /></p>";
+                lowerHtmlBody += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thanks to <b>Internet Explores UNIVERSITY</b> small college classes, students receive personalized attention and a supportive learning experience to fuel their success.</p>";
                 lowerHtmlBody += "</td>";
                 lowerHtmlBody += "<td style='width:20px;padding:0;font-size:0;line-height:0;'>&nbsp;</td>";
                 lowerHtmlBody += "<td style='width:260px;padding:0;vertical-align:top;color:#153643;'>";
-                lowerHtmlBody += "<p style='margin:0 0 25px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><img src='https://assets.codepen.io/210284/right.gif' alt='' width='260' style='height:auto;display:block;' /></p>";
-                lowerHtmlBody += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Morbi porttitor, eget est accumsan dictum, nisi libero ultricies ipsum, in posuere mauris neque at erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tempus adipiscing felis, sit amet blandit ipsum volutpat sed.</p>";
-                lowerHtmlBody += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><a href='http://www.example.com' style='color:#ee4c50;text-decoration:underline;'>In tempus felis blandit</a></p>";
+                lowerHtmlBody += "<p style='margin:0 0 25px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><img src='https://www.uopeople.edu/wp-content/uploads/2019/08/iStock-947127220.jpg' alt='' width='260' style='height:auto;display:block;' /></p>";
+                lowerHtmlBody += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><b>Internet Explores UNIVERSITY</b> is an accredited, South African University. Our academic leadership includes scholars from the best Schools around the South African.</p>";
                 lowerHtmlBody += "</td>";
                 lowerHtmlBody += "</tr>";
                 lowerHtmlBody += "</table>";
@@ -383,10 +415,10 @@ namespace InternetExplores.Helpers
                 lowerHtmlBody += "</td>";
                 lowerHtmlBody += "</tr>";
                 lowerHtmlBody += "<tr>";
-                lowerHtmlBody += "<td style='padding:30px;background:#ee4c50;'>";
+                lowerHtmlBody += "<td style='padding:30px;background:#333333;'>";
                 lowerHtmlBody += "<table role='presentation' style='width:100%;border-collapse:collapse;border:0;border-spacing:0;font-size:9px;font-family:Arial,sans-serif;'>";
                 lowerHtmlBody += "<tr>";
-                lowerHtmlBody += "<td style='padding:0;width:50%;' align='left'>";
+                lowerHtmlBody += "<td style='padding:0;width:50%;' align='center'>";
                 lowerHtmlBody += "<p style='margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;'>";
                 lowerHtmlBody += " &copy; 2021 - Internet Explores <b>UNIVERSITY</b><br/><a href='#' style='color:#ffffff;text-decoration:underline;'></a>";
                 lowerHtmlBody += "</p>";
@@ -398,7 +430,7 @@ namespace InternetExplores.Helpers
                 lowerHtmlBody += "<a href='#' class='fa fa-twitter' style='color:#ffffff;'></a>";
                 lowerHtmlBody += "</td>";
                 lowerHtmlBody += "<td style='padding:0 0 0 10px;width:38px;'>";
-                lowerHtmlBody += "<a href='http://www.facebook.com/' style='color:#ffffff;'></a>";
+                lowerHtmlBody += "<a href='#' style='color:#ffffff;'></a>";
                 lowerHtmlBody += "</td>";
                 lowerHtmlBody += "</tr>";
                 lowerHtmlBody += "</table>";
