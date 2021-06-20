@@ -77,15 +77,6 @@
                     <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
                 </div>
             </div>
-
-
-            <div class="row">
-                <div class="col-md-4">
-                    <a class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
-                        Read now
-                    </a>
-                </div>
-            </div>
             <style>
                 .modal-dialog {
                     height: 90%; /* = 90% of the .modal-backdrop block = %90 of the screen */
@@ -127,7 +118,7 @@
                                             <td>@payment.paymentDate</td>
                                             <td>@payment.paymentAmount</td>
                                             <td class="text-right">
-                                              <a hrf="@payment.paymentProofUrl" class="btn btn-dark">
+                                              <a href="@payment.paymentProofUrl" target="_blank" class="btn btn-dark">
                                                 View now
                                                </a>
                                             </td>

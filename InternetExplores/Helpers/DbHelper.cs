@@ -190,27 +190,72 @@ namespace InternetExplores.Helpers
                                     StudentSurname = reader["StudentSurname"].ToString(),
                                     StudentPhoneNo = reader["StudentPhoneNo"].ToString(),
                                     StudentEmail = reader["StudentEmail"].ToString(),
-                                    StudentGender = reader["StudentGender"].ToString(),
-                                    StudentDateOfBirth = Convert.ToDateTime(reader["StudentDateOfBirth"].ToString()),
-                                    StudentHomeLanguage = reader["StudentHomeLanguage"].ToString(),
-                                    StudentFinincialStatus = reader["StudentFinincialStatus"].ToString(),
-                                    StudentDegree = reader["StudentDegree"].ToString(),
-                                    StudentlevelOfStudy = reader["StudentlevelOfStudy"].ToString(),
-                                    StudentFaculty = reader["StudentFaculty"].ToString(),
-                                    StudentNeedAccommodation = reader["StudentNeedAccommodation"].ToString(),
-                                    StudentRiskStatus = reader["StudentRiskStatus"].ToString(),
-                                    StreetName = reader["StreetName"].ToString(),
-                                    Province = reader["Province"].ToString(),
-                                    City = reader["City"].ToString(),
-                                    PostalCode = Convert.ToInt32(reader["PostalCode"]),
-                                    RoomID = Convert.ToInt32(reader["RoomID"]),
-                                    StudentBalance = Convert.ToInt32(reader["StudentBalance"])
+                                    StudentGender = reader["StudentGender"].ToString()
                                 };
+                                if (reader["StudentDateOfBirth"] != DBNull.Value)
+                                {
+                                    student.StudentDateOfBirth = Convert.ToDateTime(reader["StudentDateOfBirth"].ToString());
+                                }
+                                if (reader["StudentHomeLanguage"] != DBNull.Value) {
+                                    student.StudentHomeLanguage = reader["StudentHomeLanguage"].ToString();
+                                }
+                                if (reader["StudentFinincialStatus"] != DBNull.Value) {
+                                    student.StudentFinincialStatus = reader["StudentFinincialStatus"].ToString();
+                                }
+                                if (reader["StudentDegree"] != DBNull.Value) {
+                                    student.StudentFinincialStatus = reader["StudentFinincialStatus"].ToString();
+                                }
+                                if (reader["StudentlevelOfStudy"] != DBNull.Value)
+                                {
+                                    student.StudentlevelOfStudy = reader["StudentlevelOfStudy"].ToString();
+                                }
+                                if (reader["StudentFaculty"] != DBNull.Value)
+                                {
+                                    student.StudentFaculty = reader["StudentFaculty"].ToString();
+                                }
+                                if (reader["StudentNeedAccommodation"] != DBNull.Value)
+                                {
+                                    student.StudentNeedAccommodation = reader["StudentNeedAccommodation"].ToString();
+                                }
+                                if (reader["StudentRiskStatus"] != DBNull.Value)
+                                {
+                                    student.StudentRiskStatus = reader["StudentRiskStatus"].ToString();
+                                }
+                                if (reader["StreetName"] != DBNull.Value)
+                                {
+                                    student.StreetName = reader["StreetName"].ToString();
+                                }
+                                if (reader["StreetName"] != DBNull.Value)
+                                {
+                                    student.StreetName = reader["StreetName"].ToString();
+                                }
+                                if (reader["Province"] != DBNull.Value)
+                                {
+                                    student.Province = reader["Province"].ToString();
+                                }
+                                if (reader["City"] != DBNull.Value)
+                                {
+                                    student.City = reader["City"].ToString();
+                                }
+                                if (reader["PostalCode"] != DBNull.Value)
+                                {
+                                    student.PostalCode = Convert.ToInt32(reader["PostalCode"]);
+                                }
+                                if (reader["RoomID"] != DBNull.Value)
+                                {
+                                    student.RoomID = Convert.ToInt32(reader["RoomID"]);
+                                }
+                                if (reader["StudentBalance"] != DBNull.Value) {
+                                    student.StudentBalance = Convert.ToInt32(reader["StudentBalance"]);
+                                }
+                                if (reader["ApplicationStatus"] != DBNull.Value)
+                                {
+                                    student.ApplicationStatus = reader["ApplicationStatus"].ToString();
+                                }
                             }
-                        }
-                    }
+                        }  
+                    } 
                 }
-
                 connection.Close();
             }
             return student;
@@ -242,26 +287,90 @@ namespace InternetExplores.Helpers
                                     StudentSurname = reader["StudentSurname"].ToString(),
                                     StudentPhoneNo = reader["StudentPhoneNo"].ToString(),
                                     StudentEmail = reader["StudentEmail"].ToString(),
-                                    StudentGender = reader["StudentGender"].ToString(),
-                                    StudentDateOfBirth = Convert.ToDateTime(reader["StudentDateOfBirth"].ToString()),
-                                    StudentHomeLanguage = reader["StudentHomeLanguage"].ToString(),
-                                    StudentFinincialStatus = reader["StudentFinincialStatus"].ToString(),
-                                    StudentDegree = reader["StudentDegree"].ToString(),
-                                    StudentlevelOfStudy = reader["StudentlevelOfStudy"].ToString(),
-                                    StudentFaculty = reader["StudentFaculty"].ToString(),
-                                    StudentNeedAccommodation = reader["StudentNeedAccommodation"].ToString(),
-                                    StudentRiskStatus = reader["StudentRiskStatus"].ToString(),
-                                    StreetName = reader["StreetName"].ToString(),
-                                    Province = reader["Province"].ToString(),
-                                    City = reader["City"].ToString(),
-                                    PostalCode = Convert.ToInt32(reader["PostalCode"]),
-                                    RoomID = Convert.ToInt32(reader["RoomID"]),
-                                    StudentBalance = Convert.ToInt32(reader["StudentBalance"]),
-                                    idcopyUrl = reader["IdUrl"].ToString(),
-                                    matricResultUrl = reader["MatricUrl"].ToString(),
-                                    financialProofUrl = reader["FProofUrl"].ToString(),
-                                    nextofKinUrl = reader["KinUrl"].ToString()
+                                    StudentGender = reader["StudentGender"].ToString()
                                 };
+                                if (reader["StudentDateOfBirth"] != DBNull.Value)
+                                {
+                                    student.StudentDateOfBirth = Convert.ToDateTime(reader["StudentDateOfBirth"].ToString());
+                                }
+                                if (reader["StudentHomeLanguage"] != DBNull.Value)
+                                {
+                                    student.StudentHomeLanguage = reader["StudentHomeLanguage"].ToString();
+                                }
+                                if (reader["StudentFinincialStatus"] != DBNull.Value)
+                                {
+                                    student.StudentFinincialStatus = reader["StudentFinincialStatus"].ToString();
+                                }
+                                if (reader["StudentDegree"] != DBNull.Value)
+                                {
+                                    student.StudentFinincialStatus = reader["StudentFinincialStatus"].ToString();
+                                }
+                                if (reader["StudentlevelOfStudy"] != DBNull.Value)
+                                {
+                                    student.StudentlevelOfStudy = reader["StudentlevelOfStudy"].ToString();
+                                }
+                                if (reader["StudentFaculty"] != DBNull.Value)
+                                {
+                                    student.StudentFaculty = reader["StudentFaculty"].ToString();
+                                }
+                                if (reader["StudentNeedAccommodation"] != DBNull.Value)
+                                                        {
+                                    student.StudentNeedAccommodation = reader["StudentNeedAccommodation"].ToString();
+                                }
+                                if (reader["StudentRiskStatus"] != DBNull.Value)
+                                {
+                                    student.StudentRiskStatus = reader["StudentRiskStatus"].ToString();
+                                }
+                                if (reader["StreetName"] != DBNull.Value)
+                                {
+                                    student.StreetName = reader["StreetName"].ToString();
+                                }
+                                if (reader["StreetName"] != DBNull.Value)
+                                {
+                                    student.StreetName = reader["StreetName"].ToString();
+                                }
+                                if (reader["Province"] != DBNull.Value)
+                                {
+                                    student.Province = reader["Province"].ToString();
+                                }
+                                if (reader["City"] != DBNull.Value)
+                                {
+                                    student.City = reader["City"].ToString();
+                                }
+                                if (reader["PostalCode"] != DBNull.Value)
+                                {
+                                    student.PostalCode = Convert.ToInt32(reader["PostalCode"]);
+                                }
+                                if (reader["RoomID"] != DBNull.Value)
+                                {
+                                    student.RoomID = Convert.ToInt32(reader["RoomID"]);
+                                }
+                                if (reader["StudentBalance"] != DBNull.Value)
+                                {
+                                    student.StudentBalance = Convert.ToInt32(reader["StudentBalance"]);
+                                }
+                                if (reader["ApplicationStatus"] != DBNull.Value)
+                                {
+                                    student.ApplicationStatus = reader["ApplicationStatus"].ToString();
+                                }
+
+                                if (reader["IdUrl"] != DBNull.Value)
+                                {
+                                    student.idcopyUrl = reader["IdUrl"].ToString();
+                                }
+                                if (reader["KinUrl"] != DBNull.Value)
+                                {
+                                    student.nextofKinUrl = reader["KinUrl"].ToString();
+                                }
+                                if (reader["MatricUrl"] != DBNull.Value)
+                                {
+                                    student.matricResultUrl = reader["MatricUrl"].ToString();
+                                }
+                                if (reader["FProofUrl"] != DBNull.Value)
+                                {
+                                    student.financialProofUrl = reader["FProofUrl"].ToString();
+                                }
+
                             }
                             allStudent.Add(student);
                         }
@@ -610,6 +719,49 @@ namespace InternetExplores.Helpers
         }
 
         public static List<PaymentModel> getAllNewStudentsPayments(IConfiguration configuration)
+        {
+            List<PaymentModel> studentpayments = new List<PaymentModel>();
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            PaymentModel payments = new PaymentModel();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("getAllNewPayments", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            payments = new PaymentModel
+                            {
+                                paymentID = Convert.ToInt32(reader["StudentNo"]),
+                                StudentNo = Convert.ToInt32(reader["StudentNo"]),
+                                paymenttype = reader["paymentType"].ToString(),
+                                paymentAmount = Decimal.Parse(reader["paymentAmount"].ToString()),
+                                paymentDescription = reader["paymentDescription"].ToString(),
+                                bankName = reader["bankName"].ToString(),
+                                paymentDate = DateTime.Parse(reader["paymentDate"].ToString()),
+                                PayemntNowdate = DateTime.Parse(reader["dateuploaded"].ToString()),
+                                paymentProofUrl = reader["paymentUrl"].ToString()
+                            };
+                            studentpayments.Add(payments);
+
+                        }
+
+                    }
+                }
+
+                connection.Close();
+            }
+            return studentpayments;
+        }
+
+        public static List<PaymentModel> getStudentModules(IConfiguration configuration)
         {
             List<PaymentModel> studentpayments = new List<PaymentModel>();
             string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");

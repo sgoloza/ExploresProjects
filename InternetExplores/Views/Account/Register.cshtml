@@ -22,7 +22,7 @@
             <label for="floatingPassword" asp-for="StudetntIdNo">Identity No</label>
             <span asp-validation-for="StudetntIdNo" class="field"></span>
         </div>
-        <div class="form-floating  mb-3">
+        <div class="form-floating  mb-3" hidden>
             <input type="date" asp-for="StudentDateOfBirth" class="form-control" id="floatingPassword" min="1900-01-01" max="2021-09-18" placeholder="Date Of Birth" required>
             <label for="floatingPassword" asp-for="StudentDateOfBirth">Date Of Birth</label>
             <span asp-validation-for="StudentDateOfBirth" class="field"></span>

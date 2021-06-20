@@ -79,10 +79,11 @@
             <option value="PHD"> Doctor of philosophy or supervised Doctor degrees by research </option>
         </select>
     </div>
-    <div class="form-group">
+
+    <div class="form-group" hidden>
         <label class="form-label mt-4 text-black">Faculty</label>
         <select asp-for="StudentFaculty" class="form-select">
-            <option value="Education"> Education </option>
+            <option selected value="Education"> Education </option>
             <option value="Engineering">Engineering </option>
             <option value="Health Sciences"> Health Sciences </option>
             <option value="Humanities, Dev & Social Sciences"> Humanities, Dev & Social Sciences </option>
