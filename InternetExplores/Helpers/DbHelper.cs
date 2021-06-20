@@ -272,6 +272,36 @@ namespace InternetExplores.Helpers
             }
             return allStudent;
         }
+        public static int InsertStudentpayment(IConfiguration configuration, PaymentModel studentpayment) {
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            int i;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("InsertStudentPayment", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@paymentType", studentpayment.paymenttype);
+                    cmd.Parameters.AddWithValue("@paymentAmount", decimal.Parse(studentpayment.paymentAmount.ToString()));
+                    cmd.Parameters.AddWithValue("@paymentDescription", studentpayment.paymentDescription);
+                    cmd.Parameters.AddWithValue("@bankName", studentpayment.bankName);
+                    cmd.Parameters.AddWithValue("@paymentDate", studentpayment.paymentDate);
+                    cmd.Parameters.AddWithValue("@StudentNo", studentpayment.StudentNo);
+                    cmd.Parameters.AddWithValue("@paymentUrl", studentpayment.paymentProofUrl);
+                    cmd.Parameters.AddWithValue("@dateuploaded", DateTime.Now);
+
+                    connection.Open();
+                    i = cmd.ExecuteNonQuery();
+                    connection.Close();
+                   
+
+                }
+
+                connection.Close();
+            }
+
+            return i;
+        }
         public static async void SendEmails(string messageType, StudentModel myStudent , string comment = "No")
         {
             string html= "<!DOCTYPE html>";
@@ -535,5 +565,92 @@ namespace InternetExplores.Helpers
             }
 
         }
+
+        public static List<PaymentModel> getStudentsPayments(IConfiguration configuration, int StudentNO)
+        {
+            List<PaymentModel> studentpayments = new List<PaymentModel>();
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            PaymentModel payments = new PaymentModel();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("Studentpayments", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@StudentNo", StudentNO);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            
+                                payments = new PaymentModel
+                                {
+                                    paymentID = Convert.ToInt32(reader["StudentNo"]),
+                                    StudentNo = Convert.ToInt32(reader["StudentNo"]),
+                                    paymenttype = reader["paymentType"].ToString(),
+                                    paymentAmount =Decimal.Parse(reader["paymentAmount"].ToString()), 
+                                    paymentDescription =reader["paymentDescription"].ToString(), 
+                                    bankName = reader["bankName"].ToString(),
+                                    paymentDate = DateTime.Parse( reader["paymentDate"].ToString()),
+                                    PayemntNowdate = DateTime.Parse(reader["dateuploaded"].ToString()),
+                                    paymentProofUrl = reader["paymentUrl"].ToString() };
+                                    studentpayments.Add(payments) ;
+                           
+                        }
+                       
+                    }
+                }
+
+                connection.Close();
+            }
+            return studentpayments;
+        }
+
+        public static List<PaymentModel> getAllNewStudentsPayments(IConfiguration configuration)
+        {
+            List<PaymentModel> studentpayments = new List<PaymentModel>();
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            PaymentModel payments = new PaymentModel();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("getAllNewPayments", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            payments = new PaymentModel
+                            {
+                                paymentID = Convert.ToInt32(reader["StudentNo"]),
+                                StudentNo = Convert.ToInt32(reader["StudentNo"]),
+                                paymenttype = reader["paymentType"].ToString(),
+                                paymentAmount = Decimal.Parse(reader["paymentAmount"].ToString()),
+                                paymentDescription = reader["paymentDescription"].ToString(),
+                                bankName = reader["bankName"].ToString(),
+                                paymentDate = DateTime.Parse(reader["paymentDate"].ToString()),
+                                PayemntNowdate = DateTime.Parse(reader["dateuploaded"].ToString()),
+                                paymentProofUrl = reader["paymentUrl"].ToString()
+                            };
+                            studentpayments.Add(payments);
+
+                        }
+
+                    }
+                }
+
+                connection.Close();
+            }
+            return studentpayments;
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using InternetExplores.Helpers;
 using InternetExplores.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -38,7 +39,7 @@ namespace InternetExplores.Controllers
             allStudent = DbHelper.SelectAllStudents(_configuration, allStudent);
             return View(allStudent);
         }
-
+        [Authorize]
         public IActionResult ApplicationStudent(string StudentEmail)
         {
 
@@ -54,6 +55,7 @@ namespace InternetExplores.Controllers
 
         }
       [HttpPost]
+        [Authorize]
         public IActionResult ApplicationStudent(StudentModel student)
         {
 
@@ -68,8 +70,13 @@ namespace InternetExplores.Controllers
 
 
         }
-
+        [Authorize]
         public IActionResult StudentApplication(string StudentEmail) {
+            return View();
+        }
+        public IActionResult NewPayments() {
+            List<PaymentModel> allStudent = DbHelper.getAllNewStudentsPayments(_configuration);
+            ViewBag.StudentPaymentslist = allStudent;
             return View();
         }
     }

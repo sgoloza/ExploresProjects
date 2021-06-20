@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InternetExplores.Controllers
 {
@@ -19,6 +20,7 @@ namespace InternetExplores.Controllers
         private readonly IConfiguration _configuration;
         private readonly AppDBContext _dbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private List<PaymentModel> studentpayments = new List<PaymentModel>();
 
         public StudentController( IConfiguration configuration, AppDBContext dbContext,IWebHostEnvironment webHostEnvironment) {
             _configuration = configuration;
@@ -38,6 +40,7 @@ namespace InternetExplores.Controllers
             return View();
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Registration(StudentModel myStudent)
         {
             StudentModel student = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
@@ -77,20 +80,35 @@ namespace InternetExplores.Controllers
             //}
                 return View();
         }
-            public IActionResult Profile()
+        [Authorize]
+        public IActionResult Profile()
         {
-            DbHelper.SendEmails("Registration", DbHelper.GetAllStudent(_configuration, "kwaneleluthan@gmail.com"));
+            //DbHelper.SendEmails("Registration", DbHelper.GetAllStudent(_configuration, "kwaneleluthan@gmail.com"));
+            
 
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
+
             StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
             mystudent.nextofKinUrl = studentFile.nextofKinUrl;
             mystudent.idcopyUrl = studentFile.idcopyUrl;
             mystudent.financialProofUrl = studentFile.financialProofUrl;
             mystudent.matricResultUrl = studentFile.matricResultUrl;
 
+            List<PaymentModel> studentpayment = DbHelper.getStudentsPayments(_configuration, mystudent.StudentNo);
+            ViewBag.PaymentCount = studentpayment.Count;
+            if (ViewBag.PaymentCount > 0) {
+               
+            }
+            ViewBag.StudentPayments = studentpayment;
             return View(mystudent);
         }
-            private async Task<string> UploadImage(string folderPath, IFormFile file)
+        [HttpPost]
+        public IActionResult Profile( StudentModel mystudent)
+        {
+           
+            return View();
+        }
+        private async Task<string> UploadImage(string folderPath, IFormFile file)
             {
 
                 folderPath += Guid.NewGuid().ToString() + "_" + file.FileName;
@@ -103,17 +121,40 @@ namespace InternetExplores.Controllers
             }
 
 
-        
-        public ActionResult MakePayment()
+         [Authorize]
+        public ActionResult MakePayment(bool isSuccess = false)
         {
+        
+
+            ViewBag.IsSuccess = isSuccess;
             return View();
         }
 
         [HttpPost]
-        public ActionResult MakePayment( PaymentModel payment)
+        [Authorize]
+        public async Task<ActionResult> MakePayment( PaymentModel payment)
         {
-            var kwanele = string.Empty;
-            return View();
+            try { 
+                    StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
+                    payment.StudentNo = mystudent.StudentNo;
+                    if (payment.paymentProof != null)
+                    {
+                        string folder = "Documents/Payments/";
+                        payment.paymentProofUrl = await UploadImage(folder, payment.paymentProof);
+
+                    }
+                   int j =  DbHelper.InsertStudentpayment(_configuration, payment);
+                ViewBag.Error = false;
+                return RedirectToAction(nameof(MakePayment), new { isSuccess = true });
+
+            } catch (Exception) {
+                ViewBag.Error = true;
+                return View();
+            }
+
+         
+          
+           
         }
 
 
