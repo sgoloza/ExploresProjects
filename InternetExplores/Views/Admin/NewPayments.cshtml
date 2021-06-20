@@ -1,0 +1,102 @@
+﻿@model InternetExplores.Models.PaymentModel;
+@{
+    ViewData["Title"] = "NewPayments";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>NewPayments</h1>
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4 col-3 align-self-sm-end">
+                <h4 class="page-title"> Students Payments</h4>
+            </div>
+
+
+
+            <div class="col-sm-8 col-9 text-right m-b-20" hidden>
+                <a href="add-patient.html" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-eye"></i> View Students</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <form method="post" asp-action="ApplicationStudent" asp-controller="Admin">
+                        <table class="table table-border table-striped custom-table datatable mb-0">
+                            <thead >
+                                <tr>
+                                    <th>Student Number</th>
+                                    <th>Type</th>
+                                    <th>Bank Name</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Invoice</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (PaymentModel payment in ViewBag.StudentPaymentslist)
+                                {
+
+                                <tr>
+                                    <td>@payment.StudentNo</td>
+                                    <td>@payment.paymenttype</td>
+                                    <td>@payment.bankName</td>
+                                    <td>@payment.paymentDescription</td>
+                                    <td>@payment.paymentDate</td>
+                                    <td>@payment.paymentAmount</td>
+                                    <td class="text-right">
+                                        <a href="@(payment.paymentProofUrl)" class="btn btn-outline-primary" target="_blank">
+                                            View
+                                        </a>
+                                    </td>
+                                </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>Type</th>
+            <th>Bank Name</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Invoice</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (PaymentModel payment in ViewBag.StudentPaymentslist)
+        {
+
+        <tr>
+            <td>@payment.paymenttype</td>
+            <td>@payment.bankName</td>
+            <td>@payment.paymentDescription</td>
+            <td>@payment.paymentDate</td>
+            <td>@payment.paymentAmount</td>
+            <td class="text-right">
+                <a href="@(payment.paymentProofUrl)" class="btn btn-outline-primary" target="_blank">
+                    View
+                </a>
+            </td>
+        </tr>
+        }
+
+
+    </tbody>
+</table>

@@ -31,7 +31,7 @@ namespace InternetExplores.Models
 
         [Display(Name = "Bank name")]
         [DataType(DataType.Text)]
-        public int bankName { get; set; }
+        public string bankName { get; set; }
 
         [Display(Name = " Date ")]
         [DataType(DataType.DateTime)]

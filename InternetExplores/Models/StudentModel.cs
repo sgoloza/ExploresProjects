@@ -135,5 +135,7 @@ namespace InternetExplores.Models
 
         public string Applicationcomment { get; set; }
         public string  ApplicationStatus { get; set; }
+
+         
     }
 }
