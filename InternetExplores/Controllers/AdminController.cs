@@ -26,54 +26,61 @@ namespace InternetExplores.Controllers
             _dbContext = dbContext;
             _webHostEnvironment = webHostEnvironment;
         }
+        [Authorize]
+        [HttpGet]
         public IActionResult Index()
         {
+           
+            DbHelper.SelectAllStudents(_configuration, allStudent);
+            ViewBag.AdminNewStudents = allStudent;
             return View();
         }
+        
+        [HttpPost]
+        public IActionResult Index( StudentModel mystudent)
+        {
+            DbHelper.SelectAllStudents(_configuration, allStudent);
+            ViewBag.AdminNewStudents = allStudent;
+            return View();
+        }
+        [Authorize]
         public IActionResult IndexAdmin()
         {
             return View();
         }
-       public IActionResult StudentsList()
+        [Authorize]
+        public IActionResult StudentsList()
         {
-            allStudent = DbHelper.SelectAllStudents(_configuration, allStudent);
-            return View(allStudent);
+            List<StudentModel> allStudents = new List<StudentModel>();
+            allStudents = DbHelper.SelectAllStudents(_configuration, allStudents);
+
+            return View(allStudents);
         }
         [Authorize]
-        public IActionResult ApplicationStudent(string StudentEmail)
+        [HttpGet]
+        public IActionResult ApplicationStudent(string StudentEmail, string Studentstatus = "null" , string Commentsection = "null")
         {
-
-            StudentModel mystudent = DbHelper.GetAllStudent(_configuration, StudentEmail);
-            StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
+            StudentModel mystudent = new StudentModel();
+            StudentFiles studentFile = new StudentFiles();
+            mystudent = DbHelper.GetAllStudent(_configuration, StudentEmail);
+            studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
             mystudent.nextofKinUrl = studentFile.nextofKinUrl;
             mystudent.idcopyUrl = studentFile.idcopyUrl;
             mystudent.financialProofUrl = studentFile.financialProofUrl;
             mystudent.matricResultUrl = studentFile.matricResultUrl;
             return View(mystudent);
-
-
-
         }
       [HttpPost]
-        [Authorize]
-        public IActionResult ApplicationStudent(StudentModel student)
+      [Authorize]
+        public IActionResult ApplicationStudent( StudentModel mystudent)
         {
-
-            StudentModel mystudent = DbHelper.GetAllStudent(_configuration, student.StudentEmail);
-            StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
-            mystudent.nextofKinUrl = studentFile.nextofKinUrl;
-            mystudent.idcopyUrl = studentFile.idcopyUrl;
-            mystudent.financialProofUrl = studentFile.financialProofUrl;
-            mystudent.matricResultUrl = studentFile.matricResultUrl;
-            return View(mystudent);
-
-
-
+            return View();
         }
         [Authorize]
         public IActionResult StudentApplication(string StudentEmail) {
             return View();
         }
+        [Authorize]
         public IActionResult NewPayments() {
             List<PaymentModel> allStudent = DbHelper.getAllNewStudentsPayments(_configuration);
             ViewBag.StudentPaymentslist = allStudent;

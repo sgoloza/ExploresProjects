@@ -37,6 +37,20 @@ namespace InternetExplores.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     
+        public ActionResult About()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult About(AboutModel aboutmyModel )
+        {
+            return View();
+        }
+
+
+
+
+
         [HttpPost]
         public void PostCountdownTimer(TimerViewModel model)
         {

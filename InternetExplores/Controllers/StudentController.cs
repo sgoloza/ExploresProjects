@@ -73,7 +73,7 @@ namespace InternetExplores.Controllers
                 i = DbHelper.insertSudentsDocuments(_configuration, myStudent);
                 j = DbHelper.UpdatetudentDetails(_configuration, myStudent);
                 DbHelper.SendEmails("Registration", DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()));
-            if (i > 0  && j > 0)
+            if ( j > 0)
                 {
                     return RedirectToAction(nameof(Registration), new { isSuccess = true });
                 }
@@ -89,10 +89,18 @@ namespace InternetExplores.Controllers
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
 
             StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
-            mystudent.nextofKinUrl = studentFile.nextofKinUrl;
-            mystudent.idcopyUrl = studentFile.idcopyUrl;
-            mystudent.financialProofUrl = studentFile.financialProofUrl;
-            mystudent.matricResultUrl = studentFile.matricResultUrl;
+            if (!studentFile.idcopyUrl.ToLower().Equals("null"))
+            {
+                mystudent.nextofKinUrl = studentFile.nextofKinUrl;
+                mystudent.idcopyUrl = studentFile.idcopyUrl;
+                mystudent.financialProofUrl = studentFile.financialProofUrl;
+                mystudent.matricResultUrl = studentFile.matricResultUrl;
+                ViewBag.document = "not null";
+            }
+            else {
+                ViewBag.document = "null";
+            }
+           
 
             List<PaymentModel> studentpayment = DbHelper.getStudentsPayments(_configuration, mystudent.StudentNo);
             ViewBag.PaymentCount = studentpayment.Count;
@@ -156,7 +164,30 @@ namespace InternetExplores.Controllers
           
            
         }
+        [HttpGet]
+        [Authorize]
+        public ActionResult StudentEnrollement() {
 
+            StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
+
+            StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
+            mystudent.nextofKinUrl = studentFile.nextofKinUrl;
+            mystudent.idcopyUrl = studentFile.idcopyUrl;
+            mystudent.financialProofUrl = studentFile.financialProofUrl;
+            mystudent.matricResultUrl = studentFile.matricResultUrl;
+
+           // List<ModuleModel> studentpayment = DbHelper.getStudentsPayments(_configuration, mystudent.StudentNo);
+          //  ViewBag.PaymentCount = studentpayment.Count;
+            ViewBag.Modulelist = "Modulelist";
+            return View();
+        }
+        [HttpPost]
+        [Authorize]
+        public ActionResult StudentEnrollement( EnrollmentsModel enrollments)
+        {
+
+            return View();
+        }
 
     }
 }
