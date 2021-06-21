@@ -1,4 +1,4 @@
-﻿@model InternetExplores.Models.StudentModel
+﻿@model InternetExplorers.Models.StudentModel
 @{
     ViewData["Title"] = "Registration";
     Layout = "~/Views/_AuthLayout.cshtml";
@@ -10,8 +10,8 @@
     @if (ViewBag.IsSuccess == true)
     {
         <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <strong>Congratulations</strong> You have added new book successfully. <br />
-            Click <a asp-controller="Book" asp-action="GetBook" asp-route-id="@ViewBag.BookId">here</a> to view the details
+            <strong>Thank you</strong> You have placed your application successfully. <br />
+            Click <a asp-controller="Student" asp-action="Profile" >here</a> to view the details
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>

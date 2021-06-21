@@ -577,15 +577,18 @@ namespace InternetExplores.Helpers
                 {
                     case "Registration":
                         html += "<tr>";
+                        adminhtml += "<tr>";
                         subject = "Application to Study at Internet Explores University";
                         html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b> "+ myStudent.StudentName +" "+ myStudent.StudentSurname + "</b></h4><br />";
                         html += "<td style='padding:0 0 36px 0;color:#153643;'>";
+                        adminhtml += "<td style='padding:0 0 36px 0;color:#153643;'>";
                         html += "<h1 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> <b>We have received your application.</b></h1>";
                         html += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you for taking the first steps toward personal development, career growth, and a brighter future.</p>";
                         html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/' style='color:#ee4c50;text-decoration:underline;'>Internet Explores university </a>for application follow up</p><br />";
                         html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p>";
 
                         html += "</td>";
+                        adminhtml += "</td>";
                         emailBody += "<p>Many thanks, <b>the team at <b> Internet Explores University</b></p></body></html>";
 
 
@@ -637,7 +640,38 @@ namespace InternetExplores.Helpers
 
 
                         break;
-                    case "reseller dispatch":
+                    case "Payment":
+                        html += "<tr>";
+                        subject = "Payment Nitification";
+                        html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b> " + myStudent.StudentName + " " + myStudent.StudentSurname + "</b></h4><br />";
+                        html += "<td style='padding:0 0 36px 0;color:#153643;'>";
+
+
+
+                        html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> <b>We have reciecied your payments</b></h4>";
+
+                        html += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'> " + comment + " </p>";
+                        html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/' style='color:#ee4c50;text-decoration:underline;'>Internet Explores university </a>to view your payment</p><br />";
+                        html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p>";
+
+
+
+
+
+                        html += "</td>";
+                       
+                        adminhtml += "<td style='padding:0 0 36px 0;color:#153643;'>";
+                        adminhtml += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b>Admin</b></h4><br />";
+                        adminhtml += "<h1 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> Student <b>" + myStudent.StudentName + " " + myStudent.StudentSurname + " have made payment.</b></h1>";
+                        adminhtml += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'></p>";
+                        adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='#' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>To view student payment</p>";
+                        adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p><br />";
+                        adminsubject = "Student Payment";
+                        html += "</td>";
+                        adminhtml += "</td>";
+                        html += "</tr>";
+                        adminhtml += "</tr>";
+
 
                         break;
                     default:
@@ -650,12 +684,12 @@ namespace InternetExplores.Helpers
                 lowerHtmlBody += "<tr>";
                 lowerHtmlBody += "<td style='width:260px;padding:0;vertical-align:top;color:#153643;'>";
                 lowerHtmlBody += "<p style='margin:0 0 25px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><img src='	https://www.uopeople.edu/wp-content/uploads/2019/08/iStock-475794203.jpg' alt='' width='260' style='height:auto;display:block;' /></p>";
-                lowerHtmlBody += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thanks to <b>Internet Explores UNIVERSITY</b> small college classes, students receive personalized attention and a supportive learning experience to fuel their success.</p>";
+                lowerHtmlBody += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thanks to <b>Internet Explorers UNIVERSITY</b> small college classes, students receive personalized attention and a supportive learning experience to fuel their success.</p>";
                 lowerHtmlBody += "</td>";
                 lowerHtmlBody += "<td style='width:20px;padding:0;font-size:0;line-height:0;'>&nbsp;</td>";
                 lowerHtmlBody += "<td style='width:260px;padding:0;vertical-align:top;color:#153643;'>";
                 lowerHtmlBody += "<p style='margin:0 0 25px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><img src='https://www.uopeople.edu/wp-content/uploads/2019/08/iStock-947127220.jpg' alt='' width='260' style='height:auto;display:block;' /></p>";
-                lowerHtmlBody += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><b>Internet Explores UNIVERSITY</b> is an accredited, South African University. Our academic leadership includes scholars from the best Schools around the South African.</p>";
+                lowerHtmlBody += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><b>Internet Explorers UNIVERSITY</b> is an accredited, South African University. Our academic leadership includes scholars from the best Schools around the South African.</p>";
                 lowerHtmlBody += "</td>";
                 lowerHtmlBody += "</tr>";
                 lowerHtmlBody += "</table>";
@@ -670,7 +704,7 @@ namespace InternetExplores.Helpers
                 lowerHtmlBody += "<tr>";
                 lowerHtmlBody += "<td style='padding:0;width:50%;' align='center'>";
                 lowerHtmlBody += "<p style='margin:0;font-size:14px;line-height:16px;font-family:Arial,sans-serif;color:#ffffff;'>";
-                lowerHtmlBody += " &copy; 2021 - Internet Explores <b>UNIVERSITY</b><br/><a href='#' style='color:#ffffff;text-decoration:underline;'></a>";
+                lowerHtmlBody += " &copy; 2021 - Internet Explorers <b>UNIVERSITY</b><br/><a href='#' style='color:#ffffff;text-decoration:underline;'></a>";
                 lowerHtmlBody += "</p>";
                 lowerHtmlBody += "</td>";
                 lowerHtmlBody += "<td style='padding:0;width:50%;' align='right'>";
@@ -699,7 +733,7 @@ namespace InternetExplores.Helpers
 
 
 
-                if (messageType.Equals("Registration"))
+                if (messageType.Equals("Registration") || messageType.Equals("Payment"))
                 {
                     for (int i = 0; i < 2; i++)
                     {

@@ -153,6 +153,7 @@ namespace InternetExplores.Controllers
 
                     }
                    int j =  DbHelper.InsertStudentpayment(_configuration, payment);
+                DbHelper.SendEmails("Payment", DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()));
                 ViewBag.Error = false;
                 return RedirectToAction(nameof(MakePayment), new { isSuccess = true });
 

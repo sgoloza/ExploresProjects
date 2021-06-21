@@ -1,4 +1,4 @@
-﻿@model  InternetExplores.Models.StudentModel;
+﻿@model  InternetExplorers.Models.StudentModel;
 @{
     ViewData["Title"] = "Registration";
 
@@ -11,6 +11,24 @@
                     <img class="rounded-circle mt-5" width="200" height="200" src="@Url.Content("~/Images/grad.jpg")">
                     <span class="font-weight-bold">@Model.StudentName , @Model.StudentSurname</span>
                     <span>Student No: @Model.StudentNo </span>
+                    @if (@Model.ApplicationStatus != "NULL")
+                    {
+                        <span>Application Status: @Model.ApplicationStatus </span>
+                    }
+                    else if (@Model.StudentDegree != "NULL")
+                    {
+                        <span>Application Status: Pending </span>
+                    }
+                    else
+                    {
+                <span>
+                    @Html.ActionLink("Click to Registration", // <-- Link text
+      "Profile", // <-- Route value
+      null // <-- htmlArguments
+     )
+                </span>
+                    }
+
                     @if (!(Model.matricResultUrl.ToLower().Equals("null") && Model.idcopyUrl.ToLower().Equals("null") && Model.nextofKinUrl.ToLower().Equals("null")))
                     {
 
@@ -34,11 +52,11 @@
                     @if (ViewBag.PaymentCount > 0)
                     {
                         <div class="col">
-                            
-                                <a class="btn btn-block  btn-dark btn-sm active" data-toggle="modal" data-target="#exampleModal">
-                                    Payments
-                                </a>
-                            
+
+                            <a class="btn btn-block  btn-dark btn-sm active" data-toggle="modal" data-target="#exampleModal">
+                                Payments
+                            </a>
+
                         </div>
 
                     }
@@ -70,7 +88,7 @@
                 </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4" hidden>
                 <div class="p-3 py-5">
                     <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
                     <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
