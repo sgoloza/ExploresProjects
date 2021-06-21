@@ -49,30 +49,47 @@ namespace InternetExplores.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult StudentsList()
+        public IActionResult StudentsList(bool isSuccess = false)
         {
             List<StudentModel> allStudents = new List<StudentModel>();
             allStudents = DbHelper.SelectAllStudents(_configuration, allStudents);
-
+            ViewBag.IsSuccess = isSuccess;
             return View(allStudents);
         }
         [Authorize]
         [HttpGet]
-        public IActionResult ApplicationStudent(string StudentEmail, string Studentstatus = "null" , string Commentsection = "null")
+        public IActionResult ApplicationStudent(string StudentEmail, StudentAppModel stuu)
         {
             StudentModel mystudent = new StudentModel();
             StudentFiles studentFile = new StudentFiles();
-            mystudent = DbHelper.GetAllStudent(_configuration, StudentEmail);
-            studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
-            mystudent.nextofKinUrl = studentFile.nextofKinUrl;
-            mystudent.idcopyUrl = studentFile.idcopyUrl;
-            mystudent.financialProofUrl = studentFile.financialProofUrl;
-            mystudent.matricResultUrl = studentFile.matricResultUrl;
-            return View(mystudent);
+
+            string descrip = stuu.comments;
+
+            if (descrip != null )
+            {
+                var i = DbHelper.UpdateStudentStatus(_configuration, stuu);
+
+                DbHelper.SendEmails("Status", DbHelper.GetAllStudent(_configuration, stuu.Email), stuu.comments);
+                ViewBag.StudentStatusSucess = true;
+                return RedirectToAction(nameof(StudentsList), new { isSuccess = true });
+            }
+            else
+            {
+
+                mystudent = DbHelper.GetAllStudent(_configuration, StudentEmail);
+                studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
+                mystudent.nextofKinUrl = studentFile.nextofKinUrl;
+                mystudent.idcopyUrl = studentFile.idcopyUrl;
+                mystudent.financialProofUrl = studentFile.financialProofUrl;
+                mystudent.matricResultUrl = studentFile.matricResultUrl;
+                ViewBag.StudentDetails = mystudent;
+                return View();
+            }
+          
         }
       [HttpPost]
       [Authorize]
-        public IActionResult ApplicationStudent( StudentModel mystudent)
+        public IActionResult ApplicationStudent( StudentAppModel mystudent)
         {
             return View();
         }
