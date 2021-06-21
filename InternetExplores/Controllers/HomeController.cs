@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace InternetExplores.Controllers
@@ -37,14 +39,49 @@ namespace InternetExplores.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     
-        public ActionResult About()
+        public ActionResult About(bool isSuccess = false)
         {
+            ViewBag.IsSuccess = isSuccess;
             return View();
         }
         [HttpPost]
         public ActionResult About(AboutModel aboutmyModel )
         {
-            return View();
+
+                try
+                {
+                           var subject = "Message Form About Page Email : "+aboutmyModel.senderEmail;
+                           var body = aboutmyModel.message;
+                           var senderEmail = new MailAddress("internetexploresuniversity@gmail.com", "Internet Explorers ");
+                           var receiverEmail = new MailAddress("internetexploresuniversity@gmail.com", "Internet Explores");
+                           var password = "InternetExplores@University";
+                            var smtp = new SmtpClient
+                        {
+                            Host = "smtp.gmail.com",
+                            Port = 587,
+                            EnableSsl = true,
+                            DeliveryMethod = SmtpDeliveryMethod.Network,
+                            UseDefaultCredentials = false,
+                            Credentials = new NetworkCredential(senderEmail.Address, password)
+                        };
+                        using (var mess = new MailMessage(senderEmail, receiverEmail)
+                        {
+                            Subject = subject,
+                            Body = body
+                        })
+                        {
+                            smtp.Send(mess);
+                        }
+                return RedirectToAction(nameof(About), new { isSuccess = true });
+
+            }
+                catch (Exception)
+                {
+                    ViewBag.Error = "Some Error";  
+                return View();
+                }
+              
+
         }
 
 

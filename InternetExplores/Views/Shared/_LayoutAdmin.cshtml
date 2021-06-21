@@ -1,14 +1,11 @@
-﻿@using static InternetExplores.Helpers.NavigationIndicatorHelper
+﻿@using static InternetExplorers.Helpers.NavigationIndicatorHelper
 <!DOCTYPE html>
 <html lang="en">
-
-
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <link rel="shortcut icon" type="image/x-icon" href="~/Images/LogoIE.PNG">
-    <title>Internet Explores</title>
+    <title>Internet Explorers</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="~/assets/css/font-awesome.min.css">
@@ -49,8 +46,8 @@
     <div class="main-wrapper">
         <div class="header">
             <div class="header-left">
-                <a href="index-2.html" class="logo">
-                    <img src="~/Images/LogoIE.PNG" width="35" height="35" alt=""> <span>Explores</span>
+                <a asp-controller="Admin" asp-action="Index" class="logo">
+                    <img src="~/Images/LogoIE.PNG" width="35" height="35" alt=""> <span>Explorers</span>
                 </a>
             </div>
             <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
@@ -76,7 +73,7 @@
                             <a asp-controller="Admin" asp-action="ModuleList"><i class="fa fa-book"></i> <span>Modules</span></a>
                         </li>
                         <li>
-                            <a href="appointments.html"><i class="fa fa-home"></i> <span>Redidance</span></a>
+                            <a href="appointments.html"><i class="fa fa-home"></i> <span>Residence</span></a>
                         </li>
                         <li>
                             <a href="schedule.html"><i class="fa fa-calendar-check-o"></i> <span>Finance</span></a>
@@ -109,7 +106,7 @@
 
                 </div>
                 <div class="container text-center text-white">
-                    &copy; 2021 - Internet Explores <b>UNIVERSITY</b> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    &copy; 2021 - Internet Explorers <b>UNIVERSITY</b> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </div>
             </div>
 
