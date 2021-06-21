@@ -29,15 +29,15 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label mt-4 text-black">Level of Study</label>
-                    <select class="form-select">
-                        <option value="1st Year"> 1st Year </option>
-                        <option value="2nd Year"> 2nd Year </option>
-                        <option value="3rd Year"> 3rd Year </option>
-                        <option value="4th Year"> Postgraduate Diplomas </option>
-                        <option value="Hounours"> Bachelor of Honours Degrees </option>
-                        <option value="Masters"> Masters by Coursework and Masters by Research </option>
-                        <option value="PHD"> Doctor of philosophy or supervised Doctor degrees by research </option>
+                    <style>
+                        select {
+                            height : 25px;
+                            width: 250px;
+                        }
+                    </style>
+                    <label asp-for="ModulesList" class="form-label mt-4 text-black"></label>
+                    <select asp-for="ModulesList"  asp-items="ViewBag.Modulelist"class="form-control" multiple>
+                        <option > Please select Modules</option>
                     </select>
                 </div>
 

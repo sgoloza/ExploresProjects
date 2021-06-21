@@ -260,6 +260,87 @@ namespace InternetExplores.Helpers
             }
             return student;
         }
+
+        public static List<ModuleModel> GetModulelist(IConfiguration configuration, StudentModel student)
+        {
+            List<ModuleModel> modules = new List<ModuleModel>();
+
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            ModuleModel module = new ModuleModel();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("getModuleList", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@studyLevel", student.StudentlevelOfStudy);
+                    cmd.Parameters.AddWithValue("@degree", student.StudentFaculty);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            module = new ModuleModel {
+                                ModuleCode = reader["F_code"].ToString(),
+                                Modulename = reader["Modulename"].ToString(),
+                                ModuleDescription = reader["ModuleDescription"].ToString(),
+                                ModuleCost =decimal.Parse(reader["ModuleCost"].ToString()),
+                                ModuleCredit = Convert.ToInt32(reader["ModuleCredit"]),
+                                ModulePre_requisites = reader["ModulePre_requisites"].ToString(),
+                                levelOdstudy = reader["Module_level_of_Study"].ToString(),
+                                faculty = reader["F_name"].ToString()
+                            };
+                            modules.Add(module);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return modules;
+        }
+        public static List<ModuleModel> allmodules(IConfiguration configuration)
+        {
+            List<ModuleModel> modules = new List<ModuleModel>();
+
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            ModuleModel module = new ModuleModel();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("allmodules", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            module = new ModuleModel
+                            {
+                                ModuleCode = reader["F_code"].ToString(),
+                                Modulename = reader["Modulename"].ToString(),
+                                ModuleDescription = reader["ModuleDescription"].ToString(),
+                                ModuleCost = decimal.Parse(reader["ModuleCost"].ToString()),
+                                ModuleCredit = Convert.ToInt32(reader["ModuleCredit"]),
+                                ModulePre_requisites = reader["ModulePre_requisites"].ToString(),
+                                levelOdstudy = reader["Module_level_of_Study"].ToString(),
+                                faculty = reader["F_name"].ToString()
+                            };
+                            modules.Add(module);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return modules;
+        }
         public static List<StudentModel> SelectAllStudents(IConfiguration configuration , List<StudentModel> allStudent)
         {
             string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");

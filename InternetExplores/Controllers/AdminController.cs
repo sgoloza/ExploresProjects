@@ -77,7 +77,12 @@ namespace InternetExplores.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult StudentApplication(string StudentEmail) {
+        public IActionResult ModuleList(string StudentEmail) {
+            ViewBag.listOfModules = DbHelper.allmodules( _configuration);
+            return View();
+        }
+        public IActionResult Faculties() {
+
             return View();
         }
         [Authorize]

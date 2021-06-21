@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.Net.Mail;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InternetExplores.Controllers
 {
@@ -176,9 +177,12 @@ namespace InternetExplores.Controllers
             mystudent.financialProofUrl = studentFile.financialProofUrl;
             mystudent.matricResultUrl = studentFile.matricResultUrl;
 
-           // List<ModuleModel> studentpayment = DbHelper.getStudentsPayments(_configuration, mystudent.StudentNo);
-          //  ViewBag.PaymentCount = studentpayment.Count;
-            ViewBag.Modulelist = "Modulelist";
+            // List<ModuleModel> studentpayment = DbHelper.getStudentsPayments(_configuration, mystudent.StudentNo);
+            //  ViewBag.PaymentCount = studentpayment.Count;
+            List<SelectListItem> studentpayment = new List<SelectListItem>();
+            foreach (var mo in DbHelper.GetModulelist(_configuration, mystudent)) {
+                studentpayment.Add( new SelectListItem() { Text = mo.Modulename.ToString(), Value = mo.ModuleCode.ToString() } );
+            }
             return View();
         }
         [HttpPost]
