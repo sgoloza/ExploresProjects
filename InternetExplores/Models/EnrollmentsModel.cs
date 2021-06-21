@@ -12,7 +12,6 @@ namespace InternetExplores.Models
         public int ModuleCode { get; set; }
         public int E_Clearence { get; set; }
         public int E_Block { get; set; }
-
-        public List<ModuleModel> studentpayments = new List<ModuleModel>();
+        public List<string> ModulesList { get; set; }
     }
 }

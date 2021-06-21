@@ -1,0 +1,65 @@
+﻿@model InternetExplores.Models.ModuleModel
+@{
+    ViewData["Title"] = "Module list";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-4 col-3 align-self-sm-end">
+                <h4 class="page-title">New Students Applications</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <form method="post" asp-action="ApplicationStudent" asp-controller="Admin">
+                        <table class="table table-border table-striped custom-table datatable mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Code</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Credits</th>
+                                    <th>Level</th>
+                                    <th>Faculty</th>
+                                    <th>Pre-requisities</th>
+                                    <th>Cost</th>
+                                    <th class="text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (ModuleModel item in ViewBag.listOfModules)
+                                {
+                                <tr>
+                                    <td>@item.ModuleCode </td>
+                                    <td>@item.Modulename </td>
+                                    <td>@item.ModuleDescription</td>
+                                    <td>@item.ModuleCredit</td>
+                                    <td>@item.levelOdstudy</td>
+                                    <td>@item.faculty</td>
+                                    <td>@item.ModulePre_requisites</td>
+                                    <td>@item.ModuleCost</td>
+                                    <td class="text-right">
+                                        @Html.ActionLink("View", // <-- Link text
+             "ApplicationStudent", // <-- Action Method Name
+             new { StudentEmail = item.ModuleCode }, // <-- Route value
+             null // <-- htmlArguments
+            )
+                                    </td>
+                                </tr>
+                                }
+
+                            </tbody>
+                        </table>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

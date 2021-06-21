@@ -13,6 +13,9 @@ namespace InternetExplores.Models
         public decimal ModuleCost { get; set; }
         public int ModuleCredit { get; set; }
         public string ModulePre_requisites { get; set; }
+        public string levelOdstudy { get; set; }
+        public string faculty { get; set; }
+
 
     }   
 }
