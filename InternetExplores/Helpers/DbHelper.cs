@@ -99,6 +99,36 @@ namespace InternetExplores.Helpers
             }
             return i;
         }
+        public static int UpdateStudentStatus(IConfiguration configuration, StudentAppModel mystudent)
+        {
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            int i;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("UpdateStudentStatus", connection))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@application", mystudent.status);
+                    cmd.Parameters.AddWithValue("@email", mystudent.Email);
+                    connection.Open();
+                    i = cmd.ExecuteNonQuery();
+                    connection.Close();
+                    if (i >= 1)
+                    {
+
+                        //ViewData["Message"] = "New Employee Added Successfully";
+
+                    }
+
+                }
+
+                connection.Close();
+            }
+            return i;
+        }
         public static int insertSudentsDocuments(IConfiguration configuration, StudentModel mystudent)
         {
             string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
@@ -492,7 +522,7 @@ namespace InternetExplores.Helpers
 
             return i;
         }
-        public static async void SendEmails(string messageType, StudentModel myStudent , string comment = "No")
+        public static async void SendEmails(string messageType, StudentModel myStudent , string comment = "")
         {
             string html= "<!DOCTYPE html>";
             string error = string.Empty;
@@ -571,7 +601,7 @@ namespace InternetExplores.Helpers
                         html += "</tr>";
                         adminhtml += "</tr>";
                         break;
-                    case "RegistrationStatus":
+                    case "Status":
                         html += "<tr>";
                         subject = "Application Status";
                         html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b> " + myStudent.StudentName + " " + myStudent.StudentSurname + "</b></h4><br />";
@@ -674,7 +704,7 @@ namespace InternetExplores.Helpers
                     for (int i = 0; i < 2; i++)
                     {
                         var senderEmail = new MailAddress("internetexploresuniversity@gmail.com", "Internet Explores");
-                        var receiverEmail = new MailAddress("218027046@stu.ukzn.ac.za", myStudent.StudentName.ToString() + " " + myStudent.StudentSurname.ToString());
+                        var receiverEmail = new MailAddress(myStudent.StudentEmail, myStudent.StudentName.ToString() + " " + myStudent.StudentSurname.ToString());
                         var password = "InternetExplores@University";
                         var smtp = new System.Net.Mail.SmtpClient
                         {
@@ -688,7 +718,7 @@ namespace InternetExplores.Helpers
 
                         if (i == 0)
                         {
-                            receiverEmail = new MailAddress("218027046@stu.ukzn.ac.za", myStudent.StudentName.ToString() + " " + myStudent.StudentSurname.ToString());
+                            receiverEmail = new MailAddress(myStudent.StudentEmail, myStudent.StudentName.ToString() + " " + myStudent.StudentSurname.ToString());
                             using (var mess = new MailMessage(senderEmail, receiverEmail))
                             {
                                 emailBody = html;
@@ -722,7 +752,7 @@ namespace InternetExplores.Helpers
                 else
                 {
                     var senderEmail = new MailAddress("internetexploresuniversity@gmail.com", "Internet Explores");
-                    var receiverEmail = new MailAddress("218027046@stu.ukzn.ac.za", myStudent.StudentName.ToString() + " " + myStudent.StudentSurname.ToString());
+                    var receiverEmail = new MailAddress(myStudent.StudentEmail, myStudent.StudentName.ToString() + " " + myStudent.StudentSurname.ToString());
                     var password = "InternetExplores@University";
                  
                     var smtp = new System.Net.Mail.SmtpClient
