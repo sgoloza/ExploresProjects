@@ -315,7 +315,7 @@ namespace InternetExplores.Helpers
                         while (reader.Read())
                         {
                             module = new ModuleModel {
-                                ModuleCode = reader["F_code"].ToString(),
+                                ModuleCode = reader["ModuleCode"].ToString(),
                                 Modulename = reader["Modulename"].ToString(),
                                 ModuleDescription = reader["ModuleDescription"].ToString(),
                                 ModuleCost =decimal.Parse(reader["ModuleCost"].ToString()),
@@ -331,6 +331,167 @@ namespace InternetExplores.Helpers
                 connection.Close();
             }
             return modules;
+        }
+        
+        public static void StudentEnrollemt(IConfiguration configuration,EnrollmentsModel myenroll) {
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            int i;
+            string module0 = myenroll.ModuleCode0;
+            string module1 = myenroll.ModuleCode1;
+            string module2 = myenroll.ModuleCode2;
+            string module3 = myenroll.ModuleCode3;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("StudentEnroll", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    if (module0 != null) {
+                        cmd.Parameters.AddWithValue("@studentNo", myenroll.StudentNo);
+                        cmd.Parameters.AddWithValue("@ModuleCode", myenroll.ModuleCode0);
+                        connection.Open();
+                        i = cmd.ExecuteNonQuery();
+                         connection.Close();
+                    }
+
+                }
+
+                connection.Close();
+
+
+
+                using (SqlCommand cmd = new SqlCommand("StudentEnroll", connection))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (module1 != null)
+                    {
+                        cmd.Parameters.AddWithValue("@studentNo", myenroll.StudentNo);
+                        cmd.Parameters.AddWithValue("@ModuleCode", myenroll.ModuleCode1);
+                        connection.Open();
+                        i = cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+
+                }
+
+                connection.Close();
+
+
+                using (SqlCommand cmd = new SqlCommand("StudentEnroll", connection))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (module2 != null)
+                    {
+                        cmd.Parameters.AddWithValue("@studentNo", myenroll.StudentNo);
+                        cmd.Parameters.AddWithValue("@ModuleCode", myenroll.ModuleCode2);
+                        connection.Open();
+                        i = cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+                   
+
+                }
+
+                connection.Close();
+
+
+                using (SqlCommand cmd = new SqlCommand("StudentEnroll", connection))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    if (module3 != null)
+                    {
+                        cmd.Parameters.AddWithValue("@studentNo", myenroll.StudentNo);
+                        cmd.Parameters.AddWithValue("@ModuleCode", myenroll.ModuleCode3);
+                        connection.Open();
+                        i = cmd.ExecuteNonQuery();
+                        connection.Close();
+                    }
+
+                }
+
+                connection.Close();
+
+                using (SqlCommand cmd = new SqlCommand("Enrolled", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                   
+                        cmd.Parameters.AddWithValue("@studentNo", myenroll.StudentNo);
+                        connection.Open();
+                        i = cmd.ExecuteNonQuery();
+                        connection.Close();
+
+                }
+
+                connection.Close();
+
+            }
+        }
+
+        public static ModuleModel getModule(IConfiguration configuration, string Modulecode) {
+
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            ModuleModel module = new ModuleModel();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("moduleCost", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@ModuleCode", Modulecode);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            module = new ModuleModel
+                            {
+                                ModuleCode = reader["ModuleCode"].ToString(),
+                                Modulename = reader["Modulename"].ToString(),
+                                ModuleDescription = reader["ModuleDescription"].ToString(),
+                                ModuleCost = decimal.Parse(reader["ModuleCost"].ToString()),
+                                ModuleCredit = Convert.ToInt32(reader["ModuleCredit"]),
+                                ModulePre_requisites = reader["ModulePre_requisites"].ToString(),
+                                levelOdstudy = reader["Module_level_of_Study"].ToString()
+                                
+                            };
+                            
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return module;
+        }
+        public static void setStudentBalance(IConfiguration configuration, double balance , int studentNo)
+        {
+
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            ModuleModel module = new ModuleModel();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("UpdateStudentBalance", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@StudentBalance", balance);
+                    cmd.Parameters.AddWithValue("@StudentNo", studentNo);
+
+                  
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                connection.Close();
+            }
+
         }
         public static List<ModuleModel> allmodules(IConfiguration configuration)
         {
@@ -371,6 +532,38 @@ namespace InternetExplores.Helpers
             }
             return modules;
         }
+
+
+        public static List<string> enrolled(IConfiguration configuration, int studentNo)
+        {
+            List<string> modules = new List<string>();
+
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("getStudentEnrolledModules", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@StudentNo", studentNo);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            modules.Add( reader["ModuleCode"].ToString());
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return modules;
+        }
+
+
         public static List<StudentModel> SelectAllStudents(IConfiguration configuration , List<StudentModel> allStudent)
         {
             string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");

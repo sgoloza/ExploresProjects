@@ -109,6 +109,27 @@ namespace InternetExplores.Controllers
                
             }
             ViewBag.StudentPayments = studentpayment;
+
+            List<string> modulescodes = DbHelper.enrolled(_configuration, mystudent.StudentNo);
+
+            List<ModuleModel> listOfmodules = new List<ModuleModel>();
+            double total = 0.0;
+            int credits = 0;
+            foreach (string code in modulescodes)
+            {
+                listOfmodules.Add(DbHelper.getModule(_configuration, code));
+            }
+            
+            foreach (ModuleModel modulesname in listOfmodules)
+            {
+                 total += Double.Parse(modulesname.ModuleCost.ToString());
+                 credits += modulesname.ModuleCredit;
+            }
+            ViewBag.StudentEnrolledModiles = listOfmodules;
+            ViewBag.moduleCount = listOfmodules.Count;
+            ViewBag.Total = total;
+            ViewBag.Credits = credits;
+
             return View(mystudent);
         }
         [HttpPost]
@@ -168,8 +189,9 @@ namespace InternetExplores.Controllers
         }
         [HttpGet]
         [Authorize]
-        public ActionResult StudentEnrollement() {
-
+        public ActionResult StudentEnrollement(bool isSuccess = false) {
+            ViewBag.IsSuccess = isSuccess;
+            ModelState.AddModelError(string.Empty, "Please Select different Module");
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
 
             StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
@@ -184,14 +206,52 @@ namespace InternetExplores.Controllers
             foreach (var mo in DbHelper.GetModulelist(_configuration, mystudent)) {
                 studentpayment.Add( new SelectListItem() { Text = mo.Modulename.ToString(), Value = mo.ModuleCode.ToString() } );
             }
-            return View();
+
+
+           EnrollmentsModel myEnroll = new EnrollmentsModel();
+            myEnroll.ModulesList = studentpayment;
+            ViewBag.Modulelist = studentpayment;
+           /* myEnroll.ModulesList =
+                DbHelper.GetModulelist(_configuration, mystudent).Select(x => new ModuleModel { ModuleCode = x.ModuleCode,
+                ModuleCost = x.ModuleCost , Modulename = x.Modulename , ModuleDescription = x.ModuleDescription, ModuleCredit = x.ModuleCredit }).ToList();
+            List<string> list = new List<string>();*/
+            return View(myEnroll);
         }
         [HttpPost]
         [Authorize]
         public ActionResult StudentEnrollement( EnrollmentsModel enrollments)
         {
+            string module0 = enrollments.ModuleCode0;
+            string module1 = enrollments.ModuleCode1;
+            string module2 = enrollments.ModuleCode2;
+            string module3 = enrollments.ModuleCode3;
 
-            return View();
+            string[] myarr = { module0, module1, module2, module3 };
+            List<string> mylist = new List<string>();
+            foreach ( string str in myarr)
+            {
+                if (str != null)
+                    mylist.Add(str);
+
+            }
+            var d = mylist.Distinct().Count();
+
+            if (d == 3 || d == 4 ) {
+                double studentBalance = 0.0;
+                StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
+                enrollments.StudentNo = mystudent.StudentNo;
+                foreach ( string code in mylist) {
+                    studentBalance += Double.Parse( DbHelper.getModule(_configuration, code).ModuleCost.ToString());
+                }
+                DbHelper.StudentEnrollemt(_configuration, enrollments);
+                DbHelper.setStudentBalance(_configuration, studentBalance, enrollments.StudentNo);
+                return RedirectToAction(nameof(StudentEnrollement), new { isSuccess = false });
+            } else
+            {
+                return RedirectToAction(nameof(StudentEnrollement), new { isSuccess = true });
+            }
+
+        
         }
 
     }
