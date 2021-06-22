@@ -162,6 +162,68 @@ namespace InternetExplores.Helpers
             }
             return i;
         }
+        public static void UpdatesModuleDetails(IConfiguration configuration, ModuleDeatilsModel myModule)
+        {
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            int i;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("UpadteModule", connection))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@myModuleDescription", myModule.ModuleDescription);
+                    cmd.Parameters.AddWithValue("@myModuleCost", myModule.ModuleCost);
+                    cmd.Parameters.AddWithValue("@myModuleCredit", myModule.ModuleCredit);
+                    cmd.Parameters.AddWithValue("@myModulePre_requisites", myModule.ModulePre_requisites);
+                    cmd.Parameters.AddWithValue("@myModulesStatus", myModule.ModulesStatus);
+                    cmd.Parameters.AddWithValue("@myModuleCode", myModule.ModuleCode);
+
+                    connection.Open();
+                    i = cmd.ExecuteNonQuery();
+                    connection.Close();
+
+                }
+
+                connection.Close();
+            }
+            
+        }
+        public static void InsertModulesDetails(IConfiguration configuration, ModuleModel myModule)
+        {
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            int i;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("InsertModule", connection))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@des", myModule.ModuleDescription);
+                    cmd.Parameters.AddWithValue("@name", myModule.Modulename);
+                    cmd.Parameters.AddWithValue("@cost", myModule.ModuleCost);
+                    cmd.Parameters.AddWithValue("@preR", myModule.ModulePre_requisites);
+                    cmd.Parameters.AddWithValue("@status", myModule.ModulesStatus);
+                    cmd.Parameters.AddWithValue("@level", myModule.levelOdstudy);
+                    cmd.Parameters.AddWithValue("@credit", myModule.ModuleCredit);
+                    cmd.Parameters.AddWithValue("@code", myModule.ModuleCode);
+                    cmd.Parameters.AddWithValue("@facult", myModule.faculty);
+
+
+                    connection.Open();
+                    i = cmd.ExecuteNonQuery();
+                    connection.Close();
+
+                }
+
+                connection.Close();
+            }
+
+        }
         public static StudentFiles GetAllStudentDocuments(IConfiguration configuration, int StudentNO)
         {
             string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
@@ -459,8 +521,9 @@ namespace InternetExplores.Helpers
                                 ModuleCost = decimal.Parse(reader["ModuleCost"].ToString()),
                                 ModuleCredit = Convert.ToInt32(reader["ModuleCredit"]),
                                 ModulePre_requisites = reader["ModulePre_requisites"].ToString(),
-                                levelOdstudy = reader["Module_level_of_Study"].ToString()
-                                
+                                levelOdstudy = reader["Module_level_of_Study"].ToString(),
+                                ModulesStatus = reader["ModulesStatus"].ToString()
+
                             };
                             
                         }
@@ -477,12 +540,12 @@ namespace InternetExplores.Helpers
             ModuleModel module = new ModuleModel();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                using (SqlCommand cmd = new SqlCommand("UpdateStudentBalance", connection))
+                using (SqlCommand cmd = new SqlCommand("StudentPaymentUpadte", connection))
                 {
                     connection.Open();
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@StudentBalance", balance);
+                    cmd.Parameters.AddWithValue("@StdentPayment", balance);
                     cmd.Parameters.AddWithValue("@StudentNo", studentNo);
 
                   
@@ -515,14 +578,15 @@ namespace InternetExplores.Helpers
                         {
                             module = new ModuleModel
                             {
-                                ModuleCode = reader["F_code"].ToString(),
+                                ModuleCode = reader["ModuleCode"].ToString(),
                                 Modulename = reader["Modulename"].ToString(),
                                 ModuleDescription = reader["ModuleDescription"].ToString(),
                                 ModuleCost = decimal.Parse(reader["ModuleCost"].ToString()),
                                 ModuleCredit = Convert.ToInt32(reader["ModuleCredit"]),
                                 ModulePre_requisites = reader["ModulePre_requisites"].ToString(),
                                 levelOdstudy = reader["Module_level_of_Study"].ToString(),
-                                faculty = reader["F_name"].ToString()
+                                faculty = reader["F_name"].ToString(),
+                                ModulesStatus = reader["ModulesStatus"].ToString()
                             };
                             modules.Add(module);
                         }
@@ -1035,7 +1099,7 @@ namespace InternetExplores.Helpers
                             
                                 payments = new PaymentModel
                                 {
-                                    paymentID = Convert.ToInt32(reader["StudentNo"]),
+                                    paymentID = Convert.ToInt32(reader["paymentID"]),
                                     StudentNo = Convert.ToInt32(reader["StudentNo"]),
                                     paymenttype = reader["paymentType"].ToString(),
                                     paymentAmount =Decimal.Parse(reader["paymentAmount"].ToString()), 
@@ -1077,7 +1141,7 @@ namespace InternetExplores.Helpers
 
                             payments = new PaymentModel
                             {
-                                paymentID = Convert.ToInt32(reader["StudentNo"]),
+                                paymentID = Convert.ToInt32(reader["paymentID"]),
                                 StudentNo = Convert.ToInt32(reader["StudentNo"]),
                                 paymenttype = reader["paymentType"].ToString(),
                                 paymentAmount = Decimal.Parse(reader["paymentAmount"].ToString()),
@@ -1141,6 +1205,25 @@ namespace InternetExplores.Helpers
             }
             return studentpayments;
         }
+
+        public static void updateStudentPaymentStatus(IConfiguration configuration, int paymentID) {
+
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("PaymentStatus", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@PaymentId", paymentID);
+
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                connection.Close();
+            }
+        } 
 
     }
 }
