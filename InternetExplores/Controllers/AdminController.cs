@@ -94,7 +94,8 @@ namespace InternetExplores.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult ModuleList(string StudentEmail) {
+        public IActionResult ModuleList(bool Success = false) {
+            ViewBag.lSuccess = Success;
             ViewBag.listOfModules = DbHelper.allmodules( _configuration);
             return View();
         }
@@ -103,9 +104,70 @@ namespace InternetExplores.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult NewPayments() {
-            List<PaymentModel> allStudent = DbHelper.getAllNewStudentsPayments(_configuration);
-            ViewBag.StudentPaymentslist = allStudent;
+        public IActionResult NewPayments( int payentid, int studentNO, bool isSucess  = false ) {
+            List<PaymentModel> allStudentpayments = DbHelper.getAllNewStudentsPayments(_configuration);
+            if (payentid != 0 & studentNO != 0) {
+                double amount = 0.0;
+                foreach (PaymentModel py in allStudentpayments)
+                {
+                    if (py.paymentID == payentid) {
+                        amount = Double.Parse(py.paymentAmount.ToString());
+                    }
+
+                }
+                ViewBag.IsSuccess = true;
+                DbHelper.setStudentBalance(_configuration, amount, studentNO);
+                DbHelper.updateStudentPaymentStatus(_configuration, payentid);
+                return RedirectToAction(nameof(NewPayments), new { isSuccess = true });
+                
+            }
+            
+            ViewBag.StudentPaymentslist = allStudentpayments;
+            return View();
+        }
+        public IActionResult ModuleDetails( string ModuleCode ,ModuleDeatilsModel mydetails)
+        { 
+            
+            
+            List<ModuleModel> module = new List<ModuleModel>();
+            module.Add(DbHelper.getModule(_configuration, ModuleCode));
+            string descr = DbHelper.getModule(_configuration, ModuleCode).ModuleDescription;
+
+            ViewBag.ModuleDetails = DbHelper.getModule(_configuration, ModuleCode);
+
+            string myModuleCode = mydetails.ModuleCode;
+            string myModuleDescription = mydetails.ModuleDescription;
+            decimal myModuleCost = mydetails.ModuleCost;
+            int myModuleCredit = mydetails.ModuleCredit; 
+            string myModulePre_requisites = mydetails.ModulePre_requisites;
+            string myModulesStatus = mydetails.ModulesStatus;
+
+            if (myModulePre_requisites !=null ) {
+
+                if (myModuleDescription != null)
+                {
+
+                    DbHelper.UpdatesModuleDetails(_configuration, mydetails);
+                }
+                else
+                {
+                    mydetails.ModuleDescription = descr;
+                    DbHelper.UpdatesModuleDetails(_configuration, mydetails);
+                }
+                return RedirectToAction(nameof(ModuleList), new { Success = true });
+               
+            }
+            return View();
+        }
+     
+        public IActionResult NewModule( ModuleModel mymodel , bool sucess = false) {
+
+
+            if (mymodel.ModuleDescription != null) { 
+                   DbHelper.InsertModulesDetails(_configuration, mymodel);
+                return RedirectToAction(nameof(NewModule), new { sucess = true });
+            }
+            ViewBag.MSucess = sucess;
             return View();
         }
     }
