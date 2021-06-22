@@ -15,7 +15,7 @@ namespace InternetExplores.Models
         public string ModulePre_requisites { get; set; }
         public string levelOdstudy { get; set; }
         public string faculty { get; set; }
-
+        public List<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem> ModulesList { get; set; }
 
     }   
 }

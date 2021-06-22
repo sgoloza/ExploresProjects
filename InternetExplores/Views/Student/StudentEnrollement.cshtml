@@ -1,4 +1,4 @@
-﻿@model InternetExplorers.Models.EnrollmentsModel
+﻿@model InternetExplores.Models.EnrollmentsModel
 
 @{
     ViewData["Title"] = "StudentEnrollement";
@@ -10,9 +10,8 @@
     <hr />
     @if (ViewBag.IsSuccess == true)
     {
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <strong>Congratulations</strong> You have added new book successfully. <br />
-            Click <a asp-controller="Book" asp-action="GetBook" asp-route-id="@ViewBag.BookId">here</a> to view the details
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @Html.ValidationSummary(true, "", new { @class = "field text-danger" })
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -21,51 +20,45 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">
-                <div asp-validation-summary="ModelOnly" class="text-danger" hidden></div>
-                <div class="form-group" hidden>
-                    <label asp-for="StudentNo" class="control-label"></label>
-                    <input asp-for="StudentNo" class="form-control" />
-                    <span asp-validation-for="StudentNo" class="text-danger"></span>
-                </div>
 
-                <div class="form-group">
-                    <style>
-                        select {
-                            height : 25px;
-                            width: 250px;
-                        }
-                    </style>
-                    <label asp-for="ModulesList" class="form-label mt-4 text-black"></label>
-                    <select asp-for="ModulesList"  asp-items="ViewBag.Modulelist"class="form-control" multiple>
-                        <option > Please select Modules</option>
-                    </select>
-                </div>
+                @if (Model.ModulesList.Count > 0)
+                {
+                    <span>Module 1</span>
+                    <div class="form-group">
+                        @Html.DropDownListFor(x => x.ModuleCode0, Model.ModulesList, new { @class = "form-select chosen-select", @style = "width:auto;" })
+                    </div>
+                }
 
 
+                @if (Model.ModulesList.Count > 1)
+                {
+                    <span>Module 2</span>
+                    <div class="form-group">
+                        @Html.DropDownListFor(x => x.ModuleCode1, Model.ModulesList, new { @class = "form-select chosen-select", @style = "width:auto;" })
+                    </div>
+                }
+                @if (Model.ModulesList.Count > 2)
+                {
+                    <span>Module 3</span>
+                    <div class="form-group">
+                        @Html.DropDownListFor(x => x.ModuleCode2, Model.ModulesList, new { @class = "form-select chosen-select", @style = "width:auto;" })
+                    </div>
+                }
+                @if (Model.ModulesList.Count > 3)
+                {
+                    <span>Module 4</span>
+                    <div class="form-group">
+                        @Html.DropDownListFor(x => x.ModuleCode3, Model.ModulesList, new { @class = "form-select chosen-select", @style = "width:auto;" })
+                    </div>
+                }
 
-
-                <div class="form-group" hidden>
-                    <label asp-for="ModuleCode" class="control-label"></label>
-                    <input asp-for="ModuleCode" class="form-control" />
-                    <span asp-validation-for="ModuleCode" class="text-danger"></span>
-                </div>
-                <div class="form-group" hidden>
-                    <label asp-for="E_Clearence" class="control-label"></label>
-                    <input asp-for="E_Clearence" class="form-control" />
-                    <span asp-validation-for="E_Clearence" class="text-danger"></span>
-                </div>
-                <div class="form-group" hidden>
-                    <label asp-for="E_Block" class="control-label"></label>
-                    <input asp-for="E_Block" class="form-control" />
-                    <span asp-validation-for="E_Block" class="text-danger"></span>
-                </div>
                 <div class="form-group">
                     <input type="submit" value="Create" class="btn btn-primary" />
                 </div>
             </div>
         </div>
-        </div>
-        <div>
-            <a asp-action="Index">Back to List</a>
-        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </form>

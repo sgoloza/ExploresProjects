@@ -3,38 +3,42 @@
     ViewData["Title"] = "Register";
     Layout = "~/Views/_AuthLayout.cshtml";
 }
-
 <h1 class="text-center">@ViewData["Title"]</h1>
+
+@if (ViewBag.regError == true)
+{
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    @Html.ValidationSummary(true, "", new { @class = "field text-danger" })
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+}
 <form class="reg-form" method="post">
     <div class="form-group">
         <div class="form-floating  mb-3">
             <input type="text" asp-for="StudentName" class="form-control" id="floatingPassword" placeholder="Name" required>
             <label for="floatingPassword" asp-for="StudentName">Name</label>
-            <span asp-validation-for="StudentName" class="field"></span>
+            <span asp-validation-for="StudentName" class="field text-danger"></span>
         </div>
         <div class="form-floating  mb-3">
             <input type="text" asp-for="StudentSurname" class="form-control" id="floatingPassword" placeholder="Surname" required>
             <label for="floatingPassword" asp-for="StudentSurname">Surname</label>
-            <span asp-validation-for="StudentSurname" class="field"></span>
+            <span asp-validation-for="StudentSurname" class="field text-danger"></span>
         </div>
         <div class="form-floating  mb-3">
-            <input type="password" asp-for="StudetntIdNo" class="form-control" id="floatingPassword" placeholder="Identity No" required>
+            <input type="text" asp-for="StudetntIdNo" class="form-control" id="floatingPassword" placeholder="Identity No" onkeypress="OnlyNumber(this);" required>
             <label for="floatingPassword" asp-for="StudetntIdNo">Identity No</label>
-            <span asp-validation-for="StudetntIdNo" class="field"></span>
-        </div>
-        <div class="form-floating  mb-3" hidden>
-            <input type="date" asp-for="StudentDateOfBirth" class="form-control" id="floatingPassword" min="1900-01-01" max="2021-09-18" placeholder="Date Of Birth" required>
-            <label for="floatingPassword" asp-for="StudentDateOfBirth">Date Of Birth</label>
-            <span asp-validation-for="StudentDateOfBirth" class="field"></span>
+            <span asp-validation-for="StudetntIdNo" class="field text-danger"></span>
         </div>
         <div class="form-floating  mb-3">
             <input type="tel" asp-for="StudentPhoneNo" class="form-control" id="floatingPassword" placeholder="Phone No" required>
             <label for="floatingPassword" asp-for="StudentPhoneNo">Phone No</label>
-            <span asp-validation-for="StudentPhoneNo" class="field"></span>
+            <span asp-validation-for="StudentPhoneNo" class="field text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="StudentGender"  class="form-label mt-4">Gender</label >
-            <select asp-for="StudentGender"class="form-select" id="exampleSelect1">
+            <label asp-for="StudentGender" class="form-label mt-4">Gender</label>
+            <select asp-for="StudentGender" class="form-select" id="exampleSelect1">
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
@@ -42,20 +46,27 @@
         <div class="form-floating mb-3 bg-white">
             <input type="email" class="form-control" id="floatingInput" asp-for="Email" placeholder="name@example.com" required>
             <label for="floatingInput" asp-for="Email">Email address</label>
-            <span asp-validation-for="Email" class="field"></span>
+            <span asp-validation-for="Email" class="field text-danger"></span>
         </div>
         <div class="form-floating  mb-3">
             <input type="password" class="form-control" id="floatingPassword" asp-for="Password" placeholder="Password" required>
             <label for="floatingPassword" asp-for="Password">Password</label>
-            <span asp-validation-for="Password" class="field"></span>
+            <span asp-validation-for="Password" class="field text-danger"></span>
         </div>
         <div class="form-floating  mb-3">
             <input type="password" asp-for="ConfirmPassword" class="form-control" id="floatingPassword" placeholder="Password" required>
             <label for="floatingPassword" asp-for="ConfirmPassword">Confirm Password</label>
-            <span asp-validation-for="ConfirmPassword" class="field"></span>
+            <span asp-validation-for="ConfirmPassword" class="field text-danger"></span>
+         
         </div>
-        <button type="submit" class="btn btn-secondary my-2 my-sm-0">Register</button>
+        <button type="submit" class="btn btn-primary my-2 my-sm-0">Register</button>
     </div>
 </form>
 
-
+<script>
+    function OnlyNumber(i) {
+        if (i.value.length > 0) {
+            i.value = i.value.replace(/[^\d]+/g, '');
+        }
+    }
+</script>

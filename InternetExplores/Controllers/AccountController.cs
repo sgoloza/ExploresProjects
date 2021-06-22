@@ -55,13 +55,14 @@ namespace InternetExplores.Controllers
 
                     return RedirectToAction("index", "Home");
                 }
-
+                ModelState.AddModelError(string.Empty, "Registering failed");
+                ViewBag.regError = true;
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
 
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+               
 
             }
             return View(model);
