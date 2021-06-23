@@ -1,5 +1,8 @@
-﻿using InternetExplores.Models;
+﻿using InternetExplores.Helpers;
+using InternetExplores.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,14 +17,20 @@ namespace InternetExplores.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IConfiguration _configuration;
+        private readonly AppDBContext _dbContext;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, AppDBContext dbContext, IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
+            _configuration = configuration;
+            _dbContext = dbContext;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
-        { 
+        {
+            ViewBag.StudentCount= DbHelper.ActiveStudents(_configuration);
             TimerViewModel model = new TimerViewModel();
             TempData["EndTime"] = ViewData["EndTime"];
             return View(model);
@@ -52,6 +61,7 @@ namespace InternetExplores.Controllers
                 {
                            var subject = "Message Form About Page Email : "+aboutmyModel.senderEmail;
                            var body = aboutmyModel.message;
+                           body += "<br/><a href = 'mailto:" + aboutmyModel.senderEmail + "'>Send Email</a>";
                            var senderEmail = new MailAddress("internetexploresuniversity@gmail.com", "Internet Explorers ");
                            var receiverEmail = new MailAddress("internetexploresuniversity@gmail.com", "Internet Explores");
                            var password = "InternetExplores@University";
@@ -67,7 +77,8 @@ namespace InternetExplores.Controllers
                         using (var mess = new MailMessage(senderEmail, receiverEmail)
                         {
                             Subject = subject,
-                            Body = body
+                            Body = body,
+                            IsBodyHtml = true
                         })
                         {
                             smtp.Send(mess);
