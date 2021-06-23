@@ -108,7 +108,7 @@
         <div class="custom-file">
             <label asp-for="idcopy" for="exampleFormControlFile1">Id copy</label>
             <div>
-                <input asp-for="idcopy" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+                <input asp-for="idcopy" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1" required>
             </div>
             <span asp-validation-for="idcopy" class="text-danger"></span>
         </div>
@@ -118,7 +118,7 @@
         <div class="custom-file">
             <label asp-for="matricResult" for="exampleFormControlFile1">Results(Matric/ Highest level of study)</label>
             <div>
-                <input asp-for="matricResult" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+                <input asp-for="matricResult" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1" required>
             </div>
             <span asp-validation-for="matricResult" class="text-danger"></span>
         </div>
@@ -128,7 +128,7 @@
         <div class="custom-file">
             <label asp-for="nextofKin" for="exampleFormControlFile1">Next of Kin</label>
             <div>
-                <input asp-for="nextofKin" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1">
+                <input asp-for="nextofKin" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1" required>
             </div>
             <span asp-validation-for="nextofKin" class="text-danger"></span>
         </div>
@@ -140,7 +140,7 @@
     <div class="form-group">
         <label class="form-label mt-4 text-black">Do you have financial support</label>
         <select asp-for="StudentFinincialStatus" class="form-select">
-            <option value="Yes"> Yes </option>
+            <option selected value="Yes"> Yes </option>
             <option value="No">No </option>
         </select>
     </div>

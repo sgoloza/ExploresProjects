@@ -120,7 +120,7 @@ namespace InternetExplores.Controllers
 
                 }
                 ViewBag.IsSuccess = true;
-                DbHelper.setStudentBalance(_configuration, amount, studentNO);
+                DbHelper.setStudentBalanceAdmin(_configuration, amount, studentNO);
                 DbHelper.updateStudentPaymentStatus(_configuration, payentid);
                 return RedirectToAction(nameof(NewPayments), new { isSuccess = true });
                 

@@ -600,6 +600,29 @@ namespace InternetExplores.Helpers
             ModuleModel module = new ModuleModel();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
+                using (SqlCommand cmd = new SqlCommand("UpdateStudentBalance", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@StudentBalance", balance);
+                    cmd.Parameters.AddWithValue("@StudentNo", studentNo);
+
+                  
+                    cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+                connection.Close();
+            }
+
+        }
+        public static void setStudentBalanceAdmin(IConfiguration configuration, double balance, int studentNo)
+        {
+
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            ModuleModel module = new ModuleModel();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
                 using (SqlCommand cmd = new SqlCommand("StudentPaymentUpadte", connection))
                 {
                     connection.Open();
@@ -608,7 +631,7 @@ namespace InternetExplores.Helpers
                     cmd.Parameters.AddWithValue("@StdentPayment", balance);
                     cmd.Parameters.AddWithValue("@StudentNo", studentNo);
 
-                  
+
                     cmd.ExecuteNonQuery();
                     connection.Close();
                 }
