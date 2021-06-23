@@ -63,7 +63,7 @@ namespace InternetExplores.Controllers
                    folder = "Documents/Kin/";
                    myStudent.nextofKinUrl = await UploadImage(folder, myStudent.idcopy);
                   
-                if (myStudent.financialProofUrl != null)
+                if (myStudent.financialProof != null)
                 {
                    folder = "Documents/FinancialProof/";
                    myStudent.financialProofUrl = await UploadImage(folder, myStudent.idcopy);
@@ -191,9 +191,9 @@ namespace InternetExplores.Controllers
         }
         [HttpGet]
         [Authorize]
-        public ActionResult StudentEnrollement(bool isSuccess = false) {
+        public ActionResult StudentEnrollement(bool isSuccess = false , int p = 1) {
             ViewBag.IsSuccess = isSuccess;
-            ModelState.AddModelError(string.Empty, "Please Select different Module");
+            
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
 
             StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
@@ -204,15 +204,26 @@ namespace InternetExplores.Controllers
 
             // List<ModuleModel> studentpayment = DbHelper.getStudentsPayments(_configuration, mystudent.StudentNo);
             //  ViewBag.PaymentCount = studentpayment.Count;
-            List<SelectListItem> studentpayment = new List<SelectListItem>();
+            List<SelectListItem> studentmodulelist = new List<SelectListItem>();
             foreach (var mo in DbHelper.GetModulelist(_configuration, mystudent)) {
-                studentpayment.Add( new SelectListItem() { Text = mo.Modulename.ToString(), Value = mo.ModuleCode.ToString() } );
+                studentmodulelist.Add( new SelectListItem() { Text = mo.Modulename.ToString(), Value = mo.ModuleCode.ToString() } );
+            }
+            if (isSuccess == false && studentmodulelist.Count > 0 && p == 2)
+            {
+                ModelState.AddModelError(string.Empty, "Please Make Sure to Select different Module");
+                ModelState.AddModelError(string.Empty, "Example :");
+                foreach (var mo in DbHelper.GetModulelist(_configuration, mystudent))
+                {
+                    ModelState.AddModelError(string.Empty, ">"+mo.Modulename);
+                }
+            }
+            else {
+                ModelState.AddModelError(string.Empty, "Please Select different Module");
             }
 
-
            EnrollmentsModel myEnroll = new EnrollmentsModel();
-            myEnroll.ModulesList = studentpayment;
-            ViewBag.Modulelist = studentpayment;
+            myEnroll.ModulesList = studentmodulelist;
+            ViewBag.Modulelist = studentmodulelist;
            /* myEnroll.ModulesList =
                 DbHelper.GetModulelist(_configuration, mystudent).Select(x => new ModuleModel { ModuleCode = x.ModuleCode,
                 ModuleCost = x.ModuleCost , Modulename = x.Modulename , ModuleDescription = x.ModuleDescription, ModuleCredit = x.ModuleCredit }).ToList();
@@ -250,7 +261,7 @@ namespace InternetExplores.Controllers
                 return RedirectToAction(nameof(StudentEnrollement), new { isSuccess = true });
             } else
             {
-                return RedirectToAction(nameof(StudentEnrollement), new { isSuccess = true });
+                return RedirectToAction(nameof(StudentEnrollement), new { isSuccess = false, p = 2 });
             }
         }
 

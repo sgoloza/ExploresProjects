@@ -156,7 +156,7 @@
                     {
                         <div class="col-md-12">
                             <div class="mt-5 text-center">
-                                <input class="btn btn-primary profile-button" type="button" value="Go To Registration" onclick="@("window.location.href='" + @Url.Action("Registration", "Student") + "'");" />
+                                <input class="btn btn-primary profile-button" type="button" value="Go To Register fo a Module" onclick="@("window.location.href='" + @Url.Action("StudentEnrollement", "Student") + "'");" />
                             </div>
                         </div>
                     }
@@ -195,9 +195,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach (PaymentModel payment in ViewBag.StudentPayments)
-                                    {
-
-                                        <tr>
+                                    {     <tr>
                                             <td>@payment.paymenttype</td>
                                             <td>@payment.bankName</td>
                                             <td>@payment.paymentDescription</td>
@@ -210,7 +208,6 @@
                                             </td>
                                         </tr>
                                     }
-
 
                                 </tbody>
                             </table>

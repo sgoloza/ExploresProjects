@@ -11,12 +11,12 @@
     @if (ViewBag.IsSuccess == true)
     {
         <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <strong>Congratulations</strong> You have added new book successfully. <br />
+            <strong>Congratulations</strong> You have added modules successfully. <br />
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div> }
-    else if(Model.ModulesList.Count > 0)
+    else if(Model.ModulesList.Count > 0 && ViewBag.IsSuccess == false)
     {
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
             @Html.ValidationSummary(true, "", new { @class = "field text-danger" })
@@ -59,28 +59,33 @@
                     </div>
 
 
+                }
+                @if (Model.ModulesList.Count > 0)
+                {
+
                     <div class="form-group">
                         <input type="submit" value="Register" class="btn btn-primary" />
                     </div>
 
                 }
-                else
+                @if (Model.ModulesList.Count == 0)
                 {
                     <div class="alert alert-dismissible alert-warning fade show " role="alert">
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         <h4 class="alert-heading">Please Be Advised</h4>
                         <p class="mb-0 text-black">
-                        <strong>
-                         <b>
-                            There are no module avaible at the moment.Please contact our office on-phone:0626972912 or email us at
-                            <a href="mailto: internetExplorersuniversity@gmail.com">internetExplorersuniversity@gmail.com</a>.
-                            We promise to come back to you as soon possible
-                                                      
-                         </b>
-                        </strong>
+                            <strong>
+                                <b>
+                                    There are no module avaible at the moment.Please contact our office on-phone:0626972912 or email us at
+                                    <a href="mailto: internetExplorersuniversity@gmail.com">internetExplorersuniversity@gmail.com</a>.
+                                    We promise to come back to you as soon possible
+
+                                </b>
+                            </strong>
                         </p>
                     </div>
                 }
+
 
 
             </div>

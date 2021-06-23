@@ -24,7 +24,7 @@
 
 
 
-            <div class="col-sm-8 col-9 text-right m-b-20">
+            <div hidden class="col-sm-8 col-9 text-right m-b-20">
                 <a href="add-patient.html" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-eye"></i> View Students</a>
             </div>
         </div>
@@ -38,9 +38,13 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone No</th>
-                                    <th>Degree</th>
+                                    <th>Faculty</th>
                                     <th>Have Financial Support</th>
+                                    <th class="text-right"></th>
+                                    <th class="text-right"></th>
                                     <th class="text-right">Action</th>
+                                    <th class="text-right"></th>
+                                    <th class="text-right"></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,7 +56,7 @@
                                         <td>@item.StudentName &sbquo; @item.StudentSurname </td>
                                         <td>@item.StudentEmail</td>
                                         <td>@item.StudentPhoneNo</td>
-                                        <td>@item.StudentDegree</td>
+                                        <td>@item.StudentFaculty</td>
                                         <td>@item.StudentFinincialStatus</td>
                                         <td class="text-right">
                                             <a href="@(item.idcopyUrl)" class="btn btn-outline-primary" target="_blank">
@@ -61,7 +65,7 @@
                                         </td>
                                         <td class="text-right">
                                             <a href="@(item.matricResultUrl)" class="btn btn-outline-primary" target="_blank">
-                                                Matric result
+                                                 Result
                                             </a>
                                         </td>
                                         <td class="text-right">
