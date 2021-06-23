@@ -5,6 +5,16 @@
 }
 <form class="reg-form" method="post" asp-controller="Student" asp-action="Profile">
     <div class="container rounded bg-white mt-5 mb-5">
+        @if (ViewBag.Udone == true)
+        {
+            ViewBag.Udone = false;
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Congratulations</strong> You have Updated your profile successfully. <br />
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
         <div class="row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -28,42 +38,42 @@
         )
                         </span>
                     }
-@*
+                    @*
                     @if (!(Model.matricResultUrl.ToLower().Equals("null") && Model.idcopyUrl.ToLower().Equals("null") && Model.nextofKinUrl.ToLower().Equals("null")))
                     {*@
-                        @if (Model.idcopyUrl != null)
-                        {
+                    @if (Model.idcopyUrl != null)
+                    {
 
 
-                            <div class="row mt-3">
-                                <h6 class=" text-left">Documents</h6><hr style="border-top: 1px dashed black;width:95%;" />
-                                <div class="col-md-6"><a href="@Model.idcopyUrl" class="btn btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Identity</a></div>
+                        <div class="row mt-3">
+                            <h6 class=" text-left">Documents</h6><hr style="border-top: 1px dashed black;width:95%;" />
+                            <div class="col-md-6"><a href="@Model.idcopyUrl" class="btn btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Identity</a></div>
 
-                                <div class="col-md-6"><a href="@Model.matricResultUrl" class="btn btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Matric Result</a></div>
-                                <br /><br />
-                                <br /><br />
+                            <div class="col-md-6"><a href="@Model.matricResultUrl" class="btn btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Matric Result</a></div>
+                            <br /><br />
+                            <br /><br />
 
-                                @if (!Model.financialProofUrl.ToLower().Equals("null"))
-                                {
-                                    <div class="col-md-6"><a href="@Model.financialProofUrl" class="btn btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Finacial Supp</a></div>
-                                }
-                                <div class="col-md-6"><a href="@Model.financialProofUrl" class="btn  btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Next of kin</a></div>
-                            </div>
-                        }
-                        <br /><br />
-                        @if (ViewBag.PaymentCount > 0)
-                        {
-                            <div class="col">
+                            @if (!Model.financialProofUrl.ToLower().Equals("null"))
+                            {
+                                <div class="col-md-6"><a href="@Model.financialProofUrl" class="btn btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Finacial Supp</a></div>
+                            }
+                            <div class="col-md-6"><a href="@Model.financialProofUrl" class="btn  btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Next of kin</a></div>
+                        </div>
+                    }
+                    <br /><br />
+                    @if (ViewBag.PaymentCount > 0)
+                    {
+                        <div class="col">
 
-                                <a class="btn btn-block  btn-dark btn-sm active" data-toggle="modal" data-target="#exampleModal">
-                                    Payments
-                                </a>
+                            <a class="btn btn-block  btn-dark btn-sm active" data-toggle="modal" data-target="#exampleModal">
+                                Payments
+                            </a>
 
-                            </div>
+                        </div>
 
-                        }
+                    }
 
-                    </div>
+                </div>
             </div>
             <div class="col-md-4 border-right">
                 <div class="p-3 py-5">
@@ -75,18 +85,95 @@
                         <div class="col-md-6"><label class="labels">Surname</label><input asp-for="StudentSurname" type="text" class="form-control" value="@Model.StudentSurname" placeholder="surname"></div>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-md-12"><label class="labels">Phone Number</label><input asp-for="StudentPhoneNo" type="text" class="form-control" placeholder="enter phone number" value="@Model.StudentPhoneNo"></div>
+                        <div class="col-md-12"><label class="labels">Phone Number</label><input type="text" class="form-control" placeholder="enter phone number" value="@Model.StudentPhoneNo"></div>
                         <div class="col-md-12"><label class="labels">Email</label><input asp-for="StudentEmail" type="text" class="form-control" placeholder="enter email id" value="@Model.StudentEmail"></div>
                     </div>
                     <div class="row mt-3">
                         <h6>Address</h6><hr style="border-top: 1px dashed black;width:95%;" />
-                        <div class="col-md-6"><label class="labels">Province</label><input asp-for="Province" type="text" class="form-control" placeholder="Province" value="@Model.Province"></div>
-                        <div class="col-md-6"><label class="labels">City</label><input asp-for="City" type="text" class="form-control" value="@Model.City" placeholder="City"></div>
-                        <div class="col-md-6"><label class="labels">Street Name</label><input asp-for="StreetName" type="text" class="form-control" placeholder="Street Name" value="@Model.StreetName"></div>
-                        <div class="col-md-6"><label class="labels">Postal code</label><input asp-for="PostalCode" type="number" class="form-control" value="@Model.PostalCode" placeholder="Postal code"></div>
+                        <div class="col-md-6"><label class="labels">Province</label><input type="text" class="form-control" placeholder="Province" value="@Model.Province"></div>
+                        <div class="col-md-6"><label class="labels">City</label><input type="text" class="form-control" value="@Model.City" placeholder="City"></div>
+                        <div class="col-md-6"><label class="labels">Street Name</label><input type="text" class="form-control" placeholder="Street Name" value="@Model.StreetName"></div>
+                        <div class="col-md-6"><label class="labels">Postal code</label><input type="number" class="form-control" value="@Model.PostalCode" placeholder="Postal code"></div>
 
                     </div>
-                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Update Profile</button></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="col-md-12">
+                        <div class="mt-5 text-center">
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                Update Profile
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title bg-secondary" id="exampleModalLongTitle">Update Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body bg-white">
+                                    <div class="row mt-3">
+                                        <div class="col-md-12"><label class="labels">Phone Number</label><input asp-for="StudentNo" type="text" class="form-control" placeholder="enter phone number" value="@Model.StudentNo" hidden></div>
+                                        <div class="col-md-12"><label class="labels">Phone Number</label><input asp-for="StudentPhoneNo" type="text" class="form-control" placeholder="enter phone number" value="@Model.StudentPhoneNo" required></div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <h6>Address</h6><hr style="border-top: 1px dashed black;width:95%;" />
+                                        <div class="col-md-6"><label class="labels">Province</label><input asp-for="Province" type="text" class="form-control" placeholder="Province" value="@Model.Province" required></div>
+                                        <div class="col-md-6"><label class="labels">City</label><input asp-for="City" type="text" class="form-control" value="@Model.City" placeholder="City" required></div>
+                                        <div class="col-md-6"><label class="labels">Street Name</label><input asp-for="StreetName" type="text" class="form-control" placeholder="Street Name" value="@Model.StreetName"></div>
+                                        <div class="col-md-6"><label class="labels">Postal code</label><input asp-for="PostalCode" type="number" class="form-control" value="@Model.PostalCode" placeholder="Postal code" required></div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-secondary">
+                                    <button type="button" class="btn btn-outline-dange" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
             </div>
 
@@ -169,7 +256,7 @@
                 }
 
                 .modal-content {
-                    height: 100%; /* = 100% of the .modal-dialog block */
+                    height: 50%; /* = 100% of the .modal-dialog block */
                 }
             </style>
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -195,16 +282,17 @@
                                 </thead>
                                 <tbody>
                                     @foreach (PaymentModel payment in ViewBag.StudentPayments)
-                                    {     <tr>
+                                    {
+                                        <tr>
                                             <td>@payment.paymenttype</td>
                                             <td>@payment.bankName</td>
                                             <td>@payment.paymentDescription</td>
                                             <td>@payment.paymentDate</td>
                                             <td>@payment.paymentAmount</td>
                                             <td class="text-right">
-                                              <a href="@payment.paymentProofUrl" target="_blank" class="btn btn-dark">
-                                                View now
-                                               </a>
+                                                <a href="@payment.paymentProofUrl" target="_blank" class="btn btn-dark">
+                                                    View now
+                                                </a>
                                             </td>
                                         </tr>
                                     }
@@ -219,5 +307,5 @@
                 </div>
             </div>
         </div>
-     </div>
+    </div>
 </form>

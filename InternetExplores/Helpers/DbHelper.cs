@@ -134,6 +134,41 @@ namespace InternetExplores.Helpers
             }
             return i;
         }
+        public static int UpdatetudentProfile(IConfiguration configuration, StudentModel mystudent)
+        {
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            int i;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("UpdateStudentProfile", connection))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@StreetName", mystudent.StreetName);
+                    cmd.Parameters.AddWithValue("@Province", mystudent.Province);
+                    cmd.Parameters.AddWithValue("@City", mystudent.City);
+                    cmd.Parameters.AddWithValue("@PostalCode", mystudent.PostalCode);
+                    cmd.Parameters.AddWithValue("@PhoneNo", mystudent.StudentPhoneNo); 
+                    cmd.Parameters.AddWithValue("@StudentNo", mystudent.StudentNo);
+
+                    connection.Open();
+                    i = cmd.ExecuteNonQuery();
+                    connection.Close();
+                    if (i >= 1)
+                    {
+
+                        //ViewData["Message"] = "New Employee Added Successfully";
+
+                    }
+
+                }
+
+                connection.Close();
+            }
+            return i;
+        }
         public static int UpdateStudentStatus(IConfiguration configuration, StudentAppModel mystudent)
         {
             string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
@@ -936,7 +971,7 @@ namespace InternetExplores.Helpers
                         adminhtml += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b>Admin</b></h4><br />";
                         adminhtml += "<h1 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> Student <b>" + myStudent.StudentName + " " + myStudent.StudentSurname + " have placed an application.</b></h1>";
                         adminhtml += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'></p>";
-                        adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='#' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>To view student application</p>";
+                        adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/Account/Login' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>To view student application</p>";
                         adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p><br />";
                         adminsubject = "New Student Application";
                         html += "</td>";
@@ -955,7 +990,7 @@ namespace InternetExplores.Helpers
                         html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> <b>Update on your applucation</b></h4>";
 
                         html += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'> " + comment+ " </p>";
-                        html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>for application follow up</p><br />";
+                        html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/Account/Login' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>for application follow up</p><br />";
                         html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p>";
 
                         
@@ -970,7 +1005,7 @@ namespace InternetExplores.Helpers
                         adminhtml += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b>Admin</b></h4><br />";
                         adminhtml += "<h1 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> Student <b>" + myStudent.StudentName + " " + myStudent.StudentSurname + " have placed an application.</b></h1>";
                         adminhtml += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'></p>";
-                        adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='#' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>To view student application</p>";
+                        adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/Account/Login' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>To view student application</p>";
                         adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p><br />";
                         adminsubject = "New Student Application";
                         html += "</td>";
@@ -990,8 +1025,8 @@ namespace InternetExplores.Helpers
 
                         html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> <b>We have reciecied your payments</b></h4>";
 
-                        html += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'> " + comment + " </p>";
-                        html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>to view your payment</p><br />";
+                        html += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><b>Description :</b> " + comment + " </p>";
+                        html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/Account/Login' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>to view your payment</p><br />";
                         html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p>";
 
 
@@ -1003,8 +1038,9 @@ namespace InternetExplores.Helpers
                         adminhtml += "<td style='padding:0 0 36px 0;color:#153643;'>";
                         adminhtml += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b>Admin</b></h4><br />";
                         adminhtml += "<h1 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> Student <b>" + myStudent.StudentName + " " + myStudent.StudentSurname + " have made payment.</b></h1>";
+                        adminhtml += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'><b>Description :</b>" + comment + " </p>";
                         adminhtml += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'></p>";
-                        adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='#' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>To view student payment</p>";
+                        adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/Account/Login' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>To view student payment</p>";
                         adminhtml += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Thank you</p><br />";
                         adminsubject = "Student Payment";
                         html += "</td>";
