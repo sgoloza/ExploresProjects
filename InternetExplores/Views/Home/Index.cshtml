@@ -15,7 +15,7 @@
         <div class="jumbotron text-white jumbotron-image shadow" style="background-image: url('@Url.Content("~/Images/grad.jpg")');">
             <div class="card text-white bg-transparent mb-3" style="max-width: 40rem;">
                 <div class="card-body">
-                    <p class="card-text">Internet Explores <b>UNIVERSITY</b></p>
+                    <p class="card-text">Internet Explorers <b>UNIVERSITY</b></p>
                 </div>
             </div>
             <h2 class="mb-4">
@@ -24,7 +24,7 @@
             <p class="mb-4">
                 Hey, check this out.
             </p>
-            <a href="https://bootstrapious.com/snippets" class="btn btn-primary">ABOUT US</a>
+            <a  asp-controller="Home" asp-action="About" class="btn btn-primary">ABOUT US</a>
         </div>
     </div>
     <style>
@@ -45,9 +45,9 @@
 
                 <div class="card text-white bg-dark mb-3 align-self-center" style="max-width:fit-content();">
                     <div class="card-body">
-                        <h4 class="card-title"><button type="button" class="btn btn-outline-info">BECOME A STUDENT</button></h4>
+                        <h4 class="card-title"> <a class="btn btn-primary" asp-controller="Account" asp-action="Register" >BECOME A STUDENT</a> </h4>
                         <p class="card-text">APPLICATION DEADLINE IS SOON</p>
-                        <p class="card-text">Thursday, May 27th, 2021</p>
+                        <p class="card-text">Sunday, June 27, 2021</p>
                     </div>
                 </div>
                 <p id="demo"></p>
@@ -58,7 +58,7 @@
     <div class="card text-black-50 bg-white mb-3" style="max-width:fit-content();">
         <div class="card-body">
             <h4 class="card-title">CURRENT STUDENTS</h4>
-            <p>456</p>
+            <p>@ViewBag.StudentCount</p>
 
         </div>
     </div>
@@ -109,28 +109,28 @@
                         <th scope="row">
                             <div class="card text-white bg-success mb-3" style="max-width: 22rem;">
                                 <div class="card-body">
-                                    <h6>Thanks to Internet Explores <b>UNIVERSITY</b> small college classes, students receive personalized attention and a supportive learning experience to fuel their success.    &nbsp;  </h6>
+                                    <h6>Thanks to Internet Explorers <b>UNIVERSITY</b> small college classes, students receive personalized attention and a supportive learning experience to fuel their success.    &nbsp;  </h6>
                                 </div>
                             </div>
                         </th>
                         <td>
                             <div class="card text-white bg-danger mb-3" style="max-width: 22rem;">
                                 <div class="card-body" >
-                                    <h6>Internet Explores <b>UNIVERSITY</b> is an accredited,South African online University. Our academic leadership includes scholars from the best schools around the South Africa.    &nbsp;   &nbsp;   </h6>
+                                    <h6>Internet Explorers <b>UNIVERSITY</b> is an accredited,South African online University. Our academic leadership includes scholars from the best schools around the South Africa.    &nbsp;   &nbsp;   </h6>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="card text-white bg-warning mb-3" style="max-width: 22rem;">
                                 <div class="card-body" >
-                                    <h6>Internet Explores <b>UNIVERSITY</b> is a 100% online college. Control your schedule by studying anytime and anywhere you want - at home, work, or even on the move. &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; </h6>
+                                    <h6>Internet Explorers <b>UNIVERSITY</b> is a 100% online college. Control your schedule by studying anytime and anywhere you want - at home, work, or even on the move. &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; </h6>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="card text-white bg-info mb-3" style="max-width: 22rem;">
                                 <div class="card-body">
-                                    <h6>Internet Explores <b>UNIVERSITY</b> doesn’t charge for college courses, course materials, or annual enrollment. We do charge minimal processing fees to keep Internet Explores <b>UNIVERSITY</b> running.</h6>
+                                    <h6>Internet Explorers <b>UNIVERSITY</b> doesn’t charge for college courses, course materials, or annual enrollment. We do charge minimal processing fees to keep Internet Explorers <b>UNIVERSITY</b> running.</h6>
                                 </div>
                             </div>
                         </td>
@@ -144,7 +144,7 @@
 
     <script>
         // Set the date we're counting down to
-        var countDownDate = new Date("Jan 5, 2022 00:00:00").getTime();
+        var countDownDate = new Date("June 27, 2021 00:00:00").getTime();
 
         // Update the count down every 1 second
         var x = setInterval(function () {

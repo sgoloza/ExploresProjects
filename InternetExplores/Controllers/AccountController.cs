@@ -30,6 +30,8 @@ namespace InternetExplores.Controllers
         {
             return View();
         }
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
@@ -50,7 +52,9 @@ namespace InternetExplores.Controllers
 
                 if (result.Succeeded)
                 {
+
                     DbHelper.RegistrationOfStudent(_configuration, model);
+
                     await _signInManager.SignInAsync(user, isPersistent: false);
 
                     return RedirectToAction("index", "Home");
@@ -80,11 +84,24 @@ namespace InternetExplores.Controllers
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
-
+                // User.Identity.IsAuthenticated
+               
                 if (result.Succeeded)
                 {
-                    
-                    return RedirectToAction("Index", "Home");
+                    StudentModel mystudent = DbHelper.GetAllStudent(_configuration, user.Email.ToString());
+                    if (mystudent.StudentEmail == null)
+                    {
+                        
+                        return RedirectToAction("Index", "Admin");
+                    }
+                    else if (mystudent.StudentEmail == user.Email)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else {
+                        return RedirectToAction("Login");
+                    }
+                   
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");

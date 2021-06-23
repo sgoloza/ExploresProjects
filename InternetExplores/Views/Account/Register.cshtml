@@ -36,6 +36,11 @@
             <label for="floatingPassword" asp-for="StudentPhoneNo">Phone No</label>
             <span asp-validation-for="StudentPhoneNo" class="field text-danger"></span>
         </div>
+        <div class="form-floating mb-3">
+            <input type="date" asp-for="StudentDateOfBirth" class="form-control" id="floatingPassword" min="1900-01-01" max="2021-09-18" placeholder="Date Of Birth" required>
+            <label for="floatingPassword" asp-for="StudentDateOfBirth">Date Of Birth</label>
+            <span asp-validation-for="StudentDateOfBirth" class="field"></span>
+        </div>
         <div class="form-group">
             <label asp-for="StudentGender" class="form-label mt-4">Gender</label>
             <select asp-for="StudentGender" class="form-select" id="exampleSelect1">
@@ -49,7 +54,7 @@
             <span asp-validation-for="Email" class="field text-danger"></span>
         </div>
         <div class="form-floating  mb-3">
-            <input type="password" class="form-control" id="floatingPassword" asp-for="Password" placeholder="Password" required>
+            <input  data-bs-toggle="tooltip" data-bs-placement="right" title="Uppercase characters (A-Z) Lowercase characters (a-z) Digits (0-9)" type="password" class="form-control" id="floatingPassword" asp-for="Password" placeholder="Password" required>
             <label for="floatingPassword" asp-for="Password">Password</label>
             <span asp-validation-for="Password" class="field text-danger"></span>
         </div>
@@ -57,7 +62,7 @@
             <input type="password" asp-for="ConfirmPassword" class="form-control" id="floatingPassword" placeholder="Password" required>
             <label for="floatingPassword" asp-for="ConfirmPassword">Confirm Password</label>
             <span asp-validation-for="ConfirmPassword" class="field text-danger"></span>
-         
+
         </div>
         <button type="submit" class="btn btn-primary my-2 my-sm-0">Register</button>
     </div>

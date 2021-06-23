@@ -35,7 +35,7 @@ namespace InternetExplores.Controllers
         {
             return View();
         }
-        
+         [Authorize]
         public  IActionResult Registration(bool isSuccess = false) {
             ViewBag.IsSuccess = isSuccess;
             return View();
@@ -72,6 +72,7 @@ namespace InternetExplores.Controllers
                    
             }
                 i = DbHelper.insertSudentsDocuments(_configuration, myStudent);
+            myStudent.StudentDegree = myStudent.StudentFaculty;
                 j = DbHelper.UpdatetudentDetails(_configuration, myStudent);
                 DbHelper.SendEmails("Registration", DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()));
             if ( j > 0)
@@ -90,7 +91,8 @@ namespace InternetExplores.Controllers
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
 
             StudentFiles studentFile = DbHelper.GetAllStudentDocuments(_configuration, mystudent.StudentNo);
-            if (!studentFile.idcopyUrl.ToLower().Equals("null"))
+            string url = studentFile.idcopyUrl;
+            if (url != null)
             {
                 mystudent.nextofKinUrl = studentFile.nextofKinUrl;
                 mystudent.idcopyUrl = studentFile.idcopyUrl;
@@ -245,13 +247,11 @@ namespace InternetExplores.Controllers
                 }
                 DbHelper.StudentEnrollemt(_configuration, enrollments);
                 DbHelper.setStudentBalance(_configuration, studentBalance, enrollments.StudentNo);
-                return RedirectToAction(nameof(StudentEnrollement), new { isSuccess = false });
+                return RedirectToAction(nameof(StudentEnrollement), new { isSuccess = true });
             } else
             {
                 return RedirectToAction(nameof(StudentEnrollement), new { isSuccess = true });
             }
-
-        
         }
 
     }

@@ -2,13 +2,13 @@
 using InternetExplores.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace InternetExplores.Controllers
 {
    
@@ -19,9 +19,12 @@ namespace InternetExplores.Controllers
         private readonly IConfiguration _configuration;
         private readonly AppDBContext _dbContext;
         private readonly IWebHostEnvironment _webHostEnvironment;
-
-        public AdminController(IConfiguration configuration, AppDBContext dbContext, IWebHostEnvironment webHostEnvironment)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        public AdminController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration, AppDBContext dbContext, IWebHostEnvironment webHostEnvironment)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _configuration = configuration;
             _dbContext = dbContext;
             _webHostEnvironment = webHostEnvironment;
@@ -37,6 +40,7 @@ namespace InternetExplores.Controllers
         }
         
         [HttpPost]
+        [Authorize]
         public IActionResult Index( StudentModel mystudent)
         {
             DbHelper.SelectAllStudents(_configuration, allStudent);
@@ -125,6 +129,7 @@ namespace InternetExplores.Controllers
             ViewBag.StudentPaymentslist = allStudentpayments;
             return View();
         }
+        [Authorize]
         public IActionResult ModuleDetails( string ModuleCode ,ModuleDeatilsModel mydetails)
         { 
             
@@ -159,7 +164,7 @@ namespace InternetExplores.Controllers
             }
             return View();
         }
-     
+        [Authorize]
         public IActionResult NewModule( ModuleModel mymodel , bool sucess = false) {
 
 
@@ -169,6 +174,71 @@ namespace InternetExplores.Controllers
             }
             ViewBag.MSucess = sucess;
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> AdminRegister( bool isdone = false )
+        {
+            /*if (model.AdminName != null) {
+
+                if (ModelState.IsValid)
+                {
+                    var user = new IdentityUser
+                    {
+                        UserName = model.AdminEmail,
+                        Email = model.AdminEmail,
+                    };
+
+                    var result = await _userManager.CreateAsync(user, model.password);
+
+                    if (result.Succeeded)
+                    {
+                        DbHelper.RegistrationOfAdmin(_configuration, model);
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("index", "Admin");
+                    }
+                    ModelState.AddModelError(string.Empty, "Registering failed");
+                    ViewBag.regError = true;
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
+                return View(model);
+            }
+            */
+            ViewBag.done = isdone;
+            return View();
+        }
+
+            public async Task<IActionResult> AdminRegister(AdminModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser
+                {
+                    UserName = model.AdminEmail,
+                    Email = model.AdminEmail,
+                };
+
+                var result = await _userManager.CreateAsync(user, model.password);
+
+                if (result.Succeeded)
+                {
+
+                    DbHelper.RegistrationOfAdmin(_configuration, model);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("AdminRegister", "Admin");
+                }
+                ModelState.AddModelError(string.Empty, "Registering failed");
+                ViewBag.regError = true;
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                ViewBag.regError = true;
+
+            }
+            return View(model);
         }
     }
 }

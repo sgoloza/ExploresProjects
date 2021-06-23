@@ -68,7 +68,7 @@
                     </div>
                 </div>
             </nav>*@
-        <nav class="navbar  navbar-expand-lg navbar-light bg-white">
+        <nav class="navbar  navbar-expand-lg navbar-light bg-white text-capitalize text-black">
             <style>
                 .logoIE {
                     height: auto;
@@ -82,35 +82,38 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand @Url.MakeActiveClass("home","index")" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/Images/LogoIE.PNG" class="logoIE" />
                 </a>
                 <div class="collapse navbar-collapse" id="navbarColor02">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link active text-dark" asp-controller="Home" asp-action="Index">
-                                Home
-                                <span class="visually-hidden">(current)</span>
+                            <a class="nav-link active text-dark  @Url.MakeActiveClass("home","index")" asp-controller="Home" asp-action="Index">
+                                        <h4>
+                                    Home
+                                        </h4>
+                                     <span class="visually-hidden">(current)</span>
                             </a>
                         </li>
+                        @*      <li class="nav-item">
+            <a class="nav-link text-dark" href="#">What We offer</a>
+        </li>*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">What We offer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="About">About</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="About"><h4>About-Us</h4></a>
                         </li>
 
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Student" asp-action="StudentEnrollement">Module Registration</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Registration"><h4>Student Application</h4></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MakePayment">Payment</a>
+                                <a class="nav-link text-dark" asp-controller="Student" asp-action="StudentEnrollement"><h4>Register for a Module</h4></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Registration">Student Application</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MakePayment"><h4>Payment</h4></a>
                             </li>
+
                         }
                     </ul>
                     <form class="d-flex">
@@ -119,19 +122,19 @@
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Profile">My profile</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Profile"><h4>My profile</h4></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout"><h4>Logout</h4></a>
                                     </li>
                                 }
                                 else
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login"><h4>Login</h4></a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register"><h4>Register</h4></a>
                                     </li>
                                 }
 
@@ -204,25 +207,25 @@
                         <tr>
                             <td scope="col">
                                 <div class="card-body">
-                                    <a href="#" class="fa fa-facebook"></a>
+                                  @*  <a href="#" class="fa fa-facebook"></a>*@
                                 </div>
 
                             </td>
                             <td scope="col">
                                 <div class="card-body">
-                                    <a href="#" class="fa fa-linkedin"></a>
+                                    @*<a href="#" class="fa fa-linkedin"></a>*@
                                 </div>
 
                             </td>
                             <td scope="col">
                                 <div class="card-body">
-                                    <a href="#" class="fa fa-twitter"></a>
+                                    @*<a href="#" class="fa fa-twitter"></a>*@
                                 </div>
 
                             </td>
                             <td scope="col">
                                 <div class="card-body">
-                                    <a href="#" class="fa fa-instagram"></a>
+                                  @*  <a href="#" class="fa fa-instagram"></a>*@
                                 </div>
 
                             </td>
@@ -232,7 +235,7 @@
 
             </div>
             <div class="container text-center text-white">
-                &copy; 2021 - Internet Explores <b>UNIVERSITY</b> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                &copy; 2021 - Internet Explorers <b>UNIVERSITY</b> - <a asp-area="" asp-controller="Home" asp-action="About">About-Us</a>
             </div>
         </div>
 
