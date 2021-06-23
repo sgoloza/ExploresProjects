@@ -83,7 +83,11 @@ namespace InternetExplores.Controllers
                 return View();
         }
         [Authorize]
-        public IActionResult Profile()
+        public IActionResult EditProfile()
+        {
+            return View();
+        }
+        public IActionResult Profile(bool isdone = false)
         {
             //DbHelper.SendEmails("Registration", DbHelper.GetAllStudent(_configuration, "kwaneleluthan@gmail.com"));
             
@@ -131,14 +135,15 @@ namespace InternetExplores.Controllers
             ViewBag.moduleCount = listOfmodules.Count;
             ViewBag.Total = total;
             ViewBag.Credits = credits;
-
+            ViewBag.Udone = isdone;
             return View(mystudent);
         }
         [HttpPost]
         public IActionResult Profile( StudentModel mystudent)
         {
-           
-            return View();
+           int  j = DbHelper.UpdatetudentProfile(_configuration, mystudent);
+
+            return RedirectToAction(nameof(Profile), new { isdone = true });
         }
         private async Task<string> UploadImage(string folderPath, IFormFile file)
             {
@@ -176,7 +181,7 @@ namespace InternetExplores.Controllers
 
                     }
                    int j =  DbHelper.InsertStudentpayment(_configuration, payment);
-                DbHelper.SendEmails("Payment", DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()));
+                DbHelper.SendEmails("Payment", DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()), payment.paymentDescription);
                 ViewBag.Error = false;
                 return RedirectToAction(nameof(MakePayment), new { isSuccess = true });
 

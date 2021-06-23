@@ -35,9 +35,9 @@
                         <input asp-for="paymentAmount" class="form-control" id="floatingInput" required>
                         <label for="floatingInput">Amount</label>
                         <span asp-validation-for="paymentAmount" class="field"></span>
-                    </div>
+                    </div>@*max="@(DateTime.Now.ToString().Substring(13))"*@
                     <div class="form-floating">
-                        <input type="date" asp-for="paymentDate" class="form-control" id="floatingPassword" min="1900-01-01" max="2021-09-18" placeholder="Date Of Birth" required>
+                        <input type="date" asp-for="paymentDate" class="form-control" id="floatingPassword"  max="@(DateTime.Now.Year+"-"+DateTime.Now.Month+"-"+DateTime.Now.Day)" placeholder="Date Of Birth" required>
                         <label for="floatingPassword">Date</label>
                         <span asp-validation-for="paymentDate" class="field"></span>
                     </div>
