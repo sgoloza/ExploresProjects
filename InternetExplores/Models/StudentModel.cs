@@ -136,6 +136,7 @@ namespace InternetExplores.Models
         public string Applicationcomment { get; set; }
         public string  ApplicationStatus { get; set; }
 
-         
+        public string registeredStatus { get; set; }
+
     }
 }

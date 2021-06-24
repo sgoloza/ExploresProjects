@@ -102,23 +102,38 @@
                             </a>
                         </li>
                         @*      <li class="nav-item">
-                            <a class="nav-link text-dark" href="#">What We offer</a>
-                        </li>*@
+            <a class="nav-link text-dark" href="#">What We offer</a>
+        </li>*@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="About"><h4>About-Us</h4></a>
                         </li>
 
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Registration"><h4>Student Application</h4></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Student" asp-action="StudentEnrollement"><h4>Register for a Module</h4></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MakePayment"><h4>Payment</h4></a>
-                            </li>
+                            if (User.IsInRole("Student"))
+                            {
+                                if (ViewBag.ApplicationStatus == "Not registered")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Registration"><h4>Student Application</h4></a>
+                                    </li>
+                                }
+                                if (ViewBag.ApplicationStatus == "Successful" && ViewBag.RegiStatus == "No")
+                                {
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-controller="Student" asp-action="StudentEnrollement"><h4>Register for a Module</h4></a>
+                                    </li>
+                                }
+                                if (ViewBag.ApplicationStatus == "Successful")
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MakePayment"><h4>Payment</h4></a>
+                                    </li>
+                                }
+
+                            }
+
 
                         }
                     </ul>
@@ -127,9 +142,14 @@
                             <ul class="navbar-nav align-self-end">
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Profile"><h4>My profile</h4></a>
-                                    </li>
+                                    if (User.IsInRole("Student"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Profile"><h4>My profile</h4></a>
+                                        </li>
+                                    }
+
+
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Logout"><h4>Logout</h4></a>
                                     </li>

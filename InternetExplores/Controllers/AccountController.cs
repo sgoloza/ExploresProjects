@@ -18,13 +18,15 @@ namespace InternetExplores.Controllers
         private readonly AppDBContext _dbContext;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager,IConfiguration configuration, AppDBContext dbContext)
+        public AccountController(RoleManager<IdentityRole> roleManager , UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager,IConfiguration configuration, AppDBContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
             _dbContext = dbContext;
+            _roleManager = roleManager;
         } 
         public IActionResult Index()
         {
@@ -56,7 +58,7 @@ namespace InternetExplores.Controllers
                     DbHelper.RegistrationOfStudent(_configuration, model);
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-
+                    await _userManager.AddToRoleAsync(user, "Student");
                     return RedirectToAction("index", "Home");
                 }
                 ModelState.AddModelError(string.Empty, "Registering failed");

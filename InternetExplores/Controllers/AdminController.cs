@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace InternetExplores.Controllers
 {
-   
+    [Authorize(Roles = "General,Admin")]
     public class AdminController : Controller
     { 
         
@@ -361,6 +361,14 @@ namespace InternetExplores.Controllers
 
                     DbHelper.RegistrationOfAdmin(_configuration, model);
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    if (model.AdminType == "Super")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else {
+                        await _userManager.AddToRoleAsync(user, "General");
+                    }
+                    
                     return RedirectToAction("AdminRegister", "Admin");
                 }
                 ModelState.AddModelError(string.Empty, "Registering failed");
