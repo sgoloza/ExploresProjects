@@ -439,6 +439,9 @@ namespace InternetExplores.Helpers
                                 {
                                     student.ApplicationStatus = reader["ApplicationStatus"].ToString();
                                 }
+                                if (reader["registered"] != DBNull.Value) {
+                                    student.registeredStatus = reader["registered"].ToString();
+                                }
                             }
                         }  
                     } 

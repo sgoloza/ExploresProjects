@@ -33,6 +33,10 @@ namespace InternetExplores.Controllers
             ViewBag.StudentCount= DbHelper.ActiveStudents(_configuration);
             TimerViewModel model = new TimerViewModel();
             TempData["EndTime"] = ViewData["EndTime"];
+            ViewBag.ApplicationStatus =  DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+            
+            ViewBag.RegiStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+            ViewBag.ApplicationStatus = "";
             return View(model);
 
         }

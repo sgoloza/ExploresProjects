@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace InternetExplores.Controllers
 {
+    [Authorize(Roles = "Student")]
     public class StudentController : Controller
     {
         private readonly IConfiguration _configuration;
@@ -36,12 +37,14 @@ namespace InternetExplores.Controllers
             return View();
         }
          [Authorize]
+        [Authorize(Roles = "Student")]
         public  IActionResult Registration(bool isSuccess = false) {
             ViewBag.IsSuccess = isSuccess;
             return View();
         }
         [HttpPost]
         [Authorize]
+        [Authorize(Roles = "Student")]
         public async Task<IActionResult> Registration(StudentModel myStudent)
         {
             StudentModel student = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
@@ -83,10 +86,12 @@ namespace InternetExplores.Controllers
                 return View();
         }
         [Authorize]
+        [Authorize(Roles = "Student")]
         public IActionResult EditProfile()
         {
             return View();
         }
+        [Authorize(Roles = "Student")]
         public IActionResult Profile(bool isdone = false)
         {
             //DbHelper.SendEmails("Registration", DbHelper.GetAllStudent(_configuration, "kwaneleluthan@gmail.com"));
@@ -139,6 +144,7 @@ namespace InternetExplores.Controllers
             return View(mystudent);
         }
         [HttpPost]
+        [Authorize(Roles = "Student")]
         public IActionResult Profile( StudentModel mystudent)
         {
            int  j = DbHelper.UpdatetudentProfile(_configuration, mystudent);
@@ -159,6 +165,7 @@ namespace InternetExplores.Controllers
 
 
          [Authorize]
+        [Authorize(Roles = "Student")]
         public ActionResult MakePayment(bool isSuccess = false)
         {
         
