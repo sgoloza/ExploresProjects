@@ -53,12 +53,56 @@ namespace InternetExplores.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult StudentsList(bool isSuccess = false)
+        public IActionResult StudentsList(int pageNumber = 1, bool isSuccess = false, string searchString = "")
         {
+            int pageSize = 15;
+            int skipBy = pageSize * (pageNumber - 1);
+
+
             List<StudentModel> allStudents = new List<StudentModel>();
-            allStudents = DbHelper.SelectAllStudents(_configuration, allStudents);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+
+            }
+            else
+            {
+                allStudents = GetListOfStudents(_configuration, skipBy, pageNumber, pageSize);
+            }
+
+            int count = allStudents.Count();
+            int capacity = skipBy + pageSize;
+
+            bool nextPage = count > capacity;
+            int pageCount = (int)Math.Ceiling(1.0 * count / pageSize);
+
+            ViewData["pageNumber"] = pageNumber;
+            ViewData["nextPage"] = nextPage;
+            ViewData["pageCount"] = pageCount;
+
+
             ViewBag.IsSuccess = isSuccess;
-            return View(allStudents);
+            return View(allStudents.OrderByDescending(a => a.StudentNo)
+                .Skip(skipBy)
+                .Take(pageSize)
+                );
+        }
+
+            private List<StudentModel> GetListOfStudents(IConfiguration configuration, int pageNumber, int Skipby, int pageSize) {
+
+            List<StudentModel> allStudent = new List<StudentModel>();
+            allStudent=  DbHelper.SelectAllStudents(_configuration, allStudent);
+            int count = allStudent.Count();
+            int capacity = Skipby + pageSize;
+
+            bool nextPage = count > capacity;
+            int pageCount = (int)Math.Ceiling(1.0 * count / pageSize);
+
+            ViewData["pageNumber"] = pageNumber;
+            ViewData["nextPage"] = nextPage;
+            ViewData["pageCount"] = pageCount;
+
+            return allStudent;
         }
         [Authorize]
         [HttpGet]
@@ -98,21 +142,92 @@ namespace InternetExplores.Controllers
             return View();
         }
         [Authorize]
-        public IActionResult ModuleList(bool Success = false) {
-            ViewBag.lSuccess = Success;
-            ViewBag.listOfModules = DbHelper.allmodules( _configuration);
-            return View();
+        public IActionResult ModuleList( int pageNumber = 1, bool lSuccess = false, string searchString = "") {
+            ViewBag.lSuccess = lSuccess;
+           
+            int pageSize = 15;
+            int skipBy = pageSize * (pageNumber - 1);
+
+
+            List<ModuleModel> allStudents = new List<ModuleModel>();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+
+            }
+            else
+            {
+                allStudents = GetListOfModules(_configuration, skipBy, pageNumber, pageSize);
+            }
+
+            int count = allStudents.Count();
+            int capacity = skipBy + pageSize;
+
+            bool nextPage = count > capacity;
+            int pageCount = (int)Math.Ceiling(1.0 * count / pageSize);
+
+            ViewData["pageNumber"] = pageNumber;
+            ViewData["nextPage"] = nextPage;
+            ViewData["pageCount"] = pageCount;
+
+            return View(allStudents.OrderByDescending(a => a.ModuleCredit)
+                .Skip(skipBy)
+                .Take(pageSize)
+                );
+        }
+        private List<ModuleModel> GetListOfModules(IConfiguration configuration, int pageNumber, int Skipby, int pageSize)
+        {
+
+            List<ModuleModel> allStudent = new List<ModuleModel>();
+            allStudent = DbHelper.allmodules(_configuration);
+            int count = allStudent.Count();
+            int capacity = Skipby + pageSize;
+
+            bool nextPage = count > capacity;
+            int pageCount = (int)Math.Ceiling(1.0 * count / pageSize);
+
+            ViewData["pageNumber"] = pageNumber;
+            ViewData["nextPage"] = nextPage;
+            ViewData["pageCount"] = pageCount;
+
+            return allStudent;
         }
         public IActionResult Faculties() {
 
             return View();
         }
         [Authorize]
-        public IActionResult NewPayments( int payentid, int studentNO, bool isSucess  = false ) {
-            List<PaymentModel> allStudentpayments = DbHelper.getAllNewStudentsPayments(_configuration);
+        public IActionResult NewPayments( int payentid, int studentNO, int pageNumber = 1, string searchString = "", bool isSucess  = false ) {
+            List<PaymentModel> allStudentpayments = new List<PaymentModel>(); ;
+
+            int pageSize = 15;
+            int skipBy = pageSize * (pageNumber - 1);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+
+            }
+            else
+            {
+                allStudentpayments = GetListOfNewPayments(_configuration, skipBy, pageNumber, pageSize);
+            }
+
+            int count = allStudentpayments.Count();
+            int capacity = skipBy + pageSize;
+
+            bool nextPage = count > capacity;
+            int pageCount = (int)Math.Ceiling(1.0 * count / pageSize);
+
+            ViewData["pageNumber"] = pageNumber;
+            ViewData["nextPage"] = nextPage;
+            ViewData["pageCount"] = pageCount;
+
+
+
             if (payentid != 0 & studentNO != 0) {
+                List<PaymentModel> allStudentpayment = DbHelper.getAllNewStudentsPayments(_configuration);
                 double amount = 0.0;
-                foreach (PaymentModel py in allStudentpayments)
+                foreach (PaymentModel py in allStudentpayment)
                 {
                     if (py.paymentID == payentid) {
                         amount = Double.Parse(py.paymentAmount.ToString());
@@ -120,15 +235,34 @@ namespace InternetExplores.Controllers
 
                 }
                 ViewBag.IsSuccess = true;
+
                 DbHelper.setStudentBalanceAdmin(_configuration, amount, studentNO);
                 DbHelper.updateStudentPaymentStatus(_configuration, payentid);
                 return RedirectToAction(nameof(NewPayments), new { isSuccess = true });
                 
             }
-            
-            ViewBag.StudentPaymentslist = allStudentpayments;
-            return View();
+            return View(allStudentpayments.OrderByDescending(a => a.StudentNo)
+                .Skip(skipBy)
+                .Take(pageSize)
+                );
         }
+        private List<PaymentModel> GetListOfNewPayments(IConfiguration configuration, int pageNumber, int Skipby, int pageSize)
+        {
+            List<PaymentModel> allStudent = new List<PaymentModel>();
+            allStudent = DbHelper.getAllNewStudentsPayments(_configuration);
+            int count = allStudent.Count();
+            int capacity = Skipby + pageSize;
+
+            bool nextPage = count > capacity;
+            int pageCount = (int)Math.Ceiling(1.0 * count / pageSize);
+
+            ViewData["pageNumber"] = pageNumber;
+            ViewData["nextPage"] = nextPage;
+            ViewData["pageCount"] = pageCount;
+
+            return allStudent;
+        }
+
         [Authorize]
         public IActionResult ModuleDetails( string ModuleCode ,ModuleDeatilsModel mydetails)
         { 
@@ -159,7 +293,7 @@ namespace InternetExplores.Controllers
                     mydetails.ModuleDescription = descr;
                     DbHelper.UpdatesModuleDetails(_configuration, mydetails);
                 }
-                return RedirectToAction(nameof(ModuleList), new { Success = true });
+                return RedirectToAction(nameof(ModuleList), new { lSuccess = true });
                
             }
             return View();

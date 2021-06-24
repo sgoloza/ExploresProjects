@@ -1017,7 +1017,7 @@ namespace InternetExplores.Helpers
                         break;
                     case "Payment":
                         html += "<tr>";
-                        subject = "Payment Nitification";
+                        subject = "Payment Notification";
                         html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'>Dear <b> " + myStudent.StudentName + " " + myStudent.StudentSurname + "</b></h4><br />";
                         html += "<td style='padding:0 0 36px 0;color:#153643;'>";
 
