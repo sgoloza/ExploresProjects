@@ -382,5 +382,10 @@ namespace InternetExplores.Controllers
             }
             return View(model);
         }
+
+        public IActionResult Reports() {
+
+            return View();
+        }
     }
 }
