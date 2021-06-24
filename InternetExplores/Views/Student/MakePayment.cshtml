@@ -10,7 +10,7 @@
     {
         <div class="alert alert-primary alert-dismissible fade show" role="alert">
             <strong>Thank you.</strong> You have submitted your payment successfully. <br />
-            Click <a asp-controller="Student" asp-action="Profile" >here</a> to view payment detaials
+            Click <a asp-controller="Student" asp-action="Profile">here</a> to view payment detaials
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -32,12 +32,12 @@
                 <div class="form-group">
 
                     <div class="form-floating mb-3">
-                        <input asp-for="paymentAmount" class="form-control" id="floatingInput" required>
+                        <input asp-for="paymentAmount" class="form-control" id="floatingInput" type="number" required>
                         <label for="floatingInput">Amount</label>
                         <span asp-validation-for="paymentAmount" class="field"></span>
                     </div>@*max="@(DateTime.Now.ToString().Substring(13))"*@
                     <div class="form-floating">
-                        <input type="date" asp-for="paymentDate" class="form-control" id="floatingPassword"  max="@(DateTime.Now.Year+"-"+DateTime.Now.Month+"-"+DateTime.Now.Day)" placeholder="Date Of Birth" required>
+                        <input type="date" asp-for="paymentDate" class="form-control" id="floatingPassword" max="@(DateTime.Now.Year+"-"+DateTime.Now.Month+"-"+DateTime.Now.Day)" placeholder="Date Of Birth" required>
                         <label for="floatingPassword">Date</label>
                         <span asp-validation-for="paymentDate" class="field"></span>
                     </div>
@@ -74,7 +74,7 @@
 
                     <div class="form-group">
                         <label asp-for="paymentDescription" class="form-label mt-4">Description</label>
-                        <textarea asp-for="paymentDescription" class="form-control" id="exampleTextarea" rows="3"></textarea>
+                        <textarea asp-for="paymentDescription"  class="form-control" id="exampleTextarea" rows="3"></textarea>
                         <span asp-validation-for="paymentDescription" class="field"></span>
                     </div>
 
@@ -85,5 +85,32 @@
         <br />
 
     </div>
-    <input type="submit" value="Send request" class="btn btn-primary align-self-center" />
+    <input type="button" value="Make Payment" class="btn btn-primary align-self-center" data-toggle="modal" data-target="#UpadateConfirmation" />
+    <style>
+        #UpadateConfirmation {
+            height: -20%; /* = 100% of the .modal-dialog block */
+            position: center;
+        }
+    </style>
+
+    <div class="modal fade" id="UpadateConfirmation" tabindex="-1" role="dialog" aria-labelledby="UpadateConfirmationlable" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-info">
+                <div class="modal-header bg-secondary">
+                    <h5 class="modal-title text-black" id="exampleModalTitle">Are You Sure ?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-white align-content-center">
+                    <button type="button" class="btn bg-danger text-white" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+                <div class="modal-footer bg-secondary">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </form>
