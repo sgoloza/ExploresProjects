@@ -11,7 +11,16 @@
     {
         <div class="alert alert-primary alert-dismissible fade show" role="alert">
             <strong>Thank you</strong> You have placed your application successfully. <br />
-            Click <a asp-controller="Student" asp-action="Profile" >here</a> to view the details
+            Click <a asp-controller="Student" asp-action="Profile">here</a> to view the details
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    @if (ViewBag.regError == true)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @Html.ValidationSummary(true, "", new { @class = "field text-danger" })
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -22,7 +31,6 @@
 
     <input asp-for="StudentName" hidden />
     <input asp-for="StudentSurname" hidden />
-    <input asp-for="StudentIdNo" hidden />
     <input asp-for="StudentDateOfBirth" hidden />
     <input type="tel" asp-for="StudentPhoneNo" hidden />
     <input type="tel" asp-for="StudentGender" hidden />
@@ -74,7 +82,7 @@
         </select>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" hidden>
         <label class="form-label mt-4 text-black">Faculty</label>
         <select asp-for="StudentFaculty" class="form-select">
             <option selected value="Edu"> Education </option>
@@ -85,15 +93,16 @@
             <option value="Sci&Agric"> Science and Agriculture </option>
         </select>
     </div>
-    <div class="form-group" hidden>
+    <div class="form-group">
         <label class="form-label mt-4 text-black">Degree</label>
-        <select asp-for="StudentFaculty" class="form-select">
-            <option selected value="Edu"> Education </option>
-            <option value="Eng">Engineering </option>
-            <option value="HSci"> Health Sciences </option>
-            <option value="HumD&SScis"> Humanities, Dev & Social Sciences </option>
-            <option value="Law&IT"> Law and Infromation Technology </option>
-            <option value="Sci&Agric"> Science and Agriculture </option>
+        <select asp-for="StudentDegree" class="form-select">
+            <option selected value="Bachelor of Commerce"> Bachelor of Commerce </option>
+            <option value="Bachelor of Medical Sciences">Bachelor of Medical Sciences </option>
+            <option value="Bachelor of Science">Bachelor of Science</option>
+            <option value="Bachelor of Arts"> Bachelor of Arts </option>
+            <option value="Bachelor of Education">Bachelor of  Education </option>
+            <option value="Bachelor of Engineering">Bachelor of Engineering</option>
+            <option value="Bachelor of Social Sciences">Bachelor of Social Sciences</option>
         </select>
     </div>
     <div class="form-group">

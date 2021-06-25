@@ -7,6 +7,7 @@
 
 @if (ViewBag.regError == true)
 {
+    ViewBag.regError = false;
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
     @Html.ValidationSummary(true, "", new { @class = "field text-danger" })
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -27,19 +28,14 @@
             <span asp-validation-for="StudentSurname" class="field text-danger"></span>
         </div>
         <div class="form-floating  mb-3">
-            <input type="text" asp-for="StudetntIdNo" class="form-control" id="floatingPassword" placeholder="Identity No" onkeypress="OnlyNumber(this);" required>
-            <label for="floatingPassword" asp-for="StudetntIdNo">Identity No</label>
-            <span asp-validation-for="StudetntIdNo" class="field text-danger"></span>
+            <input type="text" asp-for="StudentIdNo" class="form-control" id="floatingPassword" placeholder="Identity No" onkeypress="OnlyNumber(this);" required>
+            <label for="floatingPassword" asp-for="StudentIdNo">Identity No</label>
+            <span asp-validation-for="StudentIdNo" class="field text-danger"></span>
         </div>
         <div class="form-floating  mb-3">
             <input type="tel" asp-for="StudentPhoneNo" class="form-control" id="floatingPassword" placeholder="Phone No" required>
             <label for="floatingPassword" asp-for="StudentPhoneNo">Phone No</label>
             <span asp-validation-for="StudentPhoneNo" class="field text-danger"></span>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="date" asp-for="StudentDateOfBirth" class="form-control" id="floatingPassword" min="1900-01-01" max="2021-09-18" placeholder="Date Of Birth" required>
-            <label for="floatingPassword" asp-for="StudentDateOfBirth">Date Of Birth</label>
-            <span asp-validation-for="StudentDateOfBirth" class="field"></span>
         </div>
         <div class="form-group">
             <label asp-for="StudentGender" class="form-label mt-4">Gender</label>
@@ -54,7 +50,7 @@
             <span asp-validation-for="Email" class="field text-danger"></span>
         </div>
         <div class="form-floating  mb-3">
-            <input  data-bs-toggle="tooltip" data-bs-placement="right" title="Uppercase characters (A-Z) Lowercase characters (a-z) Digits (0-9)" type="password" class="form-control" id="floatingPassword" asp-for="Password" placeholder="Password" required>
+            <input data-bs-toggle="tooltip" data-bs-placement="right" title="Uppercase characters (A-Z) Lowercase characters (a-z) Digits (0-9)" type="password" class="form-control" id="floatingPassword" asp-for="Password" placeholder="Password" required>
             <label for="floatingPassword" asp-for="Password">Password</label>
             <span asp-validation-for="Password" class="field text-danger"></span>
         </div>

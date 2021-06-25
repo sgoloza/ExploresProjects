@@ -267,7 +267,33 @@
                     {
                         <div class="col-md-12">
                             <div class="mt-5 text-center">
-                                <input class="btn btn-primary profile-button" type="button" value="Go To Register fo a Module" onclick="@("window.location.href='" + @Url.Action("StudentEnrollement", "Student") + "'");" />
+                                @{
+
+                                    var status1 = ViewData["ApplicationStatus"].ToString();
+                                    var regStatus1 = ViewData["RegiStatus"].ToString();
+                                }
+
+                                @if (status1.Equals("Successful") && regStatus1.Equals("No"))
+                                {
+
+                                    <input class="btn btn-primary profile-button" type="button" value="Go To Register fo a Module" onclick="@("window.location.href='" + @Url.Action("StudentEnrollement", "Student") + "'");" />
+
+                                }
+                                else
+                                {
+                                    <div class="alert alert-dismissible alert-warning fade show " role="alert">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                        <h4 class="alert-heading">Please Be Advised</h4>
+                                        <p class="mb-0 text-black">
+                                            <strong>
+                                                <b>
+                                                  There are no modules available. Your application status is Pending
+
+                                                </b>
+                                            </strong>
+                                        </p>
+                                    </div>
+                                }
                             </div>
                         </div>
                     }

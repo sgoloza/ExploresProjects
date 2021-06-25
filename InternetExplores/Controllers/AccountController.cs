@@ -19,7 +19,8 @@ namespace InternetExplores.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-
+        private string IdentityNumber;
+        private DateTime BirthDate;
         public AccountController(RoleManager<IdentityRole> roleManager , UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager,IConfiguration configuration, AppDBContext dbContext)
         {
             _userManager = userManager;
@@ -28,6 +29,7 @@ namespace InternetExplores.Controllers
             _dbContext = dbContext;
             _roleManager = roleManager;
         } 
+
         public IActionResult Index()
         {
             return View();
@@ -36,14 +38,74 @@ namespace InternetExplores.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
             return View();
         }
 
+        private bool MyIdChecker(string identityNumber)
+        {
+            try { 
+             bool IsValid = false;
+            this.IdentityNumber = (identityNumber ?? string.Empty).Replace(" ", "");
+            if (this.IdentityNumber.Length == 13)
+            {
+                var digits = new int[13];
+                for (int i = 0; i < 13; i++)
+                {
+                    digits[i] = int.Parse(this.IdentityNumber.Substring(i, 1));
+                }
+                int control1 = digits.Where((v, i) => i % 2 == 0 && i < 12).Sum();
+                string second = string.Empty;
+                digits.Where((v, i) => i % 2 != 0 && i < 12).ToList().ForEach(v =>
+                      second += v.ToString());
+                var string2 = (int.Parse(second) * 2).ToString();
+                int control2 = 0;
+                for (int i = 0; i < string2.Length; i++)
+                {
+                    control2 += int.Parse(string2.Substring(i, 1));
+                }
+                int control = (10 - ((control1 + control2) % 10)) % 10;
+                if (digits[12] == control)
+                {
+
+                    this.BirthDate = DateTime.ParseExact(this.IdentityNumber.Substring(0, 6), "yyMMdd", null);
+
+                    IsValid = true;
+                }
+                else
+                {
+                    IsValid = false;
+                }
+
+            }
+            return IsValid;
+            } catch (Exception) {
+                return false;
+            }
+           
+        }
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+           
+
             if (ModelState.IsValid)
             {
+               
                 var user = new IdentityUser
                 {
                     UserName = model.Email,
@@ -55,11 +117,38 @@ namespace InternetExplores.Controllers
                 if (result.Succeeded)
                 {
 
-                    DbHelper.RegistrationOfStudent(_configuration, model);
+                    if (MyIdChecker(model.StudentIdNo))
+                    {
+                        model.StudentDateOfBirth = BirthDate;
+                        DbHelper.RegistrationOfStudent(_configuration, model);
 
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    await _userManager.AddToRoleAsync(user, "Student");
-                    return RedirectToAction("index", "Home");
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        await _userManager.AddToRoleAsync(user, "Student");
+                        var results = await _signInManager.PasswordSignInAsync(model.Email, model.Password,true, false);
+                     
+                            ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, model.Email).ApplicationStatus;
+
+                            string regStatus = DbHelper.GetAllStudent(_configuration, model.Email).registeredStatus;
+                            if (regStatus != null)
+                            {
+                                ViewBag.RegiStatus = regStatus;
+                            }
+                            else
+                            {
+                                ViewBag.RegiStatus = "None";
+                            }
+
+                        
+                        return RedirectToAction("index", "Home");
+                    }
+                    else {
+                        ModelState.Clear();
+                        ModelState.AddModelError(string.Empty, "Invalid Id number");
+                        ModelState.AddModelError(string.Empty, "Entered Id number does not exist");
+                        ViewBag.regError = true;
+                        return View(model);
+                    }
+                     
                 }
                 ModelState.AddModelError(string.Empty, "Registering failed");
                 ViewBag.regError = true;
@@ -80,6 +169,21 @@ namespace InternetExplores.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel user)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
@@ -110,6 +214,21 @@ namespace InternetExplores.Controllers
         }
         public async Task<IActionResult> Logout()
         {
+             if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
             await _signInManager.SignOutAsync();
 
             return RedirectToAction("Login");

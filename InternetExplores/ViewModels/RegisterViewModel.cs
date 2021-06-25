@@ -16,12 +16,12 @@ namespace InternetExplores.ViewModels
         [DataType(DataType.Text)]
         [Display(Name = "Surname")]
         public string StudentSurname { get; set; }
-
         [Required]
         [StringLength(13, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 13)]
         [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Enter only numeric number")]
         [Display(Name = "ID Number")]
-        public string StudetntIdNo { get; set; }
+        public string StudentIdNo { get; set; }
+        public DateTime StudentDateOfBirth { get; set; }
 
         [Required]
         [DataType(DataType.PhoneNumber)]
@@ -32,10 +32,6 @@ namespace InternetExplores.ViewModels
         [DataType(DataType.Text)]
         [Display(Name = "Gender")]
         public string StudentGender { get; set; }
-       
-        [DataType(DataType.Date)]
-        [Display(Name = "Date of birth")]
-        public DateTime StudentDateOfBirth { get; set; }
 
         [Required]
         [EmailAddress]

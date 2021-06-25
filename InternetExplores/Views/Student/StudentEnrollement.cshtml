@@ -10,12 +10,13 @@
     <hr />
     @if (ViewBag.IsSuccess == true)
     {
-        <div class="alert alert-primary alert-dismissible fade show" role="alert">
-            <strong>Congratulations</strong> You have added modules successfully. <br />
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div> }
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <strong>Congratulations</strong> You have added modules successfully. <br />
+    Click <a asp-controller="Student" asp-action="Profile">here</a> to view your modules.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div> }
     else if(Model.ModulesList.Count > 0 && ViewBag.IsSuccess == false)
     {
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -76,7 +77,7 @@
                         <p class="mb-0 text-black">
                             <strong>
                                 <b>
-                                    There are no module avaible at the moment.Please contact our office on-phone:0626972912 or email us at
+                                    There are no modules avaible at the moment.Please contact our office on-phone:0626972912 or email us at
                                     <a href="mailto: internetExplorersuniversity@gmail.com">internetExplorersuniversity@gmail.com</a>.
                                     We promise to come back to you as soon possible
 

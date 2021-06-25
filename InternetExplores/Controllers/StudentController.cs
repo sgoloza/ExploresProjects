@@ -39,20 +39,54 @@ namespace InternetExplores.Controllers
          [Authorize]
         [Authorize(Roles = "Student")]
         public  IActionResult Registration(bool isSuccess = false) {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
             ViewBag.IsSuccess = isSuccess;
             return View();
         }
+      
+
         [HttpPost]
         [Authorize]
         [Authorize(Roles = "Student")]
         public async Task<IActionResult> Registration(StudentModel myStudent)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
             StudentModel student = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
             myStudent.StudentNo = student.StudentNo;
-            //if (ModelState.IsValid)
-           // {
+
                 int i;
                 int j;
+              
+               myStudent.StudentFaculty  = DbHelper.GetAllStudentFacultys(_configuration,myStudent.StudentDegree) ;
+
                 if (myStudent.idcopy != null && myStudent.matricResult != null && myStudent.nextofKin != null)
                 {
                     string folder = "Documents/ID/";
@@ -75,15 +109,16 @@ namespace InternetExplores.Controllers
                    
             }
                 i = DbHelper.insertSudentsDocuments(_configuration, myStudent);
-            myStudent.StudentDegree = myStudent.StudentFaculty;
+           
                 j = DbHelper.UpdatetudentDetails(_configuration, myStudent);
                 DbHelper.SendEmails("Registration", DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()));
             if ( j > 0)
                 {
                     return RedirectToAction(nameof(Registration), new { isSuccess = true });
                 }
-            //}
-                return View();
+            
+         
+            return View(myStudent);
         }
         [Authorize]
         [Authorize(Roles = "Student")]
@@ -95,7 +130,21 @@ namespace InternetExplores.Controllers
         public IActionResult Profile(bool isdone = false)
         {
             //DbHelper.SendEmails("Registration", DbHelper.GetAllStudent(_configuration, "kwaneleluthan@gmail.com"));
-            
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
 
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
 
@@ -147,7 +196,22 @@ namespace InternetExplores.Controllers
         [Authorize(Roles = "Student")]
         public IActionResult Profile( StudentModel mystudent)
         {
-           int  j = DbHelper.UpdatetudentProfile(_configuration, mystudent);
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
+            int  j = DbHelper.UpdatetudentProfile(_configuration, mystudent);
 
             return RedirectToAction(nameof(Profile), new { isdone = true });
         }
@@ -168,7 +232,21 @@ namespace InternetExplores.Controllers
         [Authorize(Roles = "Student")]
         public ActionResult MakePayment(bool isSuccess = false)
         {
-        
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
 
             ViewBag.IsSuccess = isSuccess;
             return View();
@@ -178,6 +256,21 @@ namespace InternetExplores.Controllers
         [Authorize]
         public async Task<ActionResult> MakePayment( PaymentModel payment)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
             try { 
                     StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
                     payment.StudentNo = mystudent.StudentNo;
@@ -204,6 +297,21 @@ namespace InternetExplores.Controllers
         [HttpGet]
         [Authorize]
         public ActionResult StudentEnrollement(bool isSuccess = false , int p = 1) {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
             ViewBag.IsSuccess = isSuccess;
             
             StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
