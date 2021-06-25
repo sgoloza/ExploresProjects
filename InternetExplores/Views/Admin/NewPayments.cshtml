@@ -9,7 +9,6 @@
 <div class="page-wrapper">
     @if (ViewBag.IsSuccess == true)
     {
-
         ViewBag.IsSuccess = false;
         <div class="alert alert-primary alert-dismissible fade show" role="alert">
             <strong>Thank you.</strong> You have Updated student payment status successfully. <br />
@@ -44,7 +43,7 @@
                                     <th>Date</th>
                                     <th>Amount</th>
                                     <th>Invoice</th>
-                                    <th></th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,11 +63,7 @@
                                             </a>
                                         </td>
                                         <td class="text-right">
-                                            @Html.ActionLink("Approve", // <-- Link text
-                     "NewPayments", // <-- Action Method Name
-                     new { payentid = payment.paymentID, studentNO = payment.StudentNo }, // <-- Route value
-                     null // <-- htmlArguments
-                    )
+                                            @Html.ActionLink("Approve", "paymentDetails", new { payentId = payment.paymentID, studentNo = payment.StudentNo }, null)
                                         </td>
                                     </tr>
                                 }
@@ -186,6 +181,7 @@
                         @{
                             // pagination section end
                         }
+                      
                     </form>
 
                 </div>

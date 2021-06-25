@@ -1,0 +1,112 @@
+﻿@model InternetExplores.Models.PaymentModel
+@{
+    ViewData["Title"] = "paymentDetails";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-7 col-6">
+                <h4 class="page-title">Payments Details</h4>
+            </div>
+        </div>
+        <div class="card-box profile-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profile-view">
+                        <div class="profile-basic">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="personal-info">
+                                        <li>
+                                            <span class="title text">Payment Type: <span class="text-primary">@Model.paymenttype</span></span>
+                                            <span class="title"> Bank Name: <span class="text-primary">@Model.paymenttype</span></span>
+                                            <span class="title">Amount: <span class="text-primary"> @Model.paymenttype</span></span>
+                                        </li>
+                                        <li>
+                                            <span class="title"> Payment Date: <span class="text-primary">@Model.paymentDate </span></span>
+                                            <span class="title">Amount: R<span class="text-primary">@Model.paymentAmount </span> </span>
+                                            <span class="title">Student Number: <span class="text-primary">@Model.StudentNo </span></span>
+                                        </li>
+                                        <li>
+                                            <span class="title">Status: <span class="text-primary"> Not Approved</span> </span>
+                                            <span class="title">
+                                                Payment Document: <span class="text-primary">
+                                                    <a href="@(Model.paymentProofUrl)" class="btn btn-outline-primary" target="_blank">
+                                                        View
+                                                    </a>
+
+                                                </span>
+                                            </span>
+                                            <span class="title">Description: <span class="text-primary">@Model.paymentDescription</span></span>
+                                        </li>
+                                        <li>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("paymentDetails", "Admin", FormMethod.Post))
+        {<div class="profile-tabs">
+                <table class="table table-border table-striped custom-table datatable mb-0">
+                    <tbody>
+
+                        <tr class="" style="align-content:center">
+                            <td>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#UpadateConfirmation">Approve</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <style>
+                #UpadateConfirmation {
+                    height: -20%; /* = 100% of the .modal-dialog block */
+                    position: center;
+                }
+            </style>
+
+            <div class="modal fade" id="UpadateConfirmation" tabindex="-1" role="dialog" aria-labelledby="UpadateConfirmationlable" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content bg-info">
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title text-white" id="exampleModalTitle">Are You Sure ?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body bg-white align-content-center">
+                            <button type="button" class="btn bg-danger text-white" data-dismiss="modal">No</button>&nbsp;&nbsp;&nbsp;
+                            <button type="submit" class="btn btn-secondary">  @Html.ActionLink("Yes", "paymentDetails", new { payentid = Model.paymentID, studentNO = Model.StudentNo,i = 2 }, null)</button>
+                        </div>
+                        <div class="modal-footer bg-primary">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#submit").click(function () {
+            document.forms[1].submit;
+            return true;
+        });
+    });
+</script>
+
