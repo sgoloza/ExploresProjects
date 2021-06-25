@@ -38,13 +38,13 @@ namespace InternetExplores.Helpers
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@myStudentIdNo", mystudent.StudetntIdNo);
                     cmd.Parameters.AddWithValue("@myStudentName", mystudent.StudentName);
                     cmd.Parameters.AddWithValue("@myStudentSurname", mystudent.StudentSurname);
                     cmd.Parameters.AddWithValue("@myStudentPhoneNo", mystudent.StudentPhoneNo);
                     cmd.Parameters.AddWithValue("@myStudentGender", mystudent.StudentGender);
-                    cmd.Parameters.AddWithValue("@myStudentDateOfBirth", mystudent.StudentDateOfBirth);
                     cmd.Parameters.AddWithValue("@myStudentEmail", mystudent.Email);
+                    cmd.Parameters.AddWithValue("@myStudentDateOfBirth", mystudent.StudentDateOfBirth);
+                    cmd.Parameters.AddWithValue("@myStudentIdNo", mystudent.StudentIdNo);
                     connection.Open();
                     int i = cmd.ExecuteNonQuery();
                     connection.Close();
@@ -325,6 +325,34 @@ namespace InternetExplores.Helpers
             }
             return studentfiles;
         }
+
+        public static string GetAllStudentFacultys(IConfiguration configuration, string Degree)
+        {
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            string degreename = string.Empty;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("getFaculty", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@degree", Degree);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            degreename = reader["F_code"].ToString();
+                            
+                        }
+                    }
+                }
+            }
+            return degreename;
+        }
         public static int ActiveStudents(IConfiguration configuration)
         {
             string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
@@ -390,7 +418,7 @@ namespace InternetExplores.Helpers
                                     student.StudentFinincialStatus = reader["StudentFinincialStatus"].ToString();
                                 }
                                 if (reader["StudentDegree"] != DBNull.Value) {
-                                    student.StudentFinincialStatus = reader["StudentFinincialStatus"].ToString();
+                                    student.StudentDegree = reader["StudentDegree"].ToString();
                                 }
                                 if (reader["StudentlevelOfStudy"] != DBNull.Value)
                                 {

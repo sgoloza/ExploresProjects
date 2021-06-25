@@ -23,12 +23,13 @@ namespace InternetExplores.Models
         [Display(Name = "Surname")]
         public string StudentSurname { get; set; }
 
-        //[Required]
+       
         [StringLength(13, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 13)]
+        [RegularExpression("([1-9][0-9]*)", ErrorMessage = "Enter only numeric number")]
         [Display(Name = "ID Number")]
         public string StudentIdNo { get; set; }
 
-      
+
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone Number")]
         public string StudentPhoneNo { get; set; }

@@ -112,20 +112,24 @@
                         {
                             if (User.IsInRole("Student"))
                             {
-                                if (ViewBag.ApplicationStatus == "Not registered")
+
+                                var status = ViewData["ApplicationStatus"].ToString();
+                                var regStatus = ViewData["RegiStatus"].ToString();
+
+                                if (status.Equals("Not registered"))
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="Registration"><h4>Student Application</h4></a>
                                     </li>
                                 }
-                                if (ViewBag.ApplicationStatus == "Successful" && ViewBag.RegiStatus == "No")
+                                if (status.Equals("Successful") && regStatus.Equals("No"))
                                 {
 
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-controller="Student" asp-action="StudentEnrollement"><h4>Register for a Module</h4></a>
                                     </li>
                                 }
-                                if (ViewBag.ApplicationStatus == "Successful")
+                                if (status.Equals("Successful"))
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Student" asp-action="MakePayment"><h4>Payment</h4></a>

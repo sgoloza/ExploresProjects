@@ -33,10 +33,20 @@ namespace InternetExplores.Controllers
             ViewBag.StudentCount= DbHelper.ActiveStudents(_configuration);
             TimerViewModel model = new TimerViewModel();
             TempData["EndTime"] = ViewData["EndTime"];
-            ViewBag.ApplicationStatus =  DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+            if (User.Identity.IsAuthenticated) { 
+             ViewBag.ApplicationStatus =  DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
             
-            ViewBag.RegiStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
-            ViewBag.ApplicationStatus = "";
+            string regStatus  = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else {
+                    ViewBag.RegiStatus = "None";
+                }
+        
+            }
+           
             return View(model);
 
         }
@@ -54,14 +64,43 @@ namespace InternetExplores.Controllers
     
         public ActionResult About(bool isSuccess = false)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
+
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
             ViewBag.IsSuccess = isSuccess;
             return View();
         }
         [HttpPost]
         public ActionResult About(AboutModel aboutmyModel )
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).ApplicationStatus;
 
-                try
+                string regStatus = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString()).registeredStatus;
+                if (regStatus != null)
+                {
+                    ViewBag.RegiStatus = regStatus;
+                }
+                else
+                {
+                    ViewBag.RegiStatus = "None";
+                }
+
+            }
+            try
                 {
                            var subject = "Message Form About Page Email : "+aboutmyModel.senderEmail;
                            var body = aboutmyModel.message;
