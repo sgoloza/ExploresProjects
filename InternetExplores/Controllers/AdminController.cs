@@ -11,7 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace InternetExplores.Controllers
 {
-    [Authorize(Roles = "General,Admin")]
+    //[Authorize(Roles = "General,Admin")]
     public class AdminController : Controller
     { 
         
@@ -198,7 +198,7 @@ namespace InternetExplores.Controllers
         }
         [Authorize]
         public IActionResult NewPayments( int payentid, int studentNO, int pageNumber = 1, string searchString = "", bool isSucess  = false ) {
-            List<PaymentModel> allStudentpayments = new List<PaymentModel>(); ;
+            List<PaymentModel> allStudentpayments = new List<PaymentModel>();
 
             int pageSize = 15;
             int skipBy = pageSize * (pageNumber - 1);
@@ -217,34 +217,11 @@ namespace InternetExplores.Controllers
 
             bool nextPage = count > capacity;
             int pageCount = (int)Math.Ceiling(1.0 * count / pageSize);
-
+            ViewBag.IsSuccess = isSucess;
             ViewData["pageNumber"] = pageNumber;
             ViewData["nextPage"] = nextPage;
             ViewData["pageCount"] = pageCount;
-
-
-
-            if (payentid != 0 & studentNO != 0) {
-                List<PaymentModel> allStudentpayment = DbHelper.getAllNewStudentsPayments(_configuration);
-                double amount = 0.0;
-                foreach (PaymentModel py in allStudentpayment)
-                {
-                    if (py.paymentID == payentid) {
-                        amount = Double.Parse(py.paymentAmount.ToString());
-                    }
-
-                }
-                ViewBag.IsSuccess = true;
-
-                DbHelper.setStudentBalanceAdmin(_configuration, amount, studentNO);
-                DbHelper.updateStudentPaymentStatus(_configuration, payentid);
-                return RedirectToAction(nameof(NewPayments), new { isSuccess = true });
-                
-            }
-            return View(allStudentpayments.OrderByDescending(a => a.StudentNo)
-                .Skip(skipBy)
-                .Take(pageSize)
-                );
+            return View(allStudentpayments.OrderByDescending(a => a.StudentNo).Skip(skipBy).Take(pageSize));
         }
         private List<PaymentModel> GetListOfNewPayments(IConfiguration configuration, int pageNumber, int Skipby, int pageSize)
         {
@@ -264,6 +241,26 @@ namespace InternetExplores.Controllers
         }
 
         [Authorize]
+        public IActionResult paymentDetails(int payentId, int studentNo, int i = 1) {
+
+                List<PaymentModel> allStudentpayment = DbHelper.getAllNewStudentsPayments(_configuration);
+                PaymentModel mypayment = new PaymentModel();
+                foreach (PaymentModel py in allStudentpayment)
+                {
+                    if (py.paymentID == payentId)
+                    {
+                    mypayment = py;
+                    }
+
+                }
+            if (i == 2) {
+                DbHelper.setStudentBalanceAdmin(_configuration, decimal.ToDouble(mypayment.paymentAmount), mypayment.StudentNo);
+                DbHelper.updateStudentPaymentStatus(_configuration, mypayment.paymentID);
+                return RedirectToAction(nameof(NewPayments), new { isSucess = true });
+            }
+            return View(mypayment);
+        }
+       
         public IActionResult ModuleDetails( string ModuleCode ,ModuleDeatilsModel mydetails)
         { 
             
@@ -310,36 +307,10 @@ namespace InternetExplores.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> AdminRegister( bool isdone = false )
+
+        public IActionResult AdminRegister( bool isdone = false )
         {
-            /*if (model.AdminName != null) {
-
-                if (ModelState.IsValid)
-                {
-                    var user = new IdentityUser
-                    {
-                        UserName = model.AdminEmail,
-                        Email = model.AdminEmail,
-                    };
-
-                    var result = await _userManager.CreateAsync(user, model.password);
-
-                    if (result.Succeeded)
-                    {
-                        DbHelper.RegistrationOfAdmin(_configuration, model);
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return RedirectToAction("index", "Admin");
-                    }
-                    ModelState.AddModelError(string.Empty, "Registering failed");
-                    ViewBag.regError = true;
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-                }
-                return View(model);
-            }
-            */
+            
             ViewBag.done = isdone;
             return View();
         }
@@ -368,8 +339,7 @@ namespace InternetExplores.Controllers
                     else {
                         await _userManager.AddToRoleAsync(user, "General");
                     }
-                    
-                    return RedirectToAction("AdminRegister", "Admin");
+                    return RedirectToAction(nameof(AdminRegister), new { isdone = true });
                 }
                 ModelState.AddModelError(string.Empty, "Registering failed");
                 ViewBag.regError = true;
@@ -380,6 +350,7 @@ namespace InternetExplores.Controllers
                 ViewBag.regError = true;
 
             }
+          
             return View(model);
         }
 
