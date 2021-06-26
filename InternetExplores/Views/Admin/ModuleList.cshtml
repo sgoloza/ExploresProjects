@@ -17,15 +17,25 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+        } @using (Html.BeginForm("ModuleList", "Admin", FormMethod.Post))
+        {
+            <div class="row">
+
+                <div class="col-sm-4 col-3 align-self-sm-end">
+                    <h4 class="page-title">List of Modules</h4>
+                    <div class="form-group form-focus">
+                        <label class="focus-label">Module Code</label>  @Html.TextBox("search", null, new { @class = "form-control floating" })
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="submit" name="submit" value="Search" />
+
+                    </div>
+                </div>
+
+                <div class="col-sm-8 col-9 text-right m-b-20">
+                    <a asp-controller="Admin" asp-action="NewModule" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> New Module</a>
+                </div>
+            </div>
         }
-        <div class="row">
-            <div class="col-sm-4 col-3 align-self-sm-end">
-                <h4 class="page-title">New Students Applications</h4>
-            </div>
-            <div class="col-sm-8 col-9 text-right m-b-20">
-                <a asp-controller="Admin" asp-action="NewModule" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> New Module</a>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
@@ -59,11 +69,7 @@
                                         <td>@item.ModuleCost</td>
                                         <td>@item.ModulesStatus</td>
                                         <td class="text-right">
-                                            @Html.ActionLink("View", // <-- Link text
-                 "ModuleDetails", // <-- Action Method Name
-                 new { ModuleCode = item.ModuleCode }, // <-- Route value
-                 null // <-- htmlArguments
-                )
+                                            @Html.ActionLink("View", "ModuleDetails", new { ModuleCode = item.ModuleCode }, null)
                                         </td>
                                     </tr>
                                 }

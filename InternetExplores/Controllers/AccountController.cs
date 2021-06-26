@@ -103,60 +103,65 @@ namespace InternetExplores.Controllers
         {
            
 
-            if (ModelState.IsValid)
-            {
-               
-                var user = new IdentityUser
-                {
-                    UserName = model.Email,
-                    Email = model.Email,
-                };
-
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-
                     if (MyIdChecker(model.StudentIdNo))
                     {
-                        model.StudentDateOfBirth = BirthDate;
-                        DbHelper.RegistrationOfStudent(_configuration, model);
+                        if (ModelState.IsValid)
+                        {
+               
+                            var user = new IdentityUser
+                            {
+                                UserName = model.Email,
+                                Email = model.Email,
+                            };
 
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        await _userManager.AddToRoleAsync(user, "Student");
-                        var results = await _signInManager.PasswordSignInAsync(model.Email, model.Password,true, false);
+                            var result = await _userManager.CreateAsync(user, model.Password);
+
+                            if (result.Succeeded)
+                            {
+
+                                    model.StudentDateOfBirth = BirthDate;
+                                    DbHelper.RegistrationOfStudent(_configuration, model);
+
+                                    await _signInManager.SignInAsync(user, isPersistent: false);
+                                    await _userManager.AddToRoleAsync(user, "Student");
+                                    var results = await _signInManager.PasswordSignInAsync(model.Email, model.Password,true, false);
                      
-                            ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, model.Email).ApplicationStatus;
+                                        ViewBag.ApplicationStatus = DbHelper.GetAllStudent(_configuration, model.Email).ApplicationStatus;
 
-                            string regStatus = DbHelper.GetAllStudent(_configuration, model.Email).registeredStatus;
-                            if (regStatus != null)
-                            {
-                                ViewBag.RegiStatus = regStatus;
-                            }
-                            else
-                            {
-                                ViewBag.RegiStatus = "None";
-                            }
+                                        string regStatus = DbHelper.GetAllStudent(_configuration, model.Email).registeredStatus;
+                                        if (regStatus != null)
+                                        {
+                                            ViewBag.RegiStatus = regStatus;
+                                        }
+                                        else
+                                        {
+                                            ViewBag.RegiStatus = "None";
+                                        }
 
                         
-                        return RedirectToAction("index", "Home");
-                    }
-                    else {
+                                    return RedirectToAction("index", "Home");
+                  
+                     
+                            }
+                            ViewBag.regError = true;
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError("", error.Description);
+                            }
+
+                        }
+                        ModelState.AddModelError(string.Empty, "Registering failed");
+                        ModelState.AddModelError(string.Empty, "Make sure You provide valid input");
+                        ViewBag.regError = true;
+                     }
+                    else
+                    {
                         ModelState.Clear();
                         ModelState.AddModelError(string.Empty, "Invalid Id number");
                         ModelState.AddModelError(string.Empty, "Entered Id number does not exist");
                         ViewBag.regError = true;
                         return View(model);
                     }
-                     
-                }
-                ModelState.AddModelError(string.Empty, "Registering failed");
-                ViewBag.regError = true;
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-            }
             return View(model);
         }
         [HttpGet]
@@ -210,6 +215,7 @@ namespace InternetExplores.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
 
             }
+            ViewBag.myError = true;
             return View(user);
         }
         public async Task<IActionResult> Logout()

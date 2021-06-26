@@ -29,7 +29,8 @@ namespace InternetExplores.Models
         [Display(Name = "ID Number")]
         public string StudentIdNo { get; set; }
 
-
+        [RegularExpression("([0-9][0-9]*)", ErrorMessage = "Enter only numeric number")]
+        [StringLength(10, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 10)]
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone Number")]
         public string StudentPhoneNo { get; set; }

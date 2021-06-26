@@ -104,7 +104,10 @@ namespace InternetExplores.Controllers
                 {
                    folder = "Documents/FinancialProof/";
                    myStudent.financialProofUrl = await UploadImage(folder, myStudent.idcopy);
-                   
+                    myStudent.StudentFinincialStatus = "Yes";
+                }
+                else{
+                    myStudent.StudentFinincialStatus = "No";
                 }
                    
             }
@@ -368,8 +371,9 @@ namespace InternetExplores.Controllers
 
             }
             var d = mylist.Distinct().Count();
-
-            if (d == 3 || d == 4 ) {
+            // selection of distinct modules
+            if (d == 3 || d == 4  || d == mylist.Count) 
+            {
                 double studentBalance = 0.0;
                 StudentModel mystudent = DbHelper.GetAllStudent(_configuration, User.Identity.Name.ToString());
                 enrollments.StudentNo = mystudent.StudentNo;

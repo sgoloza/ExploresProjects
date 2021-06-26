@@ -164,7 +164,16 @@
     </div>
 
     <br />
-    <input type="submit" value="Send request" class="btn btn-primary justify-content-md-center" />
+    @if (ViewBag.IsSuccess == true)
+    {
+        <input type="submit" value="Send request" class="btn btn-primary justify-content-md-center" disabled />
+
+    }
+    else
+    {
+        <input type="submit" value="Send request" class="btn btn-primary justify-content-md-center" />
+    }
+
 </div>
 </form>
 
