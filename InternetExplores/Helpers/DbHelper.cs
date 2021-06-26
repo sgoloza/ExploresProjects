@@ -820,7 +820,7 @@ namespace InternetExplores.Helpers
                                 }
                                 if (reader["StudentDegree"] != DBNull.Value)
                                 {
-                                    student.StudentFinincialStatus = reader["StudentFinincialStatus"].ToString();
+                                    student.StudentDegree = reader["StudentDegree"].ToString();
                                 }
                                 if (reader["StudentlevelOfStudy"] != DBNull.Value)
                                 {

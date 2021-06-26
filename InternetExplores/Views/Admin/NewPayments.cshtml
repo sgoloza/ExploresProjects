@@ -17,176 +17,184 @@
             </button>
         </div>
     }
-    <div class="content">
-        <div class="row">
-            <div class="col-sm-4 col-3 align-self-sm-end">
-                <h4 class="page-title"> Students Payments</h4>
-            </div>
 
+<div class="content">
+    @using (Html.BeginForm("NewPayments", "Admin", FormMethod.Post))
+    {
+    <div class="row">
 
+        <div class="col-sm-4 col-3 align-self-sm-end">
+            <h4 class="page-title"> Students Payments</h4>
+            <div class="form-group form-focus">
+                <label class="focus-label">Student Number</label>  @Html.TextBox("search", null, new { @class = "form-control floating" })
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="submit" name="submit" value="Search" />
 
-            <div class="col-sm-8 col-9 text-right m-b-20">
-                <a href="add-patient.html" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-eye"></i> View Approved Payments</a>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="table-responsive">
-                    <form method="post" asp-action="NewPayments" asp-controller="Admin">
-                        <table class="table table-border table-striped custom-table datatable mb-0">
-                            <thead>
+        <div class="col-sm-8 col-9 text-right m-b-20">
+            <a href="add-patient.html" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-eye"></i> View Approved Payments</a>
+        </div>
+    </div>
+    }
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <form method="post" asp-action="NewPayments" asp-controller="Admin">
+                    <table class="table table-border table-striped custom-table datatable mb-0">
+                        <thead>
+                            <tr>
+                                <th>Student Number</th>
+                                <th>Type</th>
+                                <th>Bank Name</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Invoice</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (PaymentModel payment in Model)
+                            {
+
                                 <tr>
-                                    <th>Student Number</th>
-                                    <th>Type</th>
-                                    <th>Bank Name</th>
-                                    <th>Description</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <th>Invoice</th>
-                                    <th>Action</th>
+                                    <td>@payment.StudentNo</td>
+                                    <td>@payment.paymenttype</td>
+                                    <td>@payment.bankName</td>
+                                    <td>@payment.paymentDescription</td>
+                                    <td>@payment.paymentDate</td>
+                                    <td>@payment.paymentAmount</td>
+                                    <td class="text-right">
+                                        <a href="@(payment.paymentProofUrl)" class="btn btn-outline-primary" target="_blank">
+                                            View
+                                        </a>
+                                    </td>
+                                    <td class="text-right">
+                                        @Html.ActionLink("Approve", "paymentDetails", new { payentId = payment.paymentID, studentNo = payment.StudentNo }, null)
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (PaymentModel payment in Model)
-                                {
-
-                                    <tr>
-                                        <td>@payment.StudentNo</td>
-                                        <td>@payment.paymenttype</td>
-                                        <td>@payment.bankName</td>
-                                        <td>@payment.paymentDescription</td>
-                                        <td>@payment.paymentDate</td>
-                                        <td>@payment.paymentAmount</td>
-                                        <td class="text-right">
-                                            <a href="@(payment.paymentProofUrl)" class="btn btn-outline-primary" target="_blank">
-                                                View
-                                            </a>
-                                        </td>
-                                        <td class="text-right">
-                                            @Html.ActionLink("Approve", "paymentDetails", new { payentId = payment.paymentID, studentNo = payment.StudentNo }, null)
-                                        </td>
-                                    </tr>
-                                }
+                            }
 
 
-                            </tbody>
-                        </table>
+                        </tbody>
+                    </table>
+                    @{
+                        // pagination section start
+                    }
+
+                    <div class="card-footer clearfix">
+
                         @{
-                            // pagination section start
+                            var page = Convert.ToInt32(ViewData["pageNumber"].ToString());
+                            var pageCount = Convert.ToInt32(ViewData["pageCount"].ToString());
                         }
+                        <ul class="pagination pagination-sm m-0 float-right">
 
-                        <div class="card-footer clearfix">
+
+
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber > 1)
+                                {
+                                    <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@{var prevPage = ViewBag.PageNumber - 1; Write(prevPage); }"> Previous</a>
+
+                                }
+                                else
+                                {
+                                    <a class="page-link disabled">
+                                        Previous
+                                    </a>
+                                }
+                            </li>
 
                             @{
-                                var page = Convert.ToInt32(ViewData["pageNumber"].ToString());
-                                var pageCount = Convert.ToInt32(ViewData["pageCount"].ToString());
-                            }
-                            <ul class="pagination pagination-sm m-0 float-right">
+                                var currentPage = (int)ViewBag.PageNumber;
+                                //var pageCount = (int)ViewBag.Total;
 
+                                // How many pages views right or left of currentPage
+                                const int PageLeft = 2;
+                                const int PagesRight = 2;
 
+                                // get first page befor ...
+                                var fromPage = Math.Max(1, currentPage - PageLeft);
 
-                                <li class="page-item">
-                                    @if (ViewBag.PageNumber > 1)
+                                // get last page after ...
+                                var toPage = Math.Min(pageCount, currentPage + PagesRight);
+
+                                if (pageCount - toPage == 1)
+                                {
+                                    toPage = pageCount;
+                                }
+
+                                if (fromPage > 1)
+                                {
+                                    // view First page
+                                    <li>
+                                        <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="1">1</a>
+                                    </li>
+                                    if (fromPage > 2)
                                     {
-                                        <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@{var prevPage = ViewBag.PageNumber - 1; Write(prevPage); }"> Previous</a>
-
-                                    }
-                                    else
-                                    {
-                                        <a class="page-link disabled">
-                                            Previous
-                                        </a>
-                                    }
-                                </li>
-
-                                @{
-                                    var currentPage = (int)ViewBag.PageNumber;
-                                    //var pageCount = (int)ViewBag.Total;
-
-                                    // How many pages views right or left of currentPage
-                                    const int PageLeft = 2;
-                                    const int PagesRight = 2;
-
-                                    // get first page befor ...
-                                    var fromPage = Math.Max(1, currentPage - PageLeft);
-
-                                    // get last page after ...
-                                    var toPage = Math.Min(pageCount, currentPage + PagesRight);
-
-                                    if (pageCount - toPage == 1)
-                                    {
-                                        toPage = pageCount;
-                                    }
-
-                                    if (fromPage > 1)
-                                    {
-                                        // view First page
-                                        <li>
-                                            <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="1">1</a>
-                                        </li>
-                                        if (fromPage > 2)
-                                        {
-                                            // view first ...
-                                            // calculate number page for link ..., it's middle between first page and fromPage
-                                            var middleNumber = (int)Math.Ceiling((double)(fromPage - 2) / 2) + 1;
-                                            <li>
-                                                <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@middleNumber">...</a>
-                                            </li>
-                                        }
-                                    }
-
-
-                                    // view paginator between currentPage
-                                    for (int i = fromPage; i <= toPage; i++)
-                                    {
-                                        <li @Html.Raw(currentPage == i ? "class=\"page-item active\"" : "") )>
-                                            <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@i">@i</a>
-                                        </li>
-                                    }
-
-
-                                    // view second ...
-                                    if (toPage < pageCount)
-                                    {
-                                        int middleNumber = (int)Math.Ceiling((double)(pageCount - toPage) / 2) + toPage;
+                                        // view first ...
+                                        // calculate number page for link ..., it's middle between first page and fromPage
+                                        var middleNumber = (int)Math.Ceiling((double)(fromPage - 2) / 2) + 1;
                                         <li>
                                             <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@middleNumber">...</a>
                                         </li>
-                                        // view last page
-                                        if (toPage < pageCount - 1)
-                                        {
-                                            <li>
-                                                <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@pageCount">@pageCount</a>
-                                            </li>
-                                        }
+                                    }
+                                }
 
+
+                                // view paginator between currentPage
+                                for (int i = fromPage; i <= toPage; i++)
+                                {
+                                    <li @Html.Raw(currentPage == i ? "class=\"page-item active\"" : "") )>
+                                        <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@i">@i</a>
+                                    </li>
+                                }
+
+
+                                // view second ...
+                                if (toPage < pageCount)
+                                {
+                                    int middleNumber = (int)Math.Ceiling((double)(pageCount - toPage) / 2) + toPage;
+                                    <li>
+                                        <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@middleNumber">...</a>
+                                    </li>
+                                    // view last page
+                                    if (toPage < pageCount - 1)
+                                    {
+                                        <li>
+                                            <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@pageCount">@pageCount</a>
+                                        </li>
                                     }
 
                                 }
 
-                                <li class="page-item">
-                                    @if (ViewBag.PageNumber < pageCount)
-                                    {
-                                        <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@{var nextPage = ViewBag.PageNumber + 1; Write(nextPage); }">Next</a>
-                                    }
-                                    else
-                                    {
-                                        <a class="page-link disabled">
-                                            Next
-                                        </a>
-                                    }
-                            </ul>
-                        </div>
+                            }
 
-                        @{
-                            // pagination section end
-                        }
-                      
-                    </form>
+                            <li class="page-item">
+                                @if (ViewBag.PageNumber < pageCount)
+                                {
+                                    <a class="page-link" asp-action="NewPayments" asp-controller="Admin" asp-route-pageNumber="@{var nextPage = ViewBag.PageNumber + 1; Write(nextPage); }">Next</a>
+                                }
+                                else
+                                {
+                                    <a class="page-link disabled">
+                                        Next
+                                    </a>
+                                }
+                        </ul>
+                    </div>
 
-                </div>
+                    @{
+                        // pagination section end
+                    }
+
+                </form>
+
             </div>
         </div>
     </div>
+</div>
 </div>
 
