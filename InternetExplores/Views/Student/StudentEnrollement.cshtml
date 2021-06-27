@@ -19,12 +19,21 @@
 </div> }
     else if(Model.ModulesList.Count > 0 && ViewBag.IsSuccess == false)
     {
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            @Html.ValidationSummary(true, "", new { @class = "field text-danger" })
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    @Html.ValidationSummary(true, "", new { @class = "field text-danger" })
+    <br />
+    <strong>
+        <b>
+            For further assistance feel free to contact our office on-phone:0626972912 or email us at
+            <a href="mailto: internetexploresuniversity@gmail.com">internetExplorersuniversity@gmail.com</a>.
+            We promise to come back to you as soon possible
+
+        </b>
+    </strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
     }
     <div class="form-group">
         <div class="row">

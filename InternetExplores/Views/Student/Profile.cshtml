@@ -18,8 +18,9 @@
         <div class="row">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-                    <img class="rounded-circle mt-5" width="200" height="200" src="@Url.Content("~/Images/grad.jpg")">
-                    <span class="font-weight-bold">@Model.StudentName , @Model.StudentSurname</span>
+                    <h4><span class="font-weight-bold">@Model.StudentName , @Model.StudentSurname</span></h4>
+                    <span>Degree: @Model.StudentDegree </span>
+                    <span>Faculty: @Model.StudentFaculty </span>
                     <span>Student No: @Model.StudentNo </span>
                     @if (@Model.ApplicationStatus != "NULL")
                     {
@@ -39,8 +40,8 @@
                         </span>
                     }
                     @*
-                    @if (!(Model.matricResultUrl.ToLower().Equals("null") && Model.idcopyUrl.ToLower().Equals("null") && Model.nextofKinUrl.ToLower().Equals("null")))
-                    {*@
+        @if (!(Model.matricResultUrl.ToLower().Equals("null") && Model.idcopyUrl.ToLower().Equals("null") && Model.nextofKinUrl.ToLower().Equals("null")))
+        {*@
                     @if (Model.idcopyUrl != null)
                     {
 
@@ -245,54 +246,74 @@
                     </div><br>
                     @if (ViewBag.moduleCount > 0)
                     {
-                        <div class="col-md-12">
-                            <table class="table">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Code</th>
-                                        <th>Name</th>
-                                        <th>Credits</th>
-                                        <th>Cost</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (ModuleModel mod in ViewBag.StudentEnrolledModiles)
-                                    {
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Credits</th>
+                                <th>Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ModuleModel mod in ViewBag.StudentEnrolledModiles)
+                            {
 
-                                        <tr>
-                                            <td>@mod.ModuleCode</td>
-                                            <td>@mod.Modulename</td>
-                                            <td>@mod.ModuleCredit</td>
-                                            <td>@mod.ModuleCost</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                            <br />
-                            <table class="table">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Student Balance</th>
-                                        <th>Module Total cost</th>
-                                        <th>Total Credits</th>
+                                <tr>
+                                    <td>@mod.ModuleCode</td>
+                                    <td>@mod.Modulename</td>
+                                    <td>@mod.ModuleCredit</td>
+                                    <td>@mod.ModuleCost</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />   @{
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            @{
-                                                var balabce = Model.StudentBalance;
-                                            }
-                                            @balabce
-                                        </td>
-                                        <td> @ViewBag.Total</td>
-                                        <td>@ViewBag.Credits</td>
+                        var balabce = Model.StudentBalance;
 
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div> <br>
+
+}
+                    <table class="table">
+                        <thead class="table-dark">
+                            <tr>
+                                @if (balabce < 0)
+                                {
+                                    <th>Credited Amount</th>
+                                }
+                                else
+                                {
+                                    <th>Student Balance</th>
+                                }
+
+                                <th>Module Total cost</th>
+                                <th>Total Credits</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+                                @if (balabce < 0)
+                                {
+                                    <td>
+                                        @(balabce*(-1))
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @balabce
+                                    </td>
+                                }
+                                <td> @ViewBag.Total</td>
+                                <td>@ViewBag.Credits</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> <br>
 
                         <div class="col-md-12">
                             <div class="mt-5 text-center">
