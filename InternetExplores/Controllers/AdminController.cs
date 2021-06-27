@@ -33,8 +33,11 @@ namespace InternetExplores.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-           
-            DbHelper.SelectAllStudents(_configuration, allStudent);
+            List<PaymentModel> myP = DbHelper.getStudentsOfDayPayments(_configuration);
+            List<StudentModel> myS = DbHelper.SelectAllStudents(_configuration, allStudent);
+            myS = myS.Where(s => s.ApplicationStatus.Contains("Pending")).ToList();
+            ViewBag.Daypayments = myP.Count;
+            ViewBag.AppStudent = myS.Count;
             ViewBag.AdminNewStudents = allStudent;
             return View();
         }
@@ -460,11 +463,18 @@ namespace InternetExplores.Controllers
 
             return list;
         }
-        public IActionResult AdminDetails( int Adminid) {
+        public IActionResult AdminDetails( int Adminid , AdminModel myAdmin, int i = 1 , bool Isdone = false) {
             List<AdminModel> admin = DbHelper.GetListOfAdmin(_configuration);
             admin = admin.Where(z => z.AdminID == Adminid).ToList();
+           
+            if ( myAdmin.AdminPhoneNo != null && i == 1) {
+                DbHelper.UpdateAdmin(_configuration, myAdmin);
+                return RedirectToAction(nameof(AdminDetails), new { Adminid = myAdmin.AdminID, i = 2,Isdone = true });
+            } 
             ViewBag.AdminDetails = admin[0];
+            ViewBag.AdminUpdate = Isdone;
             return View();
         }
+
     }
 }

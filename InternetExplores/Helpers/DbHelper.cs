@@ -95,6 +95,29 @@ namespace InternetExplores.Helpers
                 connection.Close();
             }
         }
+        public static void UpdateAdmin(IConfiguration configuration, AdminModel adminModel)
+        {
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("UpdateAdmin", connection))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@id", adminModel.AdminID);
+                    cmd.Parameters.AddWithValue("@phonenumber", adminModel.AdminPhoneNo);
+                    cmd.Parameters.AddWithValue("@status", adminModel.AdminStatus);
+                    connection.Open();
+                    int i = cmd.ExecuteNonQuery();
+                    connection.Close();
+                }
+
+                connection.Close();
+            }
+        }
         public static int UpdatetudentDetails(IConfiguration configuration, StudentModel mystudent)
         {
             string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
@@ -413,6 +436,49 @@ namespace InternetExplores.Helpers
             }
             return i;
         }
+        public static List<PaymentModel> getStudentsOfDayPayments(IConfiguration configuration)
+        {
+            List<PaymentModel> studentpayments = new List<PaymentModel>();
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            PaymentModel payments = new PaymentModel();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+
+
+                using (SqlCommand cmd = new SqlCommand("NewPaymentsOnTheDay", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            payments = new PaymentModel
+                            {
+                                paymentID = Convert.ToInt32(reader["paymentID"]),
+                                StudentNo = Convert.ToInt32(reader["StudentNo"]),
+                                paymenttype = reader["paymentType"].ToString(),
+                                paymentAmount = Decimal.Parse(reader["paymentAmount"].ToString()),
+                                paymentDescription = reader["paymentDescription"].ToString(),
+                                bankName = reader["bankName"].ToString(),
+                                paymentDate = DateTime.Parse(reader["paymentDate"].ToString()),
+                                PayemntNowdate = DateTime.Parse(reader["dateuploaded"].ToString()),
+                                paymentProofUrl = reader["paymentUrl"].ToString()
+                            };
+                            studentpayments.Add(payments);
+
+                        }
+
+                    }
+                }
+
+                connection.Close();
+            }
+            return studentpayments;
+        }
+
         public static StudentModel GetAllStudent(IConfiguration configuration, string email)
         {
             string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
