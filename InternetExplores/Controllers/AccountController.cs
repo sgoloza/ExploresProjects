@@ -151,7 +151,7 @@ namespace InternetExplores.Controllers
 
                         }
                         ModelState.AddModelError(string.Empty, "Registering failed");
-                        ModelState.AddModelError(string.Empty, "Make sure You provide valid input");
+                        ModelState.AddModelError(string.Empty, "Make sure You provide valid inputs");
                         ViewBag.regError = true;
                      }
                     else

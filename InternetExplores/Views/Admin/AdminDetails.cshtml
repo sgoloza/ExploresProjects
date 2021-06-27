@@ -5,9 +5,20 @@
 }
 <div class="page-wrapper">
     <div class="content">
+        @if (ViewBag.AdminUpdate == true)
+        {
+
+            ViewBag.AdminUpdate = false;
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Thank you.</strong> You have Updated Admin details successfully. <br />
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
         <div class="row">
             <div class="col-sm-7 col-6">
-                <h4 class="page-title">ModuleDetails</h4>
+                <h4 class="page-title">Adminstators Details</h4>
             </div>
         </div>
         <div class="card-box profile-header">
@@ -42,9 +53,9 @@
                 </div>
             </div>
         </div>
-        @using (Html.BeginForm("ModuleDetails", "Admin", FormMethod.Get))
-        {  <div class="profile-tabs">
-
+        @using (Html.BeginForm("AdminDetails", "Admin", FormMethod.Get))
+        {<div class="profile-tabs">
+             <input asp-for="AdminID" class="form-control bg-white" maxlength="10" minlength="10" type="tel" value="@myModule.AdminID" placeholder="@myModule.AdminID"> 
                 <table class="table table-border table-striped custom-table datatable mb-0">
                     <tbody>
                         <tr class="" style="align-content:center">

@@ -55,7 +55,7 @@
         <label for="floatingPassword" asp-for="StreetName">Street name</label>
         <span asp-validation-for="StreetName" class="field"></span>
     </div>
-    <div class='form-floating  mb-3'>
+    <div lass="form-group">
         <label class="form-label mt-4 text-black">Province</label>
         <select asp-for="Province" class="form-select">
             <option  selected value="KwaZulu-Natal"> KwaZulu-Natal </option>
@@ -70,6 +70,7 @@
         </select>
         <span asp-validation-for="Province" class="field"></span>
     </div>
+    <br />
     <div class="form-floating  mb-3">
         <input maxlength="3" minlength="50" type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
         <label for="floatingPassword" asp-for="City">City</label>
