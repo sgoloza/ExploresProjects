@@ -353,6 +353,41 @@ namespace InternetExplores.Helpers
             }
             return degreename;
         }
+        public static List<AdminModel>  GetListOfAdmin(IConfiguration configuration) {
+            List<AdminModel> adList = new List<AdminModel>();
+            AdminModel mymodel = new AdminModel();
+            string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
+            string degreename = string.Empty;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand("getAdminList", connection))
+                {
+                    connection.Open();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+
+                            mymodel = new AdminModel
+                            {
+                                AdminID = Convert.ToInt32(reader["AdminID"]),
+                                AdminName = reader["AdminName"].ToString(),
+                                AdminSurname = reader["AdminSurname"].ToString(),
+                                AdminPhoneNo = reader["AdminPhoneNo"].ToString(),
+                                AdminEmail = reader["AdminEmail"].ToString(),
+                                AdminIDNo = reader["AdminIDNo"].ToString(),
+                                AdminStatus = reader["AdminType"].ToString(),
+                                AdminType = reader["AdminStatus"].ToString(),
+                            };
+                            adList.Add(mymodel);
+                        }
+                    }
+                }
+            }
+            return adList;
+        }
         public static int ActiveStudents(IConfiguration configuration)
         {
             string connectionString = configuration.GetConnectionString("InternetExploresDbContextConnection");
@@ -648,7 +683,8 @@ namespace InternetExplores.Helpers
                                 ModuleCredit = Convert.ToInt32(reader["ModuleCredit"]),
                                 ModulePre_requisites = reader["ModulePre_requisites"].ToString(),
                                 levelOdstudy = reader["Module_level_of_Study"].ToString(),
-                                ModulesStatus = reader["ModulesStatus"].ToString()
+                                ModulesStatus = reader["ModulesStatus"].ToString(),
+                                faculty = reader["DegreeCode"].ToString()
 
                             };
                             

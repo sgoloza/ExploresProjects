@@ -1,0 +1,81 @@
+﻿@model InternetExplores.Models.AdminModel;
+@{
+    ViewData["Title"] = "AdminDetails";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-sm-7 col-6">
+                <h4 class="page-title">ModuleDetails</h4>
+            </div>
+        </div>
+        <div class="card-box profile-header">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="profile-view">
+                        <div class="profile-basic">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @{
+
+                                        AdminModel myModule = ViewBag.AdminDetails;
+                                    }
+                                    <ul class="personal-info">
+                                        <li>
+                                            <span class="title text"> Name: <span class="text-primary"> @myModule.AdminName</span></span>
+                                            <span class="title"> Surname: <span class="text-primary"> @myModule.AdminSurname</span></span>
+                                            <span class="title">Phone Number: <span class="text-primary"> @myModule.AdminPhoneNo</span></span>
+                                        </li>
+                                        <li>
+                                            <span class="title"> Id Number: <span class="text-primary"> @myModule.AdminIDNo</span></span>
+                                            <span class="title">Email: R<span class="text-primary"> @myModule.AdminEmail</span> </span>
+                                            <span class="title">Type: <span class="text-primary"> @myModule.AdminType</span></span>
+                                            <span class="title">Status: <span class="text-primary"> @myModule.AdminStatus</span></span>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @using (Html.BeginForm("ModuleDetails", "Admin", FormMethod.Get))
+        {  <div class="profile-tabs">
+
+                <table class="table table-border table-striped custom-table datatable mb-0">
+                    <tbody>
+                        <tr class="" style="align-content:center">
+                            <td>
+                                <label class="col-form-label col">Phone Number </label>
+                                <p><input asp-for="AdminPhoneNo" class="form-control bg-white" maxlength="10" minlength="10" type="tel" value="@myModule.AdminPhoneNo" placeholder="@myModule.AdminPhoneNo" required></p>
+                                <p>
+                                    <label class="col-form-label col">Status</label>
+                                    <select asp-for="AdminStatus" id="Studentstatus" class="dropdown-item-text text-white bg-secondary" aria-label="Default select example" required>
+                                        <option selected value="Active">Active</option>
+                                        <option value="	Inactive">Inactive</option>
+                                    </select>
+                                </p>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" type="submit">UPDATE</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#submit").click(function () {
+            document.forms[1].submit;
+            return true;
+        });
+    });
+</script>
