@@ -183,7 +183,8 @@ namespace InternetExplores.Controllers
             {
                 List<ModuleModel> allStudent = new List<ModuleModel>();
                 allStudent = DbHelper.allmodules(_configuration);
-                var result = allStudent.Where(s => s.ModuleCode == search || s.ModulePre_requisites.Contains(search));
+                var result = allStudent.Where(s => s.ModuleCode == search || s.ModulePre_requisites.Contains(search) ||
+                s.ModuleCode.Contains(search) || s.ModulePre_requisites.ToLower().Contains(search.ToLower()) || s.ModuleCode.ToLower().Contains(search.ToLower()));
                 
                  pageSize = 10;
                  skipBy = pageSize * (pageNumber - 1);

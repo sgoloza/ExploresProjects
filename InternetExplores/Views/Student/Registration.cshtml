@@ -51,7 +51,7 @@
     <input asp-for="StudentFinincialStatus" hidden />
     <!--Home_Address-->
     <div class="form-floating  mb-3">
-        <input maxlength="3" minlength="50" type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
+        <input maxlength="50" minlength="3" type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
         <label for="floatingPassword" asp-for="StreetName">Street name</label>
         <span asp-validation-for="StreetName" class="field"></span>
     </div>
@@ -72,7 +72,7 @@
     </div>
     <br />
     <div class="form-floating  mb-3">
-        <input maxlength="3" minlength="50" type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
+        <input maxlength="50" minlength="3" type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
         <label for="floatingPassword" asp-for="City">City</label>
         <span asp-validation-for="City" class="field"></span>
     </div>

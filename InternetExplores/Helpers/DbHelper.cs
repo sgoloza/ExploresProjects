@@ -1120,7 +1120,7 @@ namespace InternetExplores.Helpers
 
 
 
-                        html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> <b>Update on your applucation</b></h4>";
+                        html += "<h4 style='font-size:24px;margin:0 0 20px 0;font-family:Arial,sans-serif;'> <b>Update on your application</b></h4>";
 
                         html += "<p style='margin:0 0 12px 0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'> " + comment+ " </p>";
                         html += "<p style='margin:0;font-size:16px;line-height:24px;font-family:Arial,sans-serif;'>Visit <a href='https://localhost:44339/Account/Login' style='color:#ee4c50;text-decoration:underline;'>Internet Explorers university </a>for application follow up</p><br />";
