@@ -90,10 +90,33 @@
                     </div>
                     <div class="row mt-3">
                         <h6>Address</h6><hr style="border-top: 1px dashed black;width:95%;" />
-                        <div class="col-md-6"><label class="labels">Province</label><input type="text" class="form-control" placeholder="Province" value="@Model.Province"></div>
-                        <div class="col-md-6"><label class="labels">City</label><input type="text" class="form-control" value="@Model.City" placeholder="City"></div>
-                        <div class="col-md-6"><label class="labels">Street Name</label><input type="text" class="form-control" placeholder="Street Name" value="@Model.StreetName"></div>
-                        <div class="col-md-6"><label class="labels">Postal code</label><input type="number" class="form-control" value="@Model.PostalCode" placeholder="Postal code"></div>
+                                        <div class="col-md-6">
+                                                <label class="form-label mt-4 text-black">Province</label>
+                                                <select asp-for="Province" class="form-select">
+                                                    <option selected value="KwaZulu-Natal"> KwaZulu-Natal </option>
+                                                    <option value="Limpopo"> Limpopo </option>
+                                                    <option value="Mpumalanga"> Mpumalanga</option>
+                                                    <option value=" Northern Cape">  Northern Cape </option>
+                                                    <option value="North West"> North West </option>
+                                                    <option value="Western Cape"> Western Cape</option>
+                                                    <option value=" Gauteng">Gauteng</option>
+                                                    <option value=" Eastern Cape">  Eastern Cape</option>
+                                                    <option value=" Free State">Free State</option>
+                                                </select>
+                                                <span asp-validation-for="Province" class="field"></span>
+                                        </div>
+                        <div class="col-md-6">
+                        <label class="labels">City</label>
+                        <input  maxlength="3" minlength="50"type="text" class="form-control" value="@Model.City" placeholder="City">
+                        </div>
+                        <div class="col-md-6">
+                        <label class="labels">Street Name</label>
+                        <input maxlength="3" minlength="50"type="text" class="form-control" placeholder="Street Name" value="@Model.StreetName">
+                        </div>
+                        <div class="col-md-6">
+                        <label class="labels">Postal code</label>
+                        <input maxlength="4" minlength="4" type="number" class="form-control" value="@Model.PostalCode" placeholder="Postal code">
+                        </div>
 
                     </div>
 

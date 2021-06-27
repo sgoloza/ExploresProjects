@@ -58,7 +58,7 @@
                         <span>Admin Profile</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown has-arrow">
+                <li hidden class="nav-item dropdown has-arrow">
                     <a asp-controller="Admin" asp-action="AdminRegister">
                         <span>New Admin</span>
                     </a>
@@ -76,7 +76,7 @@
                     <ul>
                         <li class="menu-title"> Main</li>
                         <li>
-                            <a asp-controller="Admin" asp-action="StudentsList"><i class="fa fa-user-md"></i> <span>Students</span></a>
+                            <a asp-controller="Admin" asp-action="StudentsList"><i class="fa fa-user"></i> <span>Students</span></a>
                         </li>
                         <li>
                             <a asp-controller="Admin" asp-action="ModuleList"><i class="fa fa-book"></i> <span>Modules</span></a>
@@ -103,6 +103,9 @@
                             <a asp-controller="Admin" asp-action="NewPayments"><i class="fa fa-money"></i> <span> Payments </span></a>
                         </li>
                         <li>
+                            <a asp-controller="Admin" asp-action="Adminlist"><i class="fa fa-user-secret"></i> <span>Administrators </span></a>
+                        </li>
+                        <li>
                             <a asp-controller="Admin" asp-action="Reports"><i class="fa fa-pie-chart"></i> <span> Reports </span></a>
                         </li>
                     </ul>
@@ -118,7 +121,7 @@
 
                 </div>
                 <div class="container text-center text-white">
-                    &copy; 2021 - Internet Explorers <b>UNIVERSITY</b> - <a asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    &copy; 2021 - Internet Explorers <b>UNIVERSITY</b> - <a asp-area="" asp-controller="Home" asp-action="About">About</a>-<a asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 </div>
             </div>
 

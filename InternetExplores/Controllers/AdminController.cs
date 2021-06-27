@@ -406,5 +406,65 @@ namespace InternetExplores.Controllers
 
             return View();
         }
+        public IActionResult Adminlist( int pageNumber = 1, string search = "", bool isSucess = false)
+        {
+            List<AdminModel> list = DbHelper.GetListOfAdmin(_configuration);
+
+            int pageSize = 10;
+            int skipBy = pageSize * (pageNumber - 1);
+            int count = list.Count();
+            int capacity = skipBy + pageSize;
+
+            bool nextPage = count > capacity;
+            int pageCount = (int)Math.Ceiling(1.0 * count / pageSize);
+            ViewBag.IsSuccess = isSucess;
+            ViewData["pageNumber"] = pageNumber;
+            ViewData["nextPage"] = nextPage;
+            ViewData["pageCount"] = pageCount;
+            if (!string.IsNullOrEmpty(search))
+            {
+                List<AdminModel> allStudentAdmin = new List<AdminModel>();
+                allStudentAdmin = DbHelper.GetListOfAdmin(_configuration);
+                var result = allStudentAdmin.Where(s => s.AdminEmail.ToString() == search || s.AdminEmail.ToString().Contains(search));
+
+                pageSize = 10;
+                skipBy = pageSize * (pageNumber - 1);
+                count = result.Count();
+                capacity = skipBy + pageSize;
+
+                nextPage = count > capacity;
+                pageCount = (int)Math.Ceiling(1.0 * count / pageSize);
+
+                ViewData["pageNumber"] = pageNumber;
+                ViewData["nextPage"] = nextPage;
+                ViewData["pageCount"] = pageCount;
+                return View(result);
+            }
+            else {
+                list = GetListOfAdmin(_configuration, pageNumber, skipBy, pageSize);
+            }
+                return View(list.OrderByDescending(a => a.AdminID).Skip(skipBy).Take(pageSize));
+        }
+        private List<AdminModel> GetListOfAdmin(IConfiguration configuration, int pageNumber, int Skipby, int pageSize)
+        {
+            List<AdminModel> list = DbHelper.GetListOfAdmin(_configuration);
+            int count = list.Count();
+            int capacity = Skipby + pageSize;
+
+            bool nextPage = count > capacity;
+            int pageCount = (int)Math.Ceiling(1.0 * count / pageSize);
+
+            ViewData["pageNumber"] = pageNumber;
+            ViewData["nextPage"] = nextPage;
+            ViewData["pageCount"] = pageCount;
+
+            return list;
+        }
+        public IActionResult AdminDetails( int Adminid) {
+            List<AdminModel> admin = DbHelper.GetListOfAdmin(_configuration);
+            admin = admin.Where(z => z.AdminID == Adminid).ToList();
+            ViewBag.AdminDetails = admin[0];
+            return View();
+        }
     }
 }

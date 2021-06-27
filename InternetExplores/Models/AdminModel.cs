@@ -8,6 +8,7 @@ namespace InternetExplores.Models
 {
     public class AdminModel
     {
+        public int AdminID { get; set; }
         public string AdminName { get; set; }
         public string AdminSurname { get; set; }
         [Required]

@@ -51,22 +51,32 @@
     <input asp-for="StudentFinincialStatus" hidden />
     <!--Home_Address-->
     <div class="form-floating  mb-3">
-        <input type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
+        <input maxlength="3" minlength="50" type="text" asp-for="StreetName" class="form-control" id="floatingPassword" placeholder="Name" required>
         <label for="floatingPassword" asp-for="StreetName">Street name</label>
         <span asp-validation-for="StreetName" class="field"></span>
     </div>
     <div class='form-floating  mb-3'>
-        <input type="text" asp-for="Province" class="form-control" id="floatingPassword" placeholder="Name" required>
-        <label for="floatingPassword" asp-for="Province">Province</label>
+        <label class="form-label mt-4 text-black">Province</label>
+        <select asp-for="Province" class="form-select">
+            <option  selected value="KwaZulu-Natal"> KwaZulu-Natal </option>
+            <option value="Limpopo"> Limpopo </option>
+            <option value="Mpumalanga"> Mpumalanga</option>
+            <option value=" Northern Cape">  Northern Cape </option>
+            <option value="North West"> North West </option>
+            <option value="Western Cape"> Western Cape</option>
+            <option value=" Gauteng">Gauteng</option>
+            <option value=" Eastern Cape">  Eastern Cape</option>
+            <option value=" Free State">Free State</option>
+        </select>
         <span asp-validation-for="Province" class="field"></span>
     </div>
     <div class="form-floating  mb-3">
-        <input type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
+        <input maxlength="3" minlength="50" type="text" asp-for="City" class="form-control" id="floatingPassword" placeholder="Name" required>
         <label for="floatingPassword" asp-for="City">City</label>
         <span asp-validation-for="City" class="field"></span>
     </div>
     <div class="form-floating  mb-3">
-        <input type="text" asp-for="PostalCode" class="form-control" id="floatingPassword" placeholder="Name" required>
+        <input maxlength="4" minlength="4"type="text" asp-for="PostalCode" class="form-control" id="floatingPassword" placeholder="Name" required>
         <label for="floatingPassword" asp-for="PostalCode">Postal code</label>
         <span asp-validation-for="PostalCode" class="field"></span>
     </div>
@@ -75,7 +85,7 @@
     <div class="form-group">
         <label class="form-label mt-4 text-black">Level of Study</label>
         <select asp-for="StudentlevelOfStudy" class="form-select">
-            <option value="1"> 1st Year </option>
+            <option selected value="1"> 1st Year </option>
             <option value="2"> 2nd Year </option>
             <option value="3"> 3rd Year </option>
             <option value="4"> Postgraduate Diplomas </option>
@@ -108,7 +118,7 @@
     <div class="form-group">
         <label class="form-label mt-4 text-black">Require accommodation</label>
         <select asp-for="StudentNeedAccommodation" class="form-select">
-            <option value="Yes"> Yes </option>
+            <option selected value="Yes"> Yes </option>
             <option value="No">No </option>
             <option value="Not sure">Not sure </option>
         </select>
