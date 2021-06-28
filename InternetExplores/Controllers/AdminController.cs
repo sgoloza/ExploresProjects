@@ -383,7 +383,7 @@ namespace InternetExplores.Controllers
                 {
 
                     DbHelper.RegistrationOfAdmin(_configuration, model);
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
                     if (model.AdminType == "Super")
                     {
                         await _userManager.AddToRoleAsync(user, "Admin");
@@ -394,7 +394,6 @@ namespace InternetExplores.Controllers
                     return RedirectToAction(nameof(AdminRegister), new { isdone = true });
                 }
                 ModelState.AddModelError(string.Empty, "Registering failed");
-                ViewBag.regError = true;
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
@@ -429,7 +428,8 @@ namespace InternetExplores.Controllers
             {
                 List<AdminModel> allStudentAdmin = new List<AdminModel>();
                 allStudentAdmin = DbHelper.GetListOfAdmin(_configuration);
-                var result = allStudentAdmin.Where(s => s.AdminEmail.ToString() == search || s.AdminEmail.ToString().Contains(search));
+                var result = allStudentAdmin.Where(s => s.AdminEmail.ToString() == search || 
+                s.AdminEmail.ToString().Contains(search) || s.AdminName.ToString().Contains(search) || s.AdminSurname.ToString().Contains(search));
 
                 pageSize = 10;
                 skipBy = pageSize * (pageNumber - 1);

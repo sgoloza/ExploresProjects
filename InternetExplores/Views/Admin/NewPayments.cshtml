@@ -32,7 +32,7 @@
 
             </div>
         </div>
-        <div class="col-sm-8 col-9 text-right m-b-20">
+        <div hidden class="col-sm-8 col-9 text-right m-b-20">
             <a href="add-patient.html" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-eye"></i> View Approved Payments</a>
         </div>
     </div>
@@ -63,7 +63,7 @@
                                     <td>@payment.paymenttype</td>
                                     <td>@payment.bankName</td>
                                     <td>@payment.paymentDescription</td>
-                                    <td>@payment.paymentDate</td>
+                                    <td>@(payment.paymentDate.Year+"-"+ payment.paymentDate.Month+"-"+ payment.paymentDate.Day)</td>
                                     <td>@payment.paymentAmount</td>
                                     <td class="text-right">
                                         <a href="@(payment.paymentProofUrl)" class="btn btn-outline-primary" target="_blank">

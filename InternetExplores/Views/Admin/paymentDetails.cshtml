@@ -26,7 +26,7 @@
                                             <span class="title">Amount: <span class="text-primary"> @Model.paymenttype</span></span>
                                         </li>
                                         <li>
-                                            <span class="title"> Payment Date: <span class="text-primary">@Model.paymentDate </span></span>
+                                            <span class="title"> Payment Date: <span class="text-primary">@(Model.paymentDate.Year + "-" + Model.paymentDate.Month + "-" + Model.paymentDate.Day) </span></span>
                                             <span class="title">Amount: R<span class="text-primary">@Model.paymentAmount </span> </span>
                                             <span class="title">Student Number: <span class="text-primary">@Model.StudentNo </span></span>
                                         </li>

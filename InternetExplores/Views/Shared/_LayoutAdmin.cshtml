@@ -50,7 +50,7 @@
                     <img src="~/Images/LogoIE.PNG" width="35" height="35" alt=""> <span>Explorers</span>
                 </a>
             </div>
-            <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars" hidden></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
                 <li class="nav-item dropdown has-arrow" hidden>
@@ -102,9 +102,12 @@
                         <li>
                             <a asp-controller="Admin" asp-action="NewPayments"><i class="fa fa-money"></i> <span> Payments </span></a>
                         </li>
-                        <li>
-                            <a asp-controller="Admin" asp-action="Adminlist"><i class="fa fa-user-secret"></i> <span>Administrators </span></a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li>
+                                <a asp-controller="Admin" asp-action="Adminlist"><i class="fa fa-user-secret"></i> <span>Administrators </span></a>
+                            </li>
+                        }
                         <li>
                             <a asp-controller="Admin" asp-action="Reports"><i class="fa fa-pie-chart"></i> <span> Reports </span></a>
                         </li>
