@@ -55,7 +55,7 @@
         </div>
         @using (Html.BeginForm("AdminDetails", "Admin", FormMethod.Get))
         {<div class="profile-tabs">
-             <input asp-for="AdminID" class="form-control bg-white" maxlength="10" minlength="10" type="tel" value="@myModule.AdminID" placeholder="@myModule.AdminID"> 
+             <input hidden asp-for="AdminID" class="form-control bg-white" maxlength="10" minlength="10" type="tel" value="@myModule.AdminID" placeholder="@myModule.AdminID"> 
                 <table class="table table-border table-striped custom-table datatable mb-0">
                     <tbody>
                         <tr class="" style="align-content:center">
