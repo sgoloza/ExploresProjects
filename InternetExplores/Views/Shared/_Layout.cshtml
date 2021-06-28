@@ -82,7 +82,6 @@
                                 }
                                 if (status.Equals("Successful") && regStatus.Equals("No"))
                                 {
-
                                     <li class="nav-item">
                                         <h4>
                                             <a class="nav-link text-primary" asp-controller="Student" asp-action="StudentEnrollement">Register for a Modul</a>
@@ -92,7 +91,9 @@
                                 if (status.Equals("Successful"))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-primary" asp-area="" asp-controller="Student" asp-action="MakePayment"><h4>Payment</h4></a>
+                                        <h4>
+                                            <a class="nav-link text-primary" asp-area="" asp-controller="Student" asp-action="MakePayment">Payment</a>
+                                        </h4>
                                     </li>
                                 }
 
