@@ -1,0 +1,419 @@
+﻿@model  InternetExplores.Models.StudentModel;
+@{
+    ViewData["Title"] = "Registration";
+
+}
+<form class="reg-form" method="post" asp-controller="Student" asp-action="Profile">
+    <div class="container rounded bg-white mt-5 mb-5">
+        @if (ViewBag.Udone == true)
+        {
+            ViewBag.Udone = false;
+            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                <strong>Congratulations</strong> You have Updated your profile successfully. <br />
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <h4><span class="font-weight-bold">@Model.StudentName , @Model.StudentSurname</span></h4>
+                    <span>Degree: @Model.StudentDegree </span>
+                    <span>Faculty: @Model.StudentFaculty </span>
+                    <span>Student No: @Model.StudentNo </span>
+                    @if (@Model.ApplicationStatus != "NULL")
+                    {
+                        <span>Application Status: @Model.ApplicationStatus </span>
+                    }
+                    else if (@Model.StudentDegree != "NULL")
+                    {
+                        <span>Application Status: Pending </span>
+                    }
+                    else
+                    {
+                        <span>
+                            @Html.ActionLink("Click to Registration", // <-- Link text
+        "Profile", // <-- Route value
+        null // <-- htmlArguments
+        )
+                        </span>
+                    }
+                    @*
+        @if (!(Model.matricResultUrl.ToLower().Equals("null") && Model.idcopyUrl.ToLower().Equals("null") && Model.nextofKinUrl.ToLower().Equals("null")))
+        {*@
+                    @if (Model.idcopyUrl != null)
+                    {
+
+
+                        <div class="row mt-3">
+                            <h6 class=" text-left">Documents</h6><hr style="border-top: 1px dashed black;width:95%;" />
+                            <div class="col-md-6"><a href="@Model.idcopyUrl" class="btn btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Identity</a></div>
+
+                            <div class="col-md-6"><a href="@Model.matricResultUrl" class="btn btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Matric Result</a></div>
+                            <br /><br />
+                            <br /><br />
+
+                            @if (!Model.financialProofUrl.ToLower().Equals("null"))
+                            {
+                                <div class="col-md-6"><a href="@Model.financialProofUrl" class="btn btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Finacial Supp</a></div>
+                            }
+                            <div class="col-md-6"><a href="@Model.financialProofUrl" class="btn  btn-dark btn-sm active" role="button" aria-pressed="true" target="_blank">Next of kin</a></div>
+                        </div>
+                    }
+                    <br /><br />
+                    @if (ViewBag.PaymentCount > 0)
+                    {
+                        <div class="col">
+
+                            <a class="btn btn-block  btn-dark btn-sm active" data-toggle="modal" data-target="#exampleModal">
+                                Payments
+                            </a>
+
+                        </div>
+
+                    }
+
+                </div>
+            </div>
+            <div class="col-md-4 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">Name</label><input readonly asp-for="StudentName" type="text" class="form-control" placeholder="first name" value="@Model.StudentName"></div>
+                        <div class="col-md-6"><label class="labels">Surname</label><input readonly asp-for="StudentSurname" type="text" class="form-control" value="@Model.StudentSurname" placeholder="surname"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12"><label class="labels">Phone Number</label><input readonly type="text" class="form-control" placeholder="enter phone number" value="@Model.StudentPhoneNo"></div>
+                        <div class="col-md-12"><label class="labels">Email</label><input readonly asp-for="StudentEmail" type="text" class="form-control" placeholder="enter email id" value="@Model.StudentEmail"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <h6>Address</h6><hr style="border-top: 1px dashed black;width:95%;" />
+                                        <div class="col-md-6">
+                                                <label class="form-label mt-4 text-black">Province</label>
+                                                <select  asp-for="Province" class="form-select">
+                                                    <option selected value="KwaZulu-Natal"> KwaZulu-Natal </option>
+                                                    <option value="Limpopo"> Limpopo </option>
+                                                    <option value="Mpumalanga"> Mpumalanga</option>
+                                                    <option value=" Northern Cape">  Northern Cape </option>
+                                                    <option value="North West"> North West </option>
+                                                    <option value="Western Cape"> Western Cape</option>
+                                                    <option value=" Gauteng">Gauteng</option>
+                                                    <option value=" Eastern Cape">  Eastern Cape</option>
+                                                    <option value=" Free State">Free State</option>
+                                                </select>
+                                                <span asp-validation-for="Province" class="field"></span>
+                                        </div>
+                        <div class="col-md-6">
+                        <label class="labels">City</label>
+                        <input readonly maxlength="50" minlength="3"type="text" class="form-control" value="@Model.City" placeholder="City">
+                        </div>
+                        <div class="col-md-6">
+                        <label class="labels">Street Name</label>
+                        <input readonly maxlength="50" minlength="3"type="text" class="form-control" placeholder="Street Name" value="@Model.StreetName">
+                        </div>
+                        <div class="col-md-6">
+                        <label class="labels">Postal code</label>
+                        <input readonly maxlength="4" minlength="3" type="number" class="form-control" value="@Model.PostalCode" placeholder="Postal code">
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="col-md-12">
+                        <div class="mt-5 text-center">
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                Update Profile
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header bg-secondary">
+                                    <h5 class="modal-title text-black" id="exampleModalLongTitle">Update Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body bg-white">
+                                    <div class="row mt-3">
+                                        <div class="col-md-12"><input asp-for="StudentNo" type="text" class="form-control" placeholder="enter phone number" value="@Model.StudentNo" hidden></div>
+                                        <div class="col-md-12"><label class="labels">Phone Number</label><input asp-for="StudentPhoneNo" type="text" class="form-control" placeholder="enter phone number" value="@Model.StudentPhoneNo" required></div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <h6>Address</h6><hr style="border-top: 1px dashed black;width:95%;" />
+                                        <div class="col-md-6">
+                                            <label class="form-label mt-4 text-black">Province</label>
+                                            <select asp-for="Province" class="form-select">
+                                                <option selected value="KwaZulu-Natal"> KwaZulu-Natal </option>
+                                                <option value="Limpopo"> Limpopo </option>
+                                                <option value="Mpumalanga"> Mpumalanga</option>
+                                                <option value=" Northern Cape">  Northern Cape </option>
+                                                <option value="North West"> North West </option>
+                                                <option value="Western Cape"> Western Cape</option>
+                                                <option value=" Gauteng">Gauteng</option>
+                                                <option value=" Eastern Cape">  Eastern Cape</option>
+                                                <option value=" Free State">Free State</option>
+                                            </select>
+                                            <span asp-validation-for="Province" class="field"></span>
+                                        </div>
+                                        <div class="col-md-6"><label class="labels">City</label><input maxlength="20" minlength="3"asp-for="City" type="text" class="form-control" value="@Model.City" placeholder="City" required></div>
+                                        <div class="col-md-6"><label class="labels">Street Name</label><input maxlength="50" minlength="3"asp-for="StreetName" type="text" class="form-control" placeholder="Street Name" value="@Model.StreetName"></div>
+                                        <div class="col-md-6"><label class="labels">Postal code</label><input maxlength="50" minlength="3"asp-for="PostalCode" type="number" class="form-control" value="@Model.PostalCode" placeholder="Postal code" required></div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer bg-secondary">
+                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#UpadateConfirmation">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+                        #UpadateConfirmation {
+                            height: -20%; /* = 100% of the .modal-dialog block */
+                            position:center;
+                        }
+                    </style>
+
+                    <div class="modal fade" id="UpadateConfirmation" tabindex="-1" role="dialog" aria-labelledby="UpadateConfirmationlable" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content bg-info">
+                                <div class="modal-header bg-secondary">
+                                    <h5 class="modal-title text-black" id="exampleModalTitle">Are You Sure ?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body bg-white align-content-center">
+                                    <button type="button" class="btn bg-danger text-white" data-dismiss="modal">No</button>
+                                    <button type="submit" class="btn btn-primary">Yes</button>
+                                </div>
+                                <div class="modal-footer bg-secondary">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center experience">
+                        <span><i class="fa fa-book"></i>&nbsp;Modules</span>
+                    </div><br>
+                    @if (ViewBag.moduleCount > 0)
+                    {
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Credits</th>
+                                <th>Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (ModuleModel mod in ViewBag.StudentEnrolledModiles)
+                            {
+
+                                <tr>
+                                    <td>@mod.ModuleCode</td>
+                                    <td>@mod.Modulename</td>
+                                    <td>@mod.ModuleCredit</td>
+                                    <td>@mod.ModuleCost</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />   @{
+
+                        var balabce = Model.StudentBalance;
+
+
+}
+                    <table class="table">
+                        <thead class="table-dark">
+                            <tr>
+                                @if (balabce < 0)
+                                {
+                                    <th>Credited Amount</th>
+                                }
+                                else
+                                {
+                                    <th>Student Balance</th>
+                                }
+
+                                <th>Module Total cost</th>
+                                <th>Total Credits</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+                                @if (balabce < 0)
+                                {
+                                    <td>
+                                        @(balabce*(-1))
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @balabce
+                                    </td>
+                                }
+                                <td> @ViewBag.Total</td>
+                                <td>@ViewBag.Credits</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> <br>
+
+                        <div class="col-md-12">
+                            <div class="mt-5 text-center">
+                                <input class="btn btn-primary profile-button" type="button" value="Make Payement" onclick="@("window.location.href='" + @Url.Action("MakePayment", "Student") + "'");" />
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-12">
+                            <div class="mt-5 text-center">
+                                @{
+
+                                    var status1 = ViewData["ApplicationStatus"].ToString();
+                                    var regStatus1 = ViewData["RegiStatus"].ToString();
+                                }
+
+                                @if (status1.Equals("Successful") && regStatus1.Equals("No"))
+                                {
+
+                                    <input class="btn btn-primary profile-button" type="button" value="Go To Register fo a Module" onclick="@("window.location.href='" + @Url.Action("StudentEnrollement", "Student") + "'");" />
+
+                                }
+                                else
+                                {
+                                    <div class="alert alert-dismissible alert-warning fade show " role="alert">
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                        <h4 class="alert-heading">Please Be Advised</h4>
+                                        <p class="mb-0 text-black">
+                                            <strong>
+                                                <b>
+                                                  There are no modules available. Your application status is says: @Model.ApplicationStatus.ToUpper()
+
+                                                </b>
+                                            </strong>
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <style>
+                .modal-dialog {
+                    height: fit-content(); /* = 90% of the .modal-backdrop block = %90 of the screen */
+                }
+
+                .modal-content {
+                    height: fit-content(); /* = 100% of the .modal-dialog block */
+                }
+            </style>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body bg-white">
+
+                            <table class="table">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Bank Name</th>
+                                        <th>Description</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Invoice</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (PaymentModel payment in ViewBag.StudentPayments)
+                                    {
+                                        <tr>
+                                            <td>@payment.paymenttype</td>
+                                            <td>@payment.bankName</td>
+                                            <td>@payment.paymentDescription</td>
+                                            <td>@(payment.paymentDate.Year + "-" + payment.paymentDate.Month + "-" + payment.paymentDate.Day)</td>
+                                            <td>@payment.paymentAmount</td>
+                                            <td class="text-right">
+                                                <a href="@payment.paymentProofUrl" target="_blank" class="btn btn-dark">
+                                                    View now
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-danger text-white" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

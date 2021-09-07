@@ -1,0 +1,68 @@
+﻿@model InternetExplores.Models.AboutModel
+@{
+    ViewData["Title"] = "About";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h1, h2, h3, h4, h5, h6 {
+        font-family: "Playfair Display";
+        letter-spacing: 5px;
+    }
+</style>
+<!-- Page content -->
+<div class="w3-content" style="max-width:1100px">
+    @if (ViewBag.IsSuccess == true)
+    {
+
+
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <strong>Thank you.</strong> You have send an email we will respond to your as soon as possible.<br />
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+    }
+    else if(ViewBag.Error == "Some Error")
+    {
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>There is an Error.</strong> Please try send again with correct email.<br />
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+
+    <!-- About Section -->
+    <div class="w3-row w3-padding-64" id="about">
+        <div class="w3-col m6 w3-padding-large w3-hide-small">
+            <img src="~/Images/grad.jpg" class="w3-round w3-image w3-opacity-min" alt="Table Setting" width="1000" height="1000">
+        </div>
+
+        <div class="w3-col m6 w3-padding-large">
+            <h1 class="w3-center">About Internet Explorers UNIVERSITY</h1><br>
+            <h5 class="w3-center">Internet Explorers UNIVERSITY since 2021</h5>
+            <p class="w3-large">The Internet Explorers UNIVERSITY was founded at Unvesity of KwaZulu-Natal by a group of students goes by the name Internet Explorers. <b>Internet Explorers UNIVERSITY</b> is an accredited, South African University. Our academic leadership includes scholars from the best Schools around the South African.</p>
+        </div>
+    </div>
+    <hr>
+    <!-- Contact Section -->
+    <div class="w3-container w3-padding-64" id="contact">
+        <h1>Contact</h1><br>
+        <p>We offer full learning for any Student. We understand your needs and we will intervene by satisfing an education that fit all. Do not hesitate to contact us.</p>
+        <p class="w3-text-blue-grey w3-large"><b>Learning Services around South Africa</b></p>
+        <p>You can also contact us by phone 0626972912 or email us at  <a href="mailto: internetexploresuniversity@gmail.com">internetExplorersuniversity@gmail.com</a>, or you can send us a message here:</p>
+        <form method="post" asp-controller="Home" asp-action="About">
+            <p><input asp-for="senderEmail" class="form-control bg-white h5" type="email" placeholder="Email" required></p>
+            <div class="form-group">
+                <label class="form-label mt-4">Message</label>
+                <textarea asp-for="message" class="form-control bg-white" id="exampleTextarea" rows="3" required></textarea>
+            </div>
+            <p><button class="btn btn-primary" type="submit">SEND MESSAGE</button></p>
+        </form>
+    </div>
+
+    <!-- End page content -->
+</div>
+

@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="page-wrapper">
+
+    <div class="main-wrapper error-wrapper" style="        background-image: url('@Url.Content("~/Images/LogoIE.PNG")');
+        background-repeat: no-repeat;
+        background-size: 500px;
+        background-position: center center;
+">
+        <div class="error-box bg-transparent">
+            <h3>Welcome tO Internet Explorers</h3>
+            <div class="dash-widget">
+                <span class="dash-widget-bg1"><i class="fa fa-money" aria-hidden="true"></i></span>
+                <div class="dash-widget-info text-right">
+                    <h3> @ViewBag.Daypayments</h3>
+                     <span class="widget-title1"><a class="text-white" asp-controller="Admin" asp-action="NewPayments"> New Payments  </a> <i class="fa fa-money" aria-hidden="true"></i></span>
+                </div>
+            </div>
+            <div class="dash-widget">
+                <span class="dash-widget-bg2"><i class="fa fa-user-o"></i></span>
+                <div class="dash-widget-info text-right">
+                    <h3>@ViewBag.AppStudent</h3>
+                     <span class="widget-title2"> <a class="text-white" asp-controller="Admin" asp-action="StudentsList"> New Appliactions  </a> <i class="fa fa-user-o" aria-hidden="true"></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+
+</div>
+

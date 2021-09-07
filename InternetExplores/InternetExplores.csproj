@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.12.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.12" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
@@ -16,10 +17,19 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="NETCore.MailKit" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Images\" />
+    <None Include="wwwroot\Images\grad.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Documents\ID\" />
+    <Folder Include="wwwroot\Documents\Matric\" />
+    <Folder Include="wwwroot\Documents\Kin\" />
+    <Folder Include="wwwroot\Documents\FinancialProof\" />
+    <Folder Include="wwwroot\Documents\Payments\" />
   </ItemGroup>
 
 </Project>

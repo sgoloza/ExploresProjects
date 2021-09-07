@@ -1,0 +1,118 @@
+﻿@model InternetExplores.Models.EnrollmentsModel
+
+@{
+    ViewData["Title"] = "Student Enrollement";
+    Layout = "~/Views/_AuthLayout.cshtml";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<form class="reg-form" enctype="multipart/form-data" method="post" asp-controller="Student" asp-action="StudentEnrollement">
+    <hr />
+    @if (ViewBag.IsSuccess == true)
+    {
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <strong>Congratulations</strong> You have added modules successfully. <br />
+    Click <a asp-controller="Student" asp-action="Profile">here</a> to view your modules.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div> }
+    else if(Model.ModulesList.Count > 0 && ViewBag.IsSuccess == false)
+    {
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    @Html.ValidationSummary(true, "", new { @class = "field text-danger" })
+    <br />
+    <strong>
+        <b>
+            For further assistance feel free to contact our office on-phone:0626972912 or email us at
+            <a href="mailto: internetexploresuniversity@gmail.com">internetExplorersuniversity@gmail.com</a>.
+            We promise to come back to you as soon possible
+
+        </b>
+    </strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+    }
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                @if (Model.ModulesList.Count > 0)
+                {
+                    <span>Module 1</span>
+                    <div class="form-group">
+                        @Html.DropDownListFor(x => x.ModuleCode0, Model.ModulesList, new { @class = "form-select chosen-select", @style = "width:auto;" })
+                    </div>
+                }
+
+
+                @if (Model.ModulesList.Count > 1)
+                {
+                    <span>Module 2</span>
+                    <div class="form-group">
+                        @Html.DropDownListFor(x => x.ModuleCode1, Model.ModulesList, new { @class = "form-select chosen-select", @style = "width:auto;" })
+                    </div>
+                }
+                @if (Model.ModulesList.Count > 2)
+                {
+                    <span>Module 3</span>
+                    <div class="form-group">
+                        @Html.DropDownListFor(x => x.ModuleCode2, Model.ModulesList, new { @class = "form-select chosen-select", @style = "width:auto;" })
+                    </div>
+                }
+                @if (Model.ModulesList.Count > 3)
+                {
+                    <span>Module 4</span>
+                    <div class="form-group">
+                        @Html.DropDownListFor(x => x.ModuleCode3, Model.ModulesList, new { @class = "form-select chosen-select", @style = "width:auto;" })
+                    </div>
+
+
+                }
+                @if (Model.ModulesList.Count > 0)
+                {
+                    @if (ViewBag.IsSuccess == true)
+                    {
+
+
+                        <div class="form-group">
+                            <input type="submit" value="Register" class="btn btn-primary" disabled />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <input type="submit" value="Register" class="btn btn-primary"  />
+                        </div>
+                    }
+
+
+                }
+                @if (Model.ModulesList.Count == 0)
+                {
+                    <div class="alert alert-dismissible alert-warning fade show " role="alert">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <h4 class="alert-heading">Please Be Advised</h4>
+                        <p class="mb-0 text-black">
+                            <strong>
+                                <b>
+                                    There are no modules avaible at the moment.Please contact our office on-phone:0626972912 or email us at
+                                    <a href="mailto: internetExplorersuniversity@gmail.com">internetExplorersuniversity@gmail.com</a>.
+                                    We promise to come back to you as soon possible
+
+                                </b>
+                            </strong>
+                        </p>
+                    </div>
+                }
+
+
+
+            </div>
+        </div>
+    </div>
+    <div>
+       
+    </div>
+</form>

@@ -1,50 +1,150 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div class="text-center">
-    <div class="jumbotron" \>
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
-</div>
-    <div class="text-center">
-        <div class="card text-black-50 bg-white mb-3 align-content-center" id="card1_header" style="max-width: fit-content();">
-            <div class="card-body">
-                <style>
-                    #div1 {
-                        font-size: 48px;
-                    }
 
-                    p {
-                        text-align: center;
-                        font-size: 60px;
-                        margin-top: 0px;
-                    }
-                </style>
+<div class="text-center">
+    <br />
+    <div class="text-center">
+        <style>
+            .jumbotron-image {
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        </style>
+        <div class="jumbotron text-white jumbotron-image shadow" style="background-image: url('@Url.Content("~/Images/grad.jpg")');">
+            <div class="card text-white bg-transparent mb-3" style="max-width: 40rem;">
+                <div class="card-body">
+                    <p class="card-text">Internet Explorers <b>UNIVERSITY</b></p>
+                </div>
+            </div>
+            <h2 class="mb-4">
+                
+            </h2>
+            <p class="mb-4">
+                Hey, check this out.
+            </p>
+           <h5><a asp-controller="Home" asp-action="About" class="btn btn-primary">ABOUT US</a></h5> 
+        </div>
+    </div>
+    <style>
+        #div1 {
+            font-size: 48px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 60px;
+            margin-top: 0px;
+        }
+    </style>
+    @if (!User.Identity.IsAuthenticated)
+    {<div class="card text-black-50 bg-white mb-3 align-content-center" id="card1_header" style="max-width: fit-content();">
+
+            <div class="card-body">
+
                 <div class="card text-white bg-dark mb-3 align-self-center" style="max-width:fit-content();">
                     <div class="card-body">
-                        <h4 class="card-title"><button type="button" class="btn btn-outline-info">APPLY NOW</button></h4>
+                        <h4 class="card-title"> <a class="btn btn-primary" asp-controller="Account" asp-action="Register" >BECOME A STUDENT</a> </h4>
                         <p class="card-text">APPLICATION DEADLINE IS SOON</p>
+                        <p class="card-text">Sunday, June 27, 2021</p>
                     </div>
                 </div>
                 <p id="demo"></p>
                 <div id="div1" class="fa"></div>
             </div>
-        </div>
-        <div class="card text-black-50 bg-white mb-3" style="max-width:fit-content();">
-            <div class="card-body">
-                <h4 class="card-title">CURRENT STUDENTS</h4>
-                <p>456</p>
+        </div>}
 
-            </div>
+    <div class="card text-black-50 bg-white mb-3" style="max-width:fit-content();">
+        <div class="card-body">
+            <h4 class="card-title">CURRENT STUDENTS</h4>
+            <p>@ViewBag.StudentCount</p>
+
         </div>
     </div>
+    <div class="text-center">
+        <style>
+            .jumbotron-image {
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        </style>
+        <div class="jumbotron text-white jumbotron-image shadow" style="background-image: url('@Url.Content("~/Images/pexels-suzy-hazelwood-1122865.jpg")');">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                          <th scope="col"><div class="card text-white bg-success mb-3" style="max-width: 22rem;">
+                            <div class="card-header">SUPPORT</div>
+                            <div class="card-body" style="background-size: cover; background-repeat: no-repeat; background-position: center center; height: 350px; background-image: url('@Url.Content("~/Images/support.jpg")');">
+                            </div>
+                        </div>
+                        </th>
+                        <th scope="col">
+                            <div class="card text-white bg-danger mb-3" style="max-width: 22rem;">
+                                <div class="card-header">QUALITY</div>
+                                <div class="card-body" style="background-size: cover; background-repeat: no-repeat; background-position: center center; height: 350px; background-image: url('@Url.Content("~/Images/quality.jpg")');">
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="card text-white bg-warning mb-3" style="max-width: 22rem;">
+                                <div class="card-header">FLEXIBILITY</div>
+                                <div class="card-body" style="background-size: cover; background-repeat: no-repeat; background-position: center center; height: 350px; background-image: url('@Url.Content("~/Images/flex.jpg")');">
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="card text-white bg-info mb-3" style="max-width: 22rem;">
+                                <div class="card-header">TUITION-FREE</div>
+                                <div class="card-body" style="background-size: cover; background-repeat: no-repeat; background-position: center center; height: 350px; background-image: url('@Url.Content("~/Images/fees.jpg")');">
+                                </div>
+                            </div>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-active">
+                        <th scope="row">
+                            <div class="card text-white bg-success mb-3" style="max-width: 22rem;">
+                                <div class="card-body">
+                                    <h6>Thanks to Internet Explorers <b>UNIVERSITY</b> small college classes, students receive personalized attention and a supportive learning experience to fuel their success.    &nbsp;  </h6>
+                                </div>
+                            </div>
+                        </th>
+                        <td>
+                            <div class="card text-white bg-danger mb-3" style="max-width: 22rem;">
+                                <div class="card-body" >
+                                    <h6>Internet Explorers <b>UNIVERSITY</b> is an accredited,South African online University. Our academic leadership includes scholars from the best schools around the South Africa.    &nbsp;   &nbsp;   </h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card text-white bg-warning mb-3" style="max-width: 22rem;">
+                                <div class="card-body" >
+                                    <h6>Internet Explorers <b>UNIVERSITY</b> is a 100% online college. Control your schedule by studying anytime and anywhere you want - at home, work, or even on the move. &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; </h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card text-white bg-info mb-3" style="max-width: 22rem;">
+                                <div class="card-body">
+                                    <h6>Internet Explorers <b>UNIVERSITY</b> doesn’t charge for college courses, course materials, or annual enrollment. We do charge minimal processing fees to keep Internet Explorers <b>UNIVERSITY</b> running.</h6>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 
     <script>
         // Set the date we're counting down to
-        var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+        var countDownDate = new Date("June 30, 2021 00:00:00").getTime();
 
         // Update the count down every 1 second
         var x = setInterval(function () {

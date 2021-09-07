@@ -1,110 +1,150 @@
-﻿<!DOCTYPE html>
+﻿@using static InternetExplores.Helpers.NavigationIndicatorHelper
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - InternetExplores</title>
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/LogoIE.PNG">
+    <title>@ViewData["Title"] - InternetExplorers</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/BoostrapFile.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        /*Code to change color of active link*/
+        .navbar-nav > .active > a {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <header>
-        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">InternetExplores</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
-                        </ul>
-                        <asp:LoginView runat="server" ViewStateMode="Disabled">
-                            <AnonymousTemplate>
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li><a runat="server" href="~/Account/Register">Register</a></li>
-                                    <li><a runat="server" href="~/Account/Login">Log in</a></li>
-                                </ul>
-                            </AnonymousTemplate>
-                            <LoggedInTemplate>
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li><a runat="server" href="~/Account/Manage" title="Manage your account"></a></li>
-                                    <li>
-                                        <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
-                                    </li>
-                                </ul>
-                            </LoggedInTemplate>
-                        </asp:LoginView>
-
-                    }
-                    else
-                    {
-                        <ul class="navbar-nav align-self-end">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-                            </li>
-                        </ul>
-                    }
-                </div>
-            </div>
-        </nav>*@
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <style>
+            h1, h2, h3, h4, h5 {
+                font-family: "Playfair Display";
+                letter-spacing: 5px;
+            }
+        </style>
+        <nav class="navbar  navbar-expand-lg navbar-light bg-white text-capitalize text-black">
+            <style>
+                .logoIE {
+                    height: auto;
+                    width: auto;
+                    max-height: 250px;
+                    max-width: 200px;
+                }
+            </style>
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">InternetExplores</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                <a class="navbar-brand text-black" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/Images/LogoIE.PNG" class="logoIE" />
+                </a>
                 <div class="collapse navbar-collapse" id="navbarColor02">
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto ">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
-                                Home
-                                <span class="visually-hidden">(current)</span>
-                            </a>
+                            <h4>
+                                <a class="nav-link active text-primary" asp-controller="Home" asp-action="Index">
+                                    Home
+                                    <span class="visually-hidden">(current)</span>
+                                </a>
+                            </h4>
+
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
+                            <h4>
+                                <a class="nav-link text-primary" asp-controller="Home" asp-action="About">About-Us</a>
+                            </h4>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">What We offer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            if (User.IsInRole("Student"))
+                            {
+
+                                var status = ViewData["ApplicationStatus"].ToString();
+                                var regStatus = ViewData["RegiStatus"].ToString();
+
+                                if (status.Equals("Not registered"))
+                                {
+                                    <li class="nav-item">
+                                        <h4>
+                                            <a class="nav-link text-primary" asp-area="" asp-controller="Student" asp-action="Registration">Student Application</a>
+                                        </h4>
+
+                                    </li>
+                                }
+                                if (status.Equals("Successful") && regStatus.Equals("No"))
+                                {
+                                    <li class="nav-item">
+                                        <h4>
+                                            <a class="nav-link text-primary" asp-controller="Student" asp-action="StudentEnrollement">Register for a Modul</a>
+                                        </h4>
+                                    </li>
+                                }
+                                if (status.Equals("Successful"))
+                                {
+                                    <li class="nav-item">
+                                        <h4>
+                                            <a class="nav-link text-primary" asp-area="" asp-controller="Student" asp-action="MakePayment">Payment</a>
+                                        </h4>
+                                    </li>
+                                }
+
+                            }
+
+
+                        }
                     </ul>
                     <form class="d-flex">
                         <div class="collapse navbar-collapse" id="navbarColor02">
                             <ul class="navbar-nav align-self-end">
                                 @if (User.Identity.IsAuthenticated)
                                 {
+                                    if (User.IsInRole("Student"))
+                                    {
+                                        <li class="nav-item">
+                                            <h4>
+                                                <a class="nav-link text-primary" asp-area="" asp-controller="Student" asp-action="Profile">My-profile</a>
+                                            </h4>
+
+                                        </li>
+                                    }
+                                    if (User.IsInRole("Admin") || User.IsInRole("General"))
+                                    {
+                                        <li class="nav-item">
+                                            <h4>
+                                                <a class="nav-link text-primary" asp-area="" asp-controller="Admin" asp-action="Index">Admin-Portal</a>
+                                            </h4>
+
+                                        </li>
+                                    }
                                     <li class="nav-item">
-                                        <h5 id="welcome_Message" class="text-primary">Welcome <b> @User.Identity.Name</b></h5>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                        <h4>
+                                            <a class="nav-link text-primary" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                                        </h4>
+
                                     </li>
                                 }
                                 else
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                        <h4>
+                                            <a class="nav-link text-primary" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                                        </h4>
+
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                        <h4>
+                                            <a class="nav-link text-primary" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                                        </h4>
+
                                     </li>
                                 }
 
@@ -119,16 +159,108 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container text-center">
-            &copy; 2021 - Internet-Explores - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="form-group">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
         </div>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="card text-white bg-dark mb-3" style="max-width:fit-content();">
+            <style>
+                .fa {
+                    padding: 20px;
+                    font-size: 30px;
+                    width: 100px;
+                    text-align: center;
+                    text-decoration: none;
+                    margin: 5px 2px;
+                }
+
+                    .fa:hover {
+                        opacity: 0.7;
+                    }
+
+                .fa-facebook {
+                    background: #3B5998;
+                    color: white;
+                }
+
+                .fa-twitter {
+                    background: #55ACEE;
+                    color: white;
+                }
+
+                .fa-linkedin {
+                    background: #007bb5;
+                    color: white;
+                }
+
+                .fa-instagram {
+                    background: #125688;
+                    color: white;
+                }
+            </style>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <td scope="col">
+                                <div class="card-body">
+                                    @*  <a href="#" class="fa fa-facebook"></a>*@
+                                </div>
+
+                            </td>
+                            <td scope="col">
+                                <div class="card-body">
+                                    @*<a href="#" class="fa fa-linkedin"></a>*@
+                                </div>
+
+                            </td>
+                            <td scope="col">
+                                <div class="card-body">
+                                    @*<a href="#" class="fa fa-twitter"></a>*@
+                                </div>
+
+                            </td>
+                            <td scope="col">
+                                <div class="card-body">
+                                    @*  <a href="#" class="fa fa-instagram"></a>*@
+                                </div>
+
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+
+            </div>
+            <div class="container text-center text-white">
+                &copy; 2021 - Internet Explorers <b>UNIVERSITY</b> - <a asp-area="" asp-controller="Home" asp-action="About">About-Us</a>
+            </div>
+        </div>
+
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $("ul.navbar-nav > li").click(function (e) {
+                $("ul.navbar-nav > li").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+    </script>
 </body>
 </html>

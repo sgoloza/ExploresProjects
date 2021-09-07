@@ -1,0 +1,116 @@
+﻿@model InternetExplores.Models.PaymentModel
+@{
+    ViewData["Title"] = "MakePayment";
+    Layout = "~/Views/_AuthLayout.cshtml";
+}
+<h1 class="text-center">@ViewData["Title"]</h1>
+<form class="reg-form" enctype="multipart/form-data" method="post" asp-controller="Student" asp-action="MakePayment">
+    <hr />
+    @if (ViewBag.IsSuccess == true)
+    {
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Thank you.</strong> You have submitted your payment successfully. <br />
+            Click <a asp-controller="Student" asp-action="Profile">here</a> to view payment detaials
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }
+    <input asp-for="StudentNo" hidden />
+    <input asp-for="paymentProofUrl" hidden />
+    <hr />
+    @if (ViewBag.Error == true)
+    {
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+        </div>
+    }
+    <div class="form-group">
+        <div class="card bg-white mb-3" style="max-width: fit-content();">
+            <div class="card-body">
+                <div class="form-group">
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="paymentAmount" class="form-control" id="floatingInput" type="number" required>
+                        <label for="floatingInput">Amount</label>
+                        <span asp-validation-for="paymentAmount" class="field"></span>
+                    </div>@*max="@(DateTime.Now.ToString().Substring(13))"*@
+                    <div class="form-floating">
+                        <input type="date" asp-for="paymentDate" class="form-control" id="floatingPassword" max="@(DateTime.Now.Year+"-"+DateTime.Now.Month+"-"+DateTime.Now.Day)" placeholder="Date Of Birth" required>
+                        <label for="floatingPassword">Date</label>
+                        <span asp-validation-for="paymentDate" class="field"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <select asp-for="paymenttype" class="form-select" required>
+                            <option selected value="Cash"> Type of payment </option>
+                            <option value="Cash"> Cash </option>
+                            <option value="Checks">Checks </option>
+                            <option value="Mobile payments">Mobile payments </option>
+                            <option value="Credit cards">Credit cards </option>
+                            <option value="Mobile payments">Debit cardss </option>
+                        </select>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <select asp-for="bankName" class="form-select" required>
+                            <option selected value="Cash"> Bank name </option>
+                            <option value="Absa Bank"> Absa  </option>
+                            <option value="African Bank">African Bank</option>
+                            <option value="Bidvest Bank ">Bidvest Bank  </option>
+                            <option value="Capitec Bank"> Capitec Bank  </option>
+                            <option value="Discovery Bank">Discovery </option>
+                            <option value="First National Bank ">First National Bank  </option>
+                        </select>
+                    </div>
+                    <br />
+                    <label asp-for="paymentProof" for="exampleFormControlFile1">Proof of payment</label>
+                    <div>
+                        <input asp-for="paymentProof" type="file" class="form-control-file form-control-lg " id="exampleFormControlFile1" required>
+                        <br />
+                    </div>
+                    <span asp-validation-for="paymentProof" class="text-danger"></span>
+
+                    <div class="form-group">
+                        <label asp-for="paymentDescription" class="form-label mt-4">Description</label>
+                        <textarea asp-for="paymentDescription"  class="form-control" id="exampleTextarea" rows="3"></textarea>
+                        <span asp-validation-for="paymentDescription" class="field"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+    </div>
+    <input type="button" value="Make Payment" class="btn btn-primary align-self-center" data-toggle="modal" data-target="#UpadateConfirmation" />
+    <style>
+        #UpadateConfirmation {
+            height: -20%; /* = 100% of the .modal-dialog block */
+            position: center;
+        }
+    </style>
+
+    <div class="modal fade" id="UpadateConfirmation" tabindex="-1" role="dialog" aria-labelledby="UpadateConfirmationlable" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-info">
+                <div class="modal-header bg-secondary">
+                    <h5 class="modal-title text-black" id="exampleModalTitle">Are You Sure ?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-white align-content-center">
+                    <button type="button" class="btn bg-danger text-white" data-dismiss="modal">No</button>
+                    <button type="submit" class="btn btn-primary">Yes</button>
+                </div>
+                <div class="modal-footer bg-secondary">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>

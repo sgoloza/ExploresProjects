@@ -1,36 +1,141 @@
 ﻿@model InternetExplores.ViewModels.LoginViewModel
 @{
     ViewData["Title"] = "Login";
-    Layout = "~/Views/_AuthLayout.cshtml";
+@*    Layout = "~/Views/_AuthLayout.cshtml";*@
+Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Login</h1>
-
+<h1 class="text-center">Login</h1>
 <div class="row">
-    <div class="col-md-12">
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
+    <div class="col-md-6 offset-md-3">
+        <div class="card bg-white ">
+            <div class="card-body ">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="post">
+                                    
+                                        @if (ViewBag.myError == true)
+                                          {
+                                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            @Html.ValidationSummary(true, "", new { @class = "field text-danger" })
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                            }
 
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
 
-            <div class="form-group">
-                <div class="custom-control custom-checkbox">
-                    <input asp-for="RememberMe" type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label" asp-for="RememberMe">@Html.DisplayNameFor(m => m.RememberMe)</label>
+                                    <div class="form-group">
+                                        <label asp-for="Email"></label>
+                                        <input asp-for="Email" class="form-control" required/>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label asp-for="Password"></label>
+                                        <input asp-for="Password" class="form-control" required/>
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            <input asp-for="RememberMe" type="checkbox" class="custom-control-input">
+                                            <label class="custom-control-label" asp-for="RememberMe">@Html.DisplayNameFor(m => m.RememberMe)</label>
+                                        </div>
+
+                                    </div>
+                                    <button type="submit" class="btn btn-primary my-2 my-sm-0">Login</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-            <button type="submit" class="btn btn-secondary my-2 my-sm-0">Login</button>
-        </form>
-
+        </div>
     </div>
 </div>
+
+
+<br /><br /><br />
+
+
+ <div class="text-center">
+        <style>
+            .jumbotron-image {
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        </style>
+        <div class="jumbotron text-white jumbotron-image shadow" style="background-image: url('@Url.Content("~/Images/pexels-suzy-hazelwood-1122865.jpg")');">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                          <th scope="col"><div class="card text-white bg-success mb-3" style="max-width: 22rem;">
+                            <div class="card-header">SUPPORT</div>
+                            <div class="card-body" style="background-size: cover; background-repeat: no-repeat; background-position: center center; height: 350px; background-image: url('@Url.Content("~/Images/support.jpg")');">
+                            </div>
+                        </div>
+                        </th>
+                        <th scope="col">
+                            <div class="card text-white bg-danger mb-3" style="max-width: 22rem;">
+                                <div class="card-header">QUALITY</div>
+                                <div class="card-body" style="background-size: cover; background-repeat: no-repeat; background-position: center center; height: 350px; background-image: url('@Url.Content("~/Images/quality.jpg")');">
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="card text-white bg-warning mb-3" style="max-width: 22rem;">
+                                <div class="card-header">FLEXIBILITY</div>
+                                <div class="card-body" style="background-size: cover; background-repeat: no-repeat; background-position: center center; height: 350px; background-image: url('@Url.Content("~/Images/flex.jpg")');">
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">
+                            <div class="card text-white bg-info mb-3" style="max-width: 22rem;">
+                                <div class="card-header">TUITION-FREE</div>
+                                <div class="card-body" style="background-size: cover; background-repeat: no-repeat; background-position: center center; height: 350px; background-image: url('@Url.Content("~/Images/fees.jpg")');">
+                                </div>
+                            </div>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-active">
+                        <th scope="row">
+                            <div class="card text-white bg-success mb-3" style="max-width: 22rem;">
+                                <div class="card-body">
+                                    <h6>Thanks to Internet Explorers <b>UNIVERSITY</b> small college classes, students receive personalized attention and a supportive learning experience to fuel their success.    &nbsp;  </h6>
+                                </div>
+                            </div>
+                        </th>
+                        <td>
+                            <div class="card text-white bg-danger mb-3" style="max-width: 22rem;">
+                                <div class="card-body" >
+                                    <h6>Internet Explorers <b>UNIVERSITY</b> is an accredited,South African online University. Our academic leadership includes scholars from the best schools around the South Africa.    &nbsp;   &nbsp;   </h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card text-white bg-warning mb-3" style="max-width: 22rem;">
+                                <div class="card-body" >
+                                    <h6>Internet Explorers <b>UNIVERSITY</b> is a 100% online college. Control your schedule by studying anytime and anywhere you want - at home, work, or even on the move. &nbsp;&nbsp;&nbsp;  &nbsp;&nbsp;&nbsp; </h6>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card text-white bg-info mb-3" style="max-width: 22rem;">
+                                <div class="card-body">
+                                    <h6>Internet Explorers <b>UNIVERSITY</b> doesn’t charge for college courses, course materials, or annual enrollment. We do charge minimal processing fees to keep Internet Explorers <b>UNIVERSITY</b> running.</h6>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
